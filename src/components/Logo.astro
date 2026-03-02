@@ -1,0 +1,44 @@
+---
+interface Props {
+  class?: string;
+  size?: 'sm' | 'md' | 'lg';
+}
+
+const { class: className = '', size = 'md' } = Astro.props;
+
+const sizes = {
+  sm: 'h-8',
+  md: 'h-12',
+  lg: 'h-16',
+};
+---
+
+<a href="/" class:list={['inline-flex items-center gap-3 group', className]} aria-label="Art of Voices - Startseite">
+  <!-- Sound Wave Mark - Audio waveform bars -->
+  <svg
+    viewBox="0 0 48 48"
+    class:list={[sizes[size], 'w-auto']}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+  >
+    <rect x="4" y="16" width="4" height="16" rx="2" class="fill-studio-gold" />
+    <rect x="12" y="8" width="4" height="32" rx="2" class="fill-studio-gold" />
+    <rect x="20" y="4" width="4" height="40" rx="2" class="fill-studio-gold" />
+    <rect x="28" y="10" width="4" height="28" rx="2" class="fill-studio-gold" />
+    <rect x="36" y="14" width="4" height="20" rx="2" class="fill-studio-gold" />
+    <rect x="44" y="18" width="4" height="12" rx="2" class="fill-studio-gold opacity-60" />
+  </svg>
+
+  <!-- Wordmark -->
+  <span class:list={[
+    'font-display tracking-wide text-off-white group-hover:text-gold-light transition-colors duration-300',
+    size === 'sm' && 'text-lg',
+    size === 'md' && 'text-xl',
+    size === 'lg' && 'text-2xl lg:text-3xl',
+  ]}>
+    <span class="font-bold">Art</span>
+    <span class="font-light mx-1">of</span>
+    <span class="font-bold">Voices</span>
+  </span>
+</a>

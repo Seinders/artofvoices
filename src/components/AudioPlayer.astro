@@ -1,0 +1,181 @@
+---
+interface Props {
+  audioUrl: string;
+  speakerName: string;
+}
+
+const { audioUrl, speakerName } = Astro.props;
+---
+
+<div class="audio-player-wrapper" data-audio-url={audioUrl}>
+  <div class="bg-rich-black rounded-lg border border-off-white/5 p-6">
+    <div class="flex items-center gap-4">
+      {/* Play/Pause button */}
+      <button
+        class="audio-play-btn flex-shrink-0 w-14 h-14 rounded-full bg-studio-gold hover:bg-gold-light text-deep-black flex items-center justify-center transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(200,164,78,0.3)]"
+        aria-label={`Sprachprobe von ${speakerName} abspielen`}
+      >
+        <svg class="play-icon w-6 h-6 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M8 5v14l11-7z" />
+        </svg>
+        <svg class="pause-icon w-6 h-6 hidden" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+        </svg>
+      </button>
+
+      <div class="flex-1 min-w-0">
+        {/* Waveform visualization area */}
+        <div class="audio-waveform h-12 flex items-center gap-[2px]">
+          {/* Generate waveform bars */}
+          {Array.from({ length: 60 }).map((_, i) => {
+            const height = 20 + Math.sin(i * 0.5) * 30 + Math.cos(i * 0.8) * 20 + Math.random() * 15;
+            return (
+              <div
+                class="waveform-bar flex-1 rounded-full bg-off-white/20 transition-all duration-150"
+                style={`height: ${Math.max(15, Math.min(100, height))}%`}
+                data-index={i}
+              />
+            );
+          })}
+        </div>
+
+        {/* Time display */}
+        <div class="flex justify-between mt-2 text-xs font-mono text-off-white/40">
+          <span class="audio-current-time">0:00</span>
+          <span class="audio-duration">--:--</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  class AudioPlayerController {
+    wrapper: HTMLElement;
+    audio: HTMLAudioElement;
+    playBtn: HTMLButtonElement;
+    playIcon: SVGElement;
+    pauseIcon: SVGElement;
+    bars: NodeListOf<HTMLElement>;
+    currentTimeEl: HTMLElement;
+    durationEl: HTMLElement;
+    isPlaying: boolean;
+
+    constructor(wrapper: HTMLElement) {
+      this.wrapper = wrapper;
+      this.isPlaying = false;
+
+      const audioUrl = wrapper.dataset.audioUrl || '';
+      this.audio = new Audio(audioUrl);
+      this.audio.preload = 'metadata';
+
+      this.playBtn = wrapper.querySelector('.audio-play-btn')!;
+      this.playIcon = wrapper.querySelector('.play-icon')!;
+      this.pauseIcon = wrapper.querySelector('.pause-icon')!;
+      this.bars = wrapper.querySelectorAll('.waveform-bar');
+      this.currentTimeEl = wrapper.querySelector('.audio-current-time')!;
+      this.durationEl = wrapper.querySelector('.audio-duration')!;
+
+      this.init();
+    }
+
+    init() {
+      this.playBtn.addEventListener('click', () => this.toggle());
+
+      this.audio.addEventListener('loadedmetadata', () => {
+        this.durationEl.textContent = this.formatTime(this.audio.duration);
+      });
+
+      this.audio.addEventListener('timeupdate', () => {
+        this.currentTimeEl.textContent = this.formatTime(this.audio.currentTime);
+        this.updateWaveform();
+      });
+
+      this.audio.addEventListener('ended', () => {
+        this.isPlaying = false;
+        this.playIcon.classList.remove('hidden');
+        this.pauseIcon.classList.add('hidden');
+        this.resetWaveform();
+      });
+
+      // Click on waveform to seek
+      const waveformContainer = wrapper.querySelector('.audio-waveform');
+      waveformContainer?.addEventListener('click', (e) => {
+        const rect = waveformContainer.getBoundingClientRect();
+        const x = (e as MouseEvent).clientX - rect.left;
+        const pct = x / rect.width;
+        if (this.audio.duration) {
+          this.audio.currentTime = pct * this.audio.duration;
+        }
+      });
+    }
+
+    toggle() {
+      if (this.isPlaying) {
+        this.audio.pause();
+        this.playIcon.classList.remove('hidden');
+        this.pauseIcon.classList.add('hidden');
+      } else {
+        // Stop other players
+        document.querySelectorAll('.audio-player-wrapper').forEach((other) => {
+          if (other !== this.wrapper) {
+            const otherAudio = (other as any).__controller?.audio;
+            if (otherAudio && !otherAudio.paused) {
+              (other as any).__controller.toggle();
+            }
+          }
+        });
+
+        this.audio.play();
+        this.playIcon.classList.add('hidden');
+        this.pauseIcon.classList.remove('hidden');
+      }
+      this.isPlaying = !this.isPlaying;
+    }
+
+    updateWaveform() {
+      if (!this.audio.duration) return;
+      const progress = this.audio.currentTime / this.audio.duration;
+      const activeBar = Math.floor(progress * this.bars.length);
+
+      this.bars.forEach((bar, i) => {
+        if (i <= activeBar) {
+          bar.classList.remove('bg-off-white/20');
+          bar.classList.add('bg-studio-gold');
+        } else {
+          bar.classList.remove('bg-studio-gold');
+          bar.classList.add('bg-off-white/20');
+        }
+      });
+    }
+
+    resetWaveform() {
+      this.bars.forEach((bar) => {
+        bar.classList.remove('bg-studio-gold');
+        bar.classList.add('bg-off-white/20');
+      });
+    }
+
+    formatTime(seconds: number): string {
+      if (!isFinite(seconds)) return '--:--';
+      const m = Math.floor(seconds / 60);
+      const s = Math.floor(seconds % 60);
+      return `${m}:${s.toString().padStart(2, '0')}`;
+    }
+  }
+
+  document.querySelectorAll('.audio-player-wrapper').forEach((wrapper) => {
+    const controller = new AudioPlayerController(wrapper as HTMLElement);
+    (wrapper as any).__controller = controller;
+  });
+</script>
+
+<style>
+  .audio-waveform {
+    cursor: pointer;
+  }
+
+  .waveform-bar {
+    min-height: 4px;
+  }
+</style>

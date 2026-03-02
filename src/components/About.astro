@@ -1,0 +1,46 @@
+---
+const services = [
+  'Kino', 'TV', 'DVD', 'Serie', 'Dokumentation',
+  'Werbung', 'PC-Spiel', 'Hörbuch', 'Hörspiel', 'Trailer', 'Radio'
+];
+---
+
+<section id="ueber-uns" class="relative py-24 sm:py-32">
+  <div class="absolute inset-0 bg-deep-navy/40"></div>
+  <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="animate-on-scroll">
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-off-white mb-4">
+        Über <span class="text-studio-gold italic">uns</span>
+      </h2>
+      <div class="w-16 h-0.5 bg-studio-gold mb-8"></div>
+    </div>
+
+    <div class="space-y-6 animate-on-scroll" style="animation-delay: 0.2s">
+      <p class="text-off-white/80 text-lg leading-relaxed font-light">
+        Art of Voices ist eine Agentur für professionelle Synchronsprecher/innen.
+        Wir koordinieren die Terminplanung und Buchung erstklassiger Synchronschauspieler
+        für Ihre Produktionen.
+      </p>
+
+      <p class="text-off-white/70 text-base leading-relaxed">
+        Gegründet und geführt von <span class="text-off-white font-medium">Stefan Laabs</span>,
+        der seit 1997 in der Synchronbranche tätig ist. Art of Voices ist Mitglied des
+        <span class="text-off-white/90">Synchronverband e.V. (Die Gilde)</span> und des
+        <span class="text-off-white/90">IVS</span>.
+      </p>
+    </div>
+
+    <div class="mt-12 animate-on-scroll" style="animation-delay: 0.4s">
+      <h3 class="text-sm uppercase tracking-widest text-studio-gold/80 font-body font-medium mb-4">
+        Unsere Bereiche
+      </h3>
+      <div class="flex flex-wrap gap-2">
+        {services.map((service) => (
+          <span class="px-3 py-1.5 text-sm font-body text-off-white/70 bg-charcoal/60 rounded border border-off-white/5 hover:border-studio-gold/30 hover:text-off-white transition-all duration-300">
+            {service}
+          </span>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

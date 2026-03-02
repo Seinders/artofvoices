@@ -1,0 +1,113 @@
+---
+import { getAllReferences } from '../data/references';
+
+const { tier1, tier2, platforms, tier3 } = getAllReferences();
+---
+
+<section id="referenzen" class="relative py-24 sm:py-32 overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-b from-deep-black via-charcoal/20 to-deep-black"></div>
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 animate-on-scroll">
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-off-white mb-4">
+        Referenzen
+      </h2>
+      <div class="w-16 h-0.5 bg-studio-gold mx-auto mb-6"></div>
+      <p class="text-off-white/50 font-body font-light max-w-xl mx-auto">
+        Unsere Stimmen sind in Produktionen dieser Studios zu hören
+      </p>
+    </div>
+
+    {/* Tier 1 - Highlight Partners */}
+    <div class="mb-12 animate-on-scroll" style="animation-delay: 0.1s">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        {tier1.map((ref) => (
+          <div class="group relative px-6 py-8 bg-rich-black/80 rounded-lg border border-studio-gold/20 hover:border-studio-gold/50 transition-all duration-500 text-center hover:shadow-[0_0_20px_rgba(200,164,78,0.1)]">
+            <p class="font-display text-base sm:text-lg text-off-white group-hover:text-gold-light transition-colors duration-300">
+              {ref.name}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* Platform badges */}
+    <div class="mb-12 flex flex-wrap justify-center gap-4 animate-on-scroll" style="animation-delay: 0.2s">
+      {platforms.map((platform) => (
+        <div class="px-6 py-3 bg-deep-navy/60 rounded-full border border-slate-blue/30 hover:border-studio-gold/30 transition-all duration-300">
+          <span class="font-body font-semibold text-sm tracking-wider text-off-white/80 uppercase">
+            {platform.name}
+          </span>
+        </div>
+      ))}
+    </div>
+
+    {/* Tier 2 - Major studios */}
+    <div class="mb-12 animate-on-scroll" style="animation-delay: 0.3s">
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+        {tier2.map((ref) => (
+          <div class="px-4 py-4 bg-charcoal/30 rounded border border-off-white/5 hover:border-studio-gold/20 transition-all duration-300 text-center">
+            <p class="font-body text-sm text-off-white/60 hover:text-off-white/90 transition-colors duration-300">
+              {ref.name}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* Tier 3 - Scrolling ticker */}
+    <div class="animate-on-scroll" style="animation-delay: 0.4s">
+      <div class="relative overflow-hidden py-4">
+        {/* Fade edges */}
+        <div class="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-deep-black to-transparent z-10"></div>
+        <div class="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-deep-black to-transparent z-10"></div>
+
+        <div class="ticker-wrapper">
+          <div class="ticker-track">
+            {[...tier3, ...tier3].map((ref) => (
+              <span class="ticker-item text-off-white/30 text-sm font-body whitespace-nowrap">
+                {ref.name}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ticker-wrapper {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .ticker-track {
+    display: flex;
+    gap: 2rem;
+    animation: ticker 60s linear infinite;
+    width: max-content;
+  }
+
+  .ticker-item {
+    flex-shrink: 0;
+  }
+
+  .ticker-item::after {
+    content: '·';
+    margin-left: 2rem;
+    color: rgba(200, 164, 78, 0.2);
+  }
+
+  @keyframes ticker {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .ticker-wrapper:hover .ticker-track {
+    animation-play-state: paused;
+  }
+</style>

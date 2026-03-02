@@ -1,0 +1,97 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title = "Art of Voices - Die besten Sprecher/innen Deutschlands",
+  description = "Art of Voices ist die Premium-Sprecheragentur für professionelle Sprecher und Sprecherinnen in Deutschland. Cineastische Qualität für Film, Werbung, Hörbuch und mehr.",
+  ogImage = "/og-image.jpg",
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0A0A0C" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" href="/favicon.ico" />
+
+    <!-- Canonical -->
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- SEO -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Art of Voices" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site)} />
+    <meta property="og:locale" content="de_DE" />
+    <meta property="og:site_name" content="Art of Voices" />
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
+
+    <!-- Google Fonts: preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Google Fonts: preload / load -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap"
+    />
+
+    <!-- Structured Data: LocalBusiness -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Art of Voices",
+      "description": "Premium Sprecheragentur für professionelle Synchronsprecher in Deutschland",
+      "url": "https://artofvoices.de",
+      "telephone": "+49-179-455 02 35",
+      "email": "info@artofvoices.de",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Pilzwald 45",
+        "addressLocality": "Kleinmachnow",
+        "postalCode": "14532",
+        "addressCountry": "DE"
+      },
+      "founder": {
+        "@type": "Person",
+        "name": "Stefan Laabs"
+      },
+      "foundingDate": "2017",
+      "areaServed": "DE",
+      "serviceType": ["Synchronsprecher", "Voice Acting", "Dubbing", "Sprecheragentur"]
+    })} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

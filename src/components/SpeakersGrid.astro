@@ -1,0 +1,32 @@
+---
+import { getSpeakers } from '../data/speakers';
+import SpeakerCard from './SpeakerCard.astro';
+
+const speakers = getSpeakers();
+---
+
+<section id="sprecher" class="relative py-24 sm:py-32">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 animate-on-scroll">
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-off-white mb-4">
+        Unsere <span class="text-studio-gold italic">Stimmen</span>
+      </h2>
+      <div class="w-16 h-0.5 bg-studio-gold mx-auto mb-6"></div>
+      <p class="text-off-white/50 font-body font-light max-w-xl mx-auto">
+        Professionelle Synchronsprecher/innen für jede Produktion
+      </p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+      {speakers.map((speaker, index) => (
+        <SpeakerCard
+          name={speaker.name}
+          slug={speaker.slug}
+          photo={speaker.photo}
+          knownFor={speaker.known_for}
+          index={index}
+        />
+      ))}
+    </div>
+  </div>
+</section>

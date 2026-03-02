@@ -1,0 +1,152 @@
+---
+import Logo from './Logo.astro';
+
+const navItems = [
+  { label: 'Über uns', href: '#ueber-uns' },
+  { label: 'Sprecher/innen', href: '#sprecher' },
+  { label: 'Referenzen', href: '#referenzen' },
+  { label: 'Kontakt', href: '#kontakt' },
+];
+---
+
+<nav
+  id="main-nav"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+  aria-label="Hauptnavigation"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+      <Logo size="sm" />
+
+      {/* Desktop nav */}
+      <ul class="hidden md:flex items-center gap-8">
+        {navItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="text-sm font-body font-medium text-off-white/70 hover:text-studio-gold transition-colors duration-300 tracking-wide uppercase"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      {/* Mobile menu button */}
+      <button
+        id="mobile-menu-btn"
+        class="md:hidden relative w-10 h-10 flex items-center justify-center text-off-white"
+        aria-label="Menü öffnen"
+        aria-expanded="false"
+      >
+        <span class="sr-only">Menü</span>
+        <div class="w-6 flex flex-col gap-1.5 transition-all duration-300" id="hamburger-icon">
+          <span class="block h-0.5 w-6 bg-current transition-all duration-300 origin-center"></span>
+          <span class="block h-0.5 w-6 bg-current transition-all duration-300"></span>
+          <span class="block h-0.5 w-4 bg-current transition-all duration-300 origin-center"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+
+  {/* Mobile menu overlay */}
+  <div
+    id="mobile-menu"
+    class="md:hidden fixed inset-0 top-20 bg-deep-black/98 backdrop-blur-lg -translate-x-full transition-transform duration-500 ease-out"
+    aria-hidden="true"
+  >
+    <ul class="flex flex-col items-center justify-center h-full gap-8 -mt-20">
+      {navItems.map((item, i) => (
+        <li style={`--delay: ${i * 0.1}s`} class="mobile-nav-item opacity-0">
+          <a
+            href={item.href}
+            class="text-2xl font-display text-off-white hover:text-studio-gold transition-colors duration-300"
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</nav>
+
+<script>
+  const nav = document.getElementById('main-nav');
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const hamburgerLines = document.querySelectorAll('#hamburger-icon span');
+  let isMenuOpen = false;
+
+  // Scroll-based nav background
+  function updateNav() {
+    if (!nav) return;
+    if (window.scrollY > 80) {
+      nav.classList.add('bg-deep-black/95', 'backdrop-blur-md', 'shadow-lg', 'shadow-black/20');
+      nav.classList.remove('bg-transparent');
+    } else {
+      nav.classList.remove('bg-deep-black/95', 'backdrop-blur-md', 'shadow-lg', 'shadow-black/20');
+      nav.classList.add('bg-transparent');
+    }
+  }
+
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
+
+  // Mobile menu toggle
+  mobileMenuBtn?.addEventListener('click', () => {
+    isMenuOpen = !isMenuOpen;
+
+    if (isMenuOpen) {
+      mobileMenu?.classList.remove('-translate-x-full');
+      mobileMenu?.setAttribute('aria-hidden', 'false');
+      mobileMenuBtn.setAttribute('aria-expanded', 'true');
+      mobileMenuBtn.setAttribute('aria-label', 'Menü schließen');
+      document.body.style.overflow = 'hidden';
+
+      // Animate hamburger to X
+      hamburgerLines[0]?.classList.add('rotate-45', 'translate-y-2');
+      hamburgerLines[1]?.classList.add('opacity-0');
+      hamburgerLines[2]?.classList.add('-rotate-45', '-translate-y-2', 'w-6');
+
+      // Animate nav items in
+      document.querySelectorAll('.mobile-nav-item').forEach((item, i) => {
+        setTimeout(() => {
+          (item as HTMLElement).style.opacity = '1';
+          (item as HTMLElement).style.transform = 'translateY(0)';
+        }, 150 + i * 80);
+      });
+    } else {
+      closeMenu();
+    }
+  });
+
+  function closeMenu() {
+    isMenuOpen = false;
+    mobileMenu?.classList.add('-translate-x-full');
+    mobileMenu?.setAttribute('aria-hidden', 'true');
+    mobileMenuBtn?.setAttribute('aria-expanded', 'false');
+    mobileMenuBtn?.setAttribute('aria-label', 'Menü öffnen');
+    document.body.style.overflow = '';
+
+    // Reset hamburger
+    hamburgerLines[0]?.classList.remove('rotate-45', 'translate-y-2');
+    hamburgerLines[1]?.classList.remove('opacity-0');
+    hamburgerLines[2]?.classList.remove('-rotate-45', '-translate-y-2', 'w-6');
+
+    // Reset nav items
+    document.querySelectorAll('.mobile-nav-item').forEach((item) => {
+      (item as HTMLElement).style.opacity = '0';
+      (item as HTMLElement).style.transform = 'translateY(20px)';
+    });
+  }
+
+  // Close on link click
+  mobileMenu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  // Close on escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isMenuOpen) closeMenu();
+  });
+</script>

@@ -1,0 +1,34 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="relative border-t border-off-white/5 py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div class="text-center sm:text-left">
+        <p class="text-off-white/40 text-sm font-body">
+          &copy; 2017–{currentYear} Art of Voices
+        </p>
+        <p class="text-off-white/30 text-xs font-body mt-1">
+          Pilzwald 45, 14532 Kleinmachnow
+        </p>
+      </div>
+
+      <div class="flex items-center gap-6">
+        <a
+          href="/impressum/"
+          class="text-off-white/40 hover:text-studio-gold text-sm font-body transition-colors duration-300"
+        >
+          Impressum
+        </a>
+        <span class="text-off-white/20">|</span>
+        <a
+          href="/impressum/#datenschutz"
+          class="text-off-white/40 hover:text-studio-gold text-sm font-body transition-colors duration-300"
+        >
+          Datenschutz
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
