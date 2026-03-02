@@ -30,15 +30,20 @@ const { tier1, tier2, platforms, tier3 } = getAllReferences();
       </div>
     </div>
 
-    {/* Platform badges */}
-    <div class="mb-12 flex flex-wrap justify-center gap-4 animate-on-scroll" style="animation-delay: 0.2s">
-      {platforms.map((platform) => (
-        <div class="px-6 py-3 bg-deep-navy/60 rounded-full border border-slate-blue/30 hover:border-studio-gold/30 transition-all duration-300">
-          <span class="font-body font-semibold text-sm tracking-wider text-off-white/80 uppercase">
-            {platform.name}
-          </span>
-        </div>
-      ))}
+    {/* Platform logos */}
+    <div class="mb-12 flex flex-wrap items-center justify-center gap-10 sm:gap-14 animate-on-scroll" style="animation-delay: 0.2s">
+      <div class="opacity-50 hover:opacity-100 transition-opacity duration-300">
+        <img src="/logos/netflix.svg" alt="Netflix" class="h-7 sm:h-9 w-auto" loading="lazy" />
+      </div>
+      <div class="opacity-50 hover:opacity-100 transition-opacity duration-300">
+        <img src="/logos/paramount.svg" alt="Paramount+" class="h-8 sm:h-10 w-auto" loading="lazy" />
+      </div>
+      <div class="opacity-50 hover:opacity-100 transition-opacity duration-300">
+        <img src="/logos/apple-tv.svg" alt="Apple TV" class="h-7 sm:h-9 w-auto" loading="lazy" />
+      </div>
+      <div class="opacity-50 hover:opacity-100 transition-opacity duration-300">
+        <img src="/logos/hbo.svg" alt="HBO" class="h-7 sm:h-9 w-auto" loading="lazy" />
+      </div>
     </div>
 
     {/* Tier 2 - Major studios */}
