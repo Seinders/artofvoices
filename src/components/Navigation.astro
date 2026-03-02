@@ -35,7 +35,7 @@ const navItems = [
       {/* Mobile menu button */}
       <button
         id="mobile-menu-btn"
-        class="md:hidden relative w-10 h-10 flex items-center justify-center text-off-white"
+        class="md:hidden relative z-[70] w-10 h-10 flex items-center justify-center text-off-white"
         aria-label="Menü öffnen"
         aria-expanded="false"
       >
@@ -48,27 +48,28 @@ const navItems = [
       </button>
     </div>
   </div>
-
-  {/* Mobile menu overlay */}
-  <div
-    id="mobile-menu"
-    class="md:hidden fixed inset-0 top-20 bg-deep-black/98 backdrop-blur-lg -translate-x-full transition-transform duration-500 ease-out"
-    aria-hidden="true"
-  >
-    <ul class="flex flex-col items-center justify-center h-full gap-8 -mt-20">
-      {navItems.map((item, i) => (
-        <li style={`--delay: ${i * 0.1}s`} class="mobile-nav-item opacity-0">
-          <a
-            href={item.href}
-            class="text-2xl font-display text-off-white hover:text-studio-gold transition-colors duration-300"
-          >
-            {item.label}
-          </a>
-        </li>
-      ))}
-    </ul>
-  </div>
 </nav>
+
+{/* Mobile menu overlay - OUTSIDE nav to avoid stacking context issues */}
+<div
+  id="mobile-menu"
+  class="md:hidden fixed inset-0 z-[60] -translate-x-full transition-transform duration-500 ease-out"
+  style="background-color: #0A0A0C;"
+  aria-hidden="true"
+>
+  <ul class="flex flex-col items-center justify-center h-full gap-8">
+    {navItems.map((item, i) => (
+      <li style={`--delay: ${i * 0.1}s`} class="mobile-nav-item opacity-0">
+        <a
+          href={item.href}
+          class="text-2xl font-display text-off-white hover:text-studio-gold transition-colors duration-300"
+        >
+          {item.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</div>
 
 <script>
   const nav = document.getElementById('main-nav');
