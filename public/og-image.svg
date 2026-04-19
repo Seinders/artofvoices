@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#C8A44E" stop-opacity="0.12" />
+      <stop offset="100%" stop-color="#0A0A0C" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="waveFade" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C8A44E" stop-opacity="0" />
+      <stop offset="50%" stop-color="#C8A44E" stop-opacity="0.5" />
+      <stop offset="100%" stop-color="#C8A44E" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0A0A0C" />
+  <rect width="1200" height="630" fill="url(#glow)" />
+
+  <!-- Subtle grid -->
+  <g stroke="#E8E8F0" stroke-opacity="0.03" stroke-width="1">
+    <line x1="0" y1="210" x2="1200" y2="210" />
+    <line x1="0" y1="420" x2="1200" y2="420" />
+    <line x1="400" y1="0" x2="400" y2="630" />
+    <line x1="800" y1="0" x2="800" y2="630" />
+  </g>
+
+  <!-- Decorative soundwave lines -->
+  <path d="M0,315 Q150,290 300,315 T600,315 T900,315 T1200,315" fill="none" stroke="url(#waveFade)" stroke-width="1.5" />
+  <path d="M0,295 Q200,320 400,295 T800,295 T1200,295" fill="none" stroke="url(#waveFade)" stroke-width="1" opacity="0.5" />
+  <path d="M0,335 Q180,360 360,335 T720,335 T1080,335 T1260,335" fill="none" stroke="url(#waveFade)" stroke-width="1" opacity="0.5" />
+
+  <!-- Brand mark: thin gold bar -->
+  <rect x="100" y="150" width="48" height="2" fill="#C8A44E" />
+
+  <!-- Main title -->
+  <text x="100" y="240" font-family="Playfair Display, Georgia, serif" font-size="84" font-weight="700" fill="#E8E8F0">
+    Art of Voices
+  </text>
+
+  <!-- Italic tagline accent -->
+  <text x="100" y="330" font-family="Playfair Display, Georgia, serif" font-size="44" font-style="italic" fill="#C8A44E">
+    Die besten Sprecher/innen Deutschlands.
+  </text>
+
+  <!-- Subtitle -->
+  <text x="100" y="400" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="300" fill="#9999A8">
+    Premium Synchronsprecher für Film, Fernsehen und Medien
+  </text>
+
+  <!-- Footer brand lockup -->
+  <g transform="translate(100, 540)">
+    <rect x="0" y="0" width="24" height="1.5" fill="#C8A44E" />
+    <text x="40" y="6" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="500" fill="#E8E8F0" letter-spacing="3" text-transform="uppercase">
+      ARTOFVOICES.DE
+    </text>
+  </g>
+</svg>

@@ -52,6 +52,14 @@ const bgColor = bgColors[index % bgColors.length];
   {/* Hover gold glow */}
   <div class="absolute inset-0 border-2 border-transparent group-hover:border-studio-gold/50 rounded-lg transition-all duration-500 group-hover:shadow-[inset_0_0_30px_rgba(200,164,78,0.1)]"></div>
 
+  {/* Cinematic corner accents — draw in on hover */}
+  <div class="corner-accents pointer-events-none absolute inset-0">
+    <span class="corner corner-tl"></span>
+    <span class="corner corner-tr"></span>
+    <span class="corner corner-bl"></span>
+    <span class="corner corner-br"></span>
+  </div>
+
   {/* Content */}
   <div class="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
     <h3 class="font-display text-lg sm:text-xl text-off-white group-hover:text-gold-light transition-colors duration-300">
@@ -72,3 +80,63 @@ const bgColor = bgColors[index % bgColors.length];
     </div>
   </div>
 </a>
+
+<style>
+  /* Cinematic corner accents — thin gold brackets that draw in from each corner on hover.
+     Built from two thin absolutely-positioned spans per corner, expanded via width/height transitions. */
+  .corner {
+    position: absolute;
+    width: 0;
+    height: 0;
+    transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1), height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 0;
+  }
+
+  .corner::before,
+  .corner::after {
+    content: '';
+    position: absolute;
+    background-color: var(--color-studio-gold);
+    transition: inherit;
+  }
+
+  /* Horizontal segment */
+  .corner::before {
+    height: 1.5px;
+    width: 100%;
+  }
+
+  /* Vertical segment */
+  .corner::after {
+    width: 1.5px;
+    height: 100%;
+  }
+
+  .corner-tl { top: 10px; left: 10px; }
+  .corner-tl::before { top: 0; left: 0; }
+  .corner-tl::after  { top: 0; left: 0; }
+
+  .corner-tr { top: 10px; right: 10px; }
+  .corner-tr::before { top: 0; right: 0; }
+  .corner-tr::after  { top: 0; right: 0; }
+
+  .corner-bl { bottom: 10px; left: 10px; }
+  .corner-bl::before { bottom: 0; left: 0; }
+  .corner-bl::after  { bottom: 0; left: 0; }
+
+  .corner-br { bottom: 10px; right: 10px; }
+  .corner-br::before { bottom: 0; right: 0; }
+  .corner-br::after  { bottom: 0; right: 0; }
+
+  .group:hover .corner {
+    width: 24px;
+    height: 24px;
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .corner {
+      transition: opacity 0.01ms !important;
+    }
+  }
+</style>

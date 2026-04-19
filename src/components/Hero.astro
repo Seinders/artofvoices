@@ -10,10 +10,51 @@ import Logo from './Logo.astro';
     <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(200,164,78,0.03)_0%,_transparent_70%)]"></div>
     {/* Subtle grid pattern */}
     <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(rgba(232,232,240,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(232,232,240,0.1) 1px, transparent 1px); background-size: 60px 60px;"></div>
-    {/* Atmospheric sound wave lines */}
-    <div class="absolute top-1/2 left-0 right-0 -translate-y-1/2 h-px bg-gradient-to-r from-transparent via-studio-gold/10 to-transparent"></div>
-    <div class="absolute top-[45%] left-0 right-0 h-px bg-gradient-to-r from-transparent via-studio-gold/5 to-transparent"></div>
-    <div class="absolute top-[55%] left-0 right-0 h-px bg-gradient-to-r from-transparent via-studio-gold/5 to-transparent"></div>
+    {/* Animated soundwave — breathes slowly across the full width */}
+    <div class="absolute top-1/2 left-0 right-0 -translate-y-1/2 pointer-events-none">
+      <svg
+        class="soundwave w-full h-24 opacity-40"
+        viewBox="0 0 1200 100"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <defs>
+          <linearGradient id="wave-fade" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#C8A44E" stop-opacity="0" />
+            <stop offset="30%" stop-color="#C8A44E" stop-opacity="0.35" />
+            <stop offset="70%" stop-color="#C8A44E" stop-opacity="0.35" />
+            <stop offset="100%" stop-color="#C8A44E" stop-opacity="0" />
+          </linearGradient>
+          <linearGradient id="wave-fade-faint" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#C8A44E" stop-opacity="0" />
+            <stop offset="50%" stop-color="#C8A44E" stop-opacity="0.15" />
+            <stop offset="100%" stop-color="#C8A44E" stop-opacity="0" />
+          </linearGradient>
+        </defs>
+
+        <path
+          class="wave wave-1"
+          d="M0,50 Q150,30 300,50 T600,50 T900,50 T1200,50"
+          fill="none"
+          stroke="url(#wave-fade)"
+          stroke-width="1"
+        />
+        <path
+          class="wave wave-2"
+          d="M0,50 Q150,70 300,50 T600,50 T900,50 T1200,50"
+          fill="none"
+          stroke="url(#wave-fade-faint)"
+          stroke-width="1"
+        />
+        <path
+          class="wave wave-3"
+          d="M0,50 Q200,40 400,50 T800,50 T1200,50"
+          fill="none"
+          stroke="url(#wave-fade-faint)"
+          stroke-width="1"
+        />
+      </svg>
+    </div>
   </div>
 
   {/* Content */}
@@ -40,3 +81,62 @@ import Logo from './Logo.astro';
     </svg>
   </div>
 </section>
+
+<style>
+  /* Slow, subtle soundwave breathing — evokes audio waveforms without being distracting */
+  .wave {
+    transform-origin: center;
+    transform-box: fill-box;
+  }
+
+  .wave-1 {
+    animation: wave-breathe-1 8s ease-in-out infinite;
+  }
+
+  .wave-2 {
+    animation: wave-breathe-2 11s ease-in-out infinite;
+  }
+
+  .wave-3 {
+    animation: wave-breathe-3 14s ease-in-out infinite;
+  }
+
+  @keyframes wave-breathe-1 {
+    0%, 100% {
+      transform: scaleY(1);
+      opacity: 0.9;
+    }
+    50% {
+      transform: scaleY(1.4);
+      opacity: 0.5;
+    }
+  }
+
+  @keyframes wave-breathe-2 {
+    0%, 100% {
+      transform: scaleY(0.8);
+      opacity: 0.6;
+    }
+    50% {
+      transform: scaleY(1.6);
+      opacity: 0.9;
+    }
+  }
+
+  @keyframes wave-breathe-3 {
+    0%, 100% {
+      transform: scaleY(1.2);
+      opacity: 0.7;
+    }
+    50% {
+      transform: scaleY(0.6);
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wave {
+      animation: none !important;
+    }
+  }
+</style>
