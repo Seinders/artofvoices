@@ -30,19 +30,17 @@ const { tier1, tier2, platforms, tier3 } = getAllReferences();
       </div>
     </div>
 
-    {/* Platform logos */}
-    <div class="mb-12 flex flex-wrap items-center justify-center gap-10 sm:gap-14 animate-on-scroll" style="animation-delay: 0.2s">
-      <div class="opacity-50 hover:opacity-100 transition-opacity duration-300">
-        <img src="/logos/netflix.svg" alt="Netflix" class="h-7 sm:h-9 w-auto" loading="lazy" />
-      </div>
-      <div class="opacity-50 hover:opacity-100 transition-opacity duration-300">
-        <img src="/logos/paramount.svg" alt="Paramount+" class="h-8 sm:h-10 w-auto" loading="lazy" />
-      </div>
-      <div class="opacity-50 hover:opacity-100 transition-opacity duration-300">
-        <img src="/logos/apple-tv.svg" alt="Apple TV" class="h-7 sm:h-9 w-auto" loading="lazy" />
-      </div>
-      <div class="opacity-50 hover:opacity-100 transition-opacity duration-300">
-        <img src="/logos/hbo.svg" alt="HBO" class="h-7 sm:h-9 w-auto" loading="lazy" />
+    {/* Streaming platforms — named, not branded */}
+    <div class="mb-12 animate-on-scroll" style="animation-delay: 0.2s">
+      <p class="text-center text-off-white/40 text-xs tracking-[0.3em] uppercase font-body mb-6">
+        Zu hören auf
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 sm:gap-x-14">
+        {platforms.map((platform) => (
+          <span class="font-display text-lg sm:text-xl text-off-white/60 hover:text-studio-gold transition-colors duration-300 tracking-wide">
+            {platform.name}
+          </span>
+        ))}
       </div>
     </div>
 
