@@ -27,7 +27,7 @@ After the first deploy, do this once in the Netlify UI:
    - Click **Add notification** → **Email notification**
    - **Event:** *New form submission*
    - **Form:** `contact`
-   - **Email to notify:** `booking@artofvoices.de` (or whichever inbox should receive bookings — comma-separate for multiple)
+   - **Email to notify:** `info@artofvoices.de` (or whichever inbox should receive bookings — comma-separate for multiple)
    - **Subject** (optional override): the form already sets a subject via the hidden `subject` input, so leave blank or override here
    - Save
 
