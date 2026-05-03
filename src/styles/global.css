@@ -772,7 +772,9 @@ img { display: block; max-width: 100%; }
 .ticker-track {
   display: flex;
   width: max-content;
-  animation: ticker 80s linear infinite;
+  /* Duration scaled to the 65-item list — keep per-item readable speed.
+     Previous 80s was tuned for ~40 items; with more entries we need longer. */
+  animation: ticker 140s linear infinite;
   gap: 56px;
   padding-left: 56px;
 }
