@@ -1,43 +1,101 @@
 ---
 // References — three-tier table-of-clients with a ticker of additional studios at the bottom.
 
+// Tier 1 — Highlight Studios per BUILD-SPEC (closest, most prominent partners)
 const tier1 = [
-  { name: 'FFS Film- & Fernseh-Synchron', city: 'München' },
-  { name: 'Interopa Film', city: 'Berlin' },
-  { name: 'Arena Film', city: 'Hamburg' },
+  { name: 'FFS GmbH', city: 'Berlin · München' },
+  { name: 'Interopa Film GmbH', city: 'Berlin' },
+  { name: 'Arena Film Synchron GmbH', city: 'Hamburg' },
   { name: 'Eva Studios', city: 'Berlin' },
 ];
 
+// Tier 2 — Major Studios per BUILD-SPEC (highest-priority recurring clients)
 const tier2 = [
-  { name: 'Berliner Synchron', city: 'Berlin' },
-  { name: 'Bavaria Synchron', city: 'München' },
+  { name: 'Berliner Synchron AG', city: 'Berlin' },
+  { name: 'Bavaria Film München', city: 'München' },
+  { name: 'Hamburger Synchron GmbH', city: 'Hamburg' },
+  { name: 'SDI Media', city: '' },
+  { name: 'Splendid Synchron', city: 'Berlin · München' },
   { name: 'Sky Deutschland', city: 'Unterföhring' },
-  { name: 'Cinephon', city: 'Berlin' },
-  { name: 'Splendid Synchron', city: 'Köln' },
-  { name: 'RC Production', city: 'Berlin' },
 ];
 
+// Streaming platforms (named, not branded). Per BUILD-SPEC §4.6.
 const streamers = [
   { name: 'Netflix' },
-  { name: 'Paramount+' },
-  { name: 'Apple TV+' },
+  { name: 'Paramount' },
+  { name: 'Apple TV' },
   { name: 'HBO' },
-  { name: 'Disney+' },
-  { name: 'Prime Video' },
 ];
 
+// Ticker — the long tail of clients sourced from artofvoices.de/referenzen/.
+// Tier 1 + Tier 2 entries removed to avoid duplication with the cards above.
 const ticker = [
-  'Studio Hamburg', 'Tonstudio Lärm & Liebe', 'Scalamedia', 'VSI Berlin', 'Iyuno-SDI',
-  'Mosaic Film', 'Antares Film', 'Christa Kistner Synchronproduktion',
-  'Cine-Adaption', 'Deutsche Synchron Film', 'Elektrofilm Postproduction',
-  'Hermes Synchron', 'Lavendelfilm', 'Leyhausen Sound',
-  'Liquid Audio', 'Macromedia', 'Magellan Film', 'Metz-Neun',
-  'Neue Tonfilm München', 'Plazma', 'Pumpkin Pie', 'RTL Studios',
-  'Soundvision', 'Studio Babelsberg', 'TaunusFilm Synchron',
-  'Telesynchron', 'Tonstudio Ohrenschmaus', 'Trickompany',
-  'Universum Film', 'VSP', 'Warner Bros. Tonstudios',
-  'X-Filme', 'ZDF Studios', 'ZGS Audio', 'Lautwerk', 'Hörspielhaus',
-  'Studio Funk', 'Tonewerk', 'Glanz & Gloria', 'MEDIA Synchron',
+  'Anakan',
+  'Antares Film',
+  'Argon Hörbuch Verlag',
+  'BB Radio',
+  'Blaue Töne Wien',
+  'Christa Kistner Synchron',
+  'Cinephon Filmproduktions GmbH',
+  'CSC Studios Hamburg',
+  'CTV Media Pro',
+  'Deutsche Synchron Gesellschaft',
+  'Deutsche Welle',
+  'Deutschland Radio',
+  'DMT Hamburg',
+  'Dreiklang Düsseldorf',
+  'EuroSync GmbH',
+  'Fährhauston Hamburg',
+  'Fundamental Studios Frankfurt',
+  'G & G Studios',
+  'Gieising Team München',
+  'Hastings Berlin',
+  'Hastings Düsseldorf',
+  'Hastings Hamburg',
+  'Hermes Synchron GmbH',
+  'Herold Studios Frankfurt',
+  'Hörspielstudio Berlin',
+  'Kiddinx',
+  'Krane und Rabe',
+  'Lavendel Film',
+  'Level 45',
+  'Linaro Film München',
+  'Logo Synchron Köln',
+  'Loft Tonstudios',
+  'M & S Studios Offenbach',
+  'M Sound München',
+  'Medien Kontor',
+  'MG Soundstudios Wien',
+  'MO Synchron München',
+  'Mouse Power GmbH',
+  'Neue TonFilm München',
+  'NHB Berlin · Hamburg',
+  'Odd One Audio Recording',
+  'Plan 1 München',
+  'Pro 7',
+  'Radio Berlin Brandenburg',
+  'Rainer Brandt Film',
+  'Random House',
+  'RC Production',
+  'Rotor Film Babelsberg GmbH',
+  'RRP Media',
+  'Sat 1',
+  'Scala Media',
+  'Spree Radio',
+  'Studio Ahlberg Hamburg',
+  'Studio Funk Berlin',
+  'Studio Funk Düsseldorf',
+  'Studio Funk Frankfurt',
+  'Studio Funk Hamburg',
+  'Synchron- und Tonstudio Leipzig',
+  'Taunus Film',
+  'Taurus Media München',
+  'Tonbüro Berlin',
+  'Tonstudio Holly Wien',
+  'VSI Synchron Berlin',
+  'West Deutscher Rundfunk',
+  '2 day Productions',
+  '4 real Media Offenbach',
 ];
 
 const tickerItems = [...ticker, ...ticker];
@@ -62,7 +120,7 @@ const tickerItems = [...ticker, ...ticker];
       {tier1.map((s) => (
         <div class="ref-item tier-1">
           <span class="name">{s.name}</span>
-          <span class="meta">{s.city}</span>
+          {s.city && <span class="meta">{s.city}</span>}
         </div>
       ))}
     </div>
@@ -78,7 +136,7 @@ const tickerItems = [...ticker, ...ticker];
       {tier2.map((s) => (
         <div class="ref-item">
           <span class="name">{s.name}</span>
-          <span class="meta">{s.city}</span>
+          {s.city && <span class="meta">{s.city}</span>}
         </div>
       ))}
     </div>
