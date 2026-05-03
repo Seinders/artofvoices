@@ -1,142 +1,69 @@
 ---
-import Logo from './Logo.astro';
+// Hero — full-bleed dark panel with breathing multi-harmonic soundwave behind serif headline.
+// The wave path is generated server-side at build time so there's no runtime cost.
+
+const W = 1600;
+const H = 400;
+const N = 240;
+
+let path = `M 0 ${H / 2}`;
+for (let i = 1; i <= N; i++) {
+  const x = (i / N) * W;
+  const t = (i / N) * Math.PI * 2;
+  const y =
+    H / 2 +
+    Math.sin(t * 1.0) * 70 +
+    Math.sin(t * 2.3 + 0.7) * 38 +
+    Math.sin(t * 4.1 + 1.4) * 18 +
+    Math.sin(t * 7.7 + 2.1) * 9;
+  path += ` L ${x.toFixed(2)} ${y.toFixed(2)}`;
+}
 ---
 
-<section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
-  {/* Background atmospheric effect */}
-  <div class="absolute inset-0">
-    <div class="absolute inset-0 bg-deep-black"></div>
-    {/* Subtle radial gradient for depth */}
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(200,164,78,0.03)_0%,_transparent_70%)]"></div>
-    {/* Subtle grid pattern */}
-    <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(rgba(232,232,240,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(232,232,240,0.1) 1px, transparent 1px); background-size: 60px 60px;"></div>
-    {/* Animated soundwave — breathes slowly across the full width */}
-    <div class="absolute top-1/2 left-0 right-0 -translate-y-1/2 pointer-events-none">
-      <svg
-        class="soundwave w-full h-24 opacity-40"
-        viewBox="0 0 1200 100"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
-        <defs>
-          <linearGradient id="wave-fade" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#C8A44E" stop-opacity="0" />
-            <stop offset="30%" stop-color="#C8A44E" stop-opacity="0.35" />
-            <stop offset="70%" stop-color="#C8A44E" stop-opacity="0.35" />
-            <stop offset="100%" stop-color="#C8A44E" stop-opacity="0" />
-          </linearGradient>
-          <linearGradient id="wave-fade-faint" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#C8A44E" stop-opacity="0" />
-            <stop offset="50%" stop-color="#C8A44E" stop-opacity="0.15" />
-            <stop offset="100%" stop-color="#C8A44E" stop-opacity="0" />
-          </linearGradient>
-        </defs>
-
-        <path
-          class="wave wave-1"
-          d="M0,50 Q150,30 300,50 T600,50 T900,50 T1200,50"
-          fill="none"
-          stroke="url(#wave-fade)"
-          stroke-width="1"
-        />
-        <path
-          class="wave wave-2"
-          d="M0,50 Q150,70 300,50 T600,50 T900,50 T1200,50"
-          fill="none"
-          stroke="url(#wave-fade-faint)"
-          stroke-width="1"
-        />
-        <path
-          class="wave wave-3"
-          d="M0,50 Q200,40 400,50 T800,50 T1200,50"
-          fill="none"
-          stroke="url(#wave-fade-faint)"
-          stroke-width="1"
-        />
-      </svg>
-    </div>
+<section class="hero" id="hero">
+  <div class="hero-wave" aria-hidden="true">
+    <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="wgrad" x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0%" stop-color="#C8A44E" stop-opacity="0" />
+          <stop offset="20%" stop-color="#C8A44E" stop-opacity="0.45" />
+          <stop offset="50%" stop-color="#E8E8F0" stop-opacity="0.55" />
+          <stop offset="80%" stop-color="#C8A44E" stop-opacity="0.45" />
+          <stop offset="100%" stop-color="#C8A44E" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient id="wgrad2" x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0%" stop-color="#C8A44E" stop-opacity="0" />
+          <stop offset="50%" stop-color="#C8A44E" stop-opacity="0.18" />
+          <stop offset="100%" stop-color="#C8A44E" stop-opacity="0" />
+        </linearGradient>
+      </defs>
+      <g class="breathe">
+        <path d={path} fill="none" stroke="url(#wgrad2)" stroke-width="2.5" opacity="0.55" />
+        <path d={path} fill="none" stroke="url(#wgrad)" stroke-width="1" />
+      </g>
+    </svg>
   </div>
 
-  {/* Content */}
-  <div class="relative z-10 text-center px-4">
-    <div class="mb-8 flex justify-center">
-      <Logo size="lg" />
+  <div class="hero-inner">
+    <div class="hero-tag">
+      <span>Synchronsprecher-Agentur · Berlin · Est. 2017</span>
     </div>
-
-    <h1 class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-off-white leading-tight max-w-4xl mx-auto">
-      Die besten Sprecher/innen<br />Deutschlands.
-      <span class="text-studio-gold italic"> An einem Ort.</span>
+    <h1>
+      Die <span class="gold">besten</span> Sprecher &amp; Sprecherinnen
+      <span class="small">Deutschlands. An einem Ort.</span>
     </h1>
-
-    <p class="mt-6 text-off-white/50 font-body text-base sm:text-lg max-w-2xl mx-auto font-light">
-      Premium Synchronsprecher für Film, Fernsehen und Medien
+    <p class="hero-sub">
+      Eine kuratierte Auswahl deutscher Stimmen für Film, Serie, Streaming und
+      Hörbuch — vermittelt mit der Sorgfalt, die einer Hauptbesetzung gebührt.
     </p>
   </div>
 
-  {/* Scroll indicator */}
-  <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
-    <span class="text-off-white/30 text-xs tracking-widest uppercase font-body">Entdecken</span>
-    <svg class="w-5 h-5 text-studio-gold/50" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-    </svg>
+  <div class="hero-meta">
+    <div>AOV / 2026 / Roster v.28</div>
+    <div class="scroll-cue">
+      <span>Scroll</span>
+      <span class="scroll-line"></span>
+    </div>
+    <div>Berlin · 52.5200° N</div>
   </div>
 </section>
-
-<style>
-  /* Slow, subtle soundwave breathing — evokes audio waveforms without being distracting */
-  .wave {
-    transform-origin: center;
-    transform-box: fill-box;
-  }
-
-  .wave-1 {
-    animation: wave-breathe-1 8s ease-in-out infinite;
-  }
-
-  .wave-2 {
-    animation: wave-breathe-2 11s ease-in-out infinite;
-  }
-
-  .wave-3 {
-    animation: wave-breathe-3 14s ease-in-out infinite;
-  }
-
-  @keyframes wave-breathe-1 {
-    0%, 100% {
-      transform: scaleY(1);
-      opacity: 0.9;
-    }
-    50% {
-      transform: scaleY(1.4);
-      opacity: 0.5;
-    }
-  }
-
-  @keyframes wave-breathe-2 {
-    0%, 100% {
-      transform: scaleY(0.8);
-      opacity: 0.6;
-    }
-    50% {
-      transform: scaleY(1.6);
-      opacity: 0.9;
-    }
-  }
-
-  @keyframes wave-breathe-3 {
-    0%, 100% {
-      transform: scaleY(1.2);
-      opacity: 0.7;
-    }
-    50% {
-      transform: scaleY(0.6);
-      opacity: 1;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .wave {
-      animation: none !important;
-    }
-  }
-</style>

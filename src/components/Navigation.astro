@@ -1,153 +1,158 @@
 ---
-import Logo from './Logo.astro';
-
-const navItems = [
-  { label: 'Über uns', href: '#ueber-uns' },
-  { label: 'Sprecher/innen', href: '#sprecher' },
-  { label: 'Referenzen', href: '#referenzen' },
-  { label: 'Kontakt', href: '#kontakt' },
-];
+// Top fixed nav — adopts a translucent backdrop after the user scrolls past 30px.
+// Mobile: links collapse into a slide-in overlay triggered by the hamburger.
 ---
 
-<nav
-  id="main-nav"
-  class="fixed top-0 left-0 right-0 z-[70] transition-all duration-500"
-  aria-label="Hauptnavigation"
->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-20">
-      <Logo size="sm" />
-
-      {/* Desktop nav */}
-      <ul class="hidden md:flex items-center gap-8">
-        {navItems.map((item) => (
-          <li>
-            <a
-              href={item.href}
-              class="text-sm font-body font-medium text-off-white/70 hover:text-studio-gold transition-colors duration-300 tracking-wide uppercase"
-            >
-              {item.label}
-            </a>
-          </li>
-        ))}
-      </ul>
-
-      {/* Mobile menu button */}
-      <button
-        id="mobile-menu-btn"
-        class="md:hidden relative z-[70] w-10 h-10 flex items-center justify-center text-off-white"
-        aria-label="Menü öffnen"
-        aria-expanded="false"
-      >
-        <span class="sr-only">Menü</span>
-        <div class="w-6 flex flex-col gap-1.5 transition-all duration-300" id="hamburger-icon">
-          <span class="block h-0.5 w-6 bg-current transition-all duration-300 origin-center"></span>
-          <span class="block h-0.5 w-6 bg-current transition-all duration-300"></span>
-          <span class="block h-0.5 w-4 bg-current transition-all duration-300 origin-center"></span>
-        </div>
-      </button>
-    </div>
+<nav class="nav" id="main-nav" aria-label="Hauptnavigation">
+  <a href="#hero" class="nav-logo">
+    Art of Voices<span class="dot">.</span>
+  </a>
+  <div class="nav-links">
+    <a href="#about">Philosophie</a>
+    <a href="#roster">Roster</a>
+    <a href="#referenzen">Referenzen</a>
+    <a href="#kontakt">Kontakt</a>
   </div>
+  <a href="#kontakt" class="nav-cta nav-cta-desktop">Buchung anfragen</a>
+
+  <button
+    class="nav-burger"
+    id="nav-burger"
+    aria-label="Menü öffnen"
+    aria-expanded="false"
+    aria-controls="mobile-menu"
+  >
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
 </nav>
 
-{/* Mobile menu overlay - OUTSIDE nav to avoid stacking context issues */}
+{/* Mobile menu overlay — outside nav to avoid stacking-context bugs on iOS Safari */}
 <div
   id="mobile-menu"
-  class="md:hidden fixed inset-0 z-[60] -translate-x-full transition-transform duration-500 ease-out"
+  class="mobile-menu"
   style="background-color: #0A0A0C;"
   aria-hidden="true"
 >
-  <ul class="flex flex-col items-center justify-center h-full gap-8">
-    {navItems.map((item, i) => (
-      <li style={`--delay: ${i * 0.1}s`} class="mobile-nav-item opacity-0">
-        <a
-          href={item.href}
-          class="text-2xl font-display text-off-white hover:text-studio-gold transition-colors duration-300"
-        >
-          {item.label}
-        </a>
-      </li>
-    ))}
+  <ul>
+    <li><a href="#about">Philosophie</a></li>
+    <li><a href="#roster">Roster</a></li>
+    <li><a href="#referenzen">Referenzen</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+    <li class="mobile-menu-cta"><a href="#kontakt" class="nav-cta">Buchung anfragen</a></li>
   </ul>
 </div>
 
+<style>
+  /* Hamburger button — hidden on desktop, visible on mobile only */
+  .nav-burger {
+    display: none;
+    position: relative;
+    width: 28px;
+    height: 28px;
+    z-index: 60;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+  }
+  .nav-burger span {
+    position: absolute;
+    left: 4px;
+    right: 4px;
+    height: 1px;
+    background: var(--fg);
+    transition: transform 0.4s ease, opacity 0.3s ease;
+  }
+  .nav-burger span:nth-child(1) { top: 9px; }
+  .nav-burger span:nth-child(2) { top: 14px; }
+  .nav-burger span:nth-child(3) { top: 19px; }
+
+  .nav-burger.open span:nth-child(1) {
+    transform: translateY(5px) rotate(45deg);
+  }
+  .nav-burger.open span:nth-child(2) {
+    opacity: 0;
+  }
+  .nav-burger.open span:nth-child(3) {
+    transform: translateY(-5px) rotate(-45deg);
+  }
+
+  /* Mobile menu overlay */
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    transform: translateX(-100%);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mobile-menu.open {
+    transform: translateX(0);
+  }
+  .mobile-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    text-align: center;
+  }
+  .mobile-menu a {
+    font-family: var(--serif);
+    font-size: 28px;
+    color: var(--fg);
+    letter-spacing: -0.01em;
+    transition: color 0.3s;
+  }
+  .mobile-menu a:hover { color: var(--gold); }
+  .mobile-menu .mobile-menu-cta a {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+  }
+
+  @media (max-width: 760px) {
+    .nav-burger { display: block; }
+    .nav-cta-desktop { display: none; }
+  }
+</style>
+
 <script>
   const nav = document.getElementById('main-nav');
-  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const hamburgerLines = document.querySelectorAll('#hamburger-icon span');
-  let isMenuOpen = false;
+  const burger = document.getElementById('nav-burger');
+  const menu = document.getElementById('mobile-menu');
 
-  // Scroll-based nav background
-  function updateNav() {
-    if (!nav) return;
-    if (window.scrollY > 80) {
-      nav.classList.add('bg-deep-black/95', 'backdrop-blur-md', 'shadow-lg', 'shadow-black/20');
-      nav.classList.remove('bg-transparent');
-    } else {
-      nav.classList.remove('bg-deep-black/95', 'backdrop-blur-md', 'shadow-lg', 'shadow-black/20');
-      nav.classList.add('bg-transparent');
-    }
+  if (nav) {
+    const onScroll = () => {
+      if (window.scrollY > 30) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
   }
 
-  window.addEventListener('scroll', updateNav, { passive: true });
-  updateNav();
-
-  // Mobile menu toggle
-  mobileMenuBtn?.addEventListener('click', () => {
-    isMenuOpen = !isMenuOpen;
-
-    if (isMenuOpen) {
-      mobileMenu?.classList.remove('-translate-x-full');
-      mobileMenu?.setAttribute('aria-hidden', 'false');
-      mobileMenuBtn.setAttribute('aria-expanded', 'true');
-      mobileMenuBtn.setAttribute('aria-label', 'Menü schließen');
-      document.body.style.overflow = 'hidden';
-
-      // Animate hamburger to X
-      hamburgerLines[0]?.classList.add('rotate-45', 'translate-y-2');
-      hamburgerLines[1]?.classList.add('opacity-0');
-      hamburgerLines[2]?.classList.add('-rotate-45', '-translate-y-2', 'w-6');
-
-      // Animate nav items in
-      document.querySelectorAll('.mobile-nav-item').forEach((item, i) => {
-        setTimeout(() => {
-          (item as HTMLElement).style.opacity = '1';
-          (item as HTMLElement).style.transform = 'translateY(0)';
-        }, 150 + i * 80);
-      });
-    } else {
-      closeMenu();
-    }
-  });
-
-  function closeMenu() {
-    isMenuOpen = false;
-    mobileMenu?.classList.add('-translate-x-full');
-    mobileMenu?.setAttribute('aria-hidden', 'true');
-    mobileMenuBtn?.setAttribute('aria-expanded', 'false');
-    mobileMenuBtn?.setAttribute('aria-label', 'Menü öffnen');
-    document.body.style.overflow = '';
-
-    // Reset hamburger
-    hamburgerLines[0]?.classList.remove('rotate-45', 'translate-y-2');
-    hamburgerLines[1]?.classList.remove('opacity-0');
-    hamburgerLines[2]?.classList.remove('-rotate-45', '-translate-y-2', 'w-6');
-
-    // Reset nav items
-    document.querySelectorAll('.mobile-nav-item').forEach((item) => {
-      (item as HTMLElement).style.opacity = '0';
-      (item as HTMLElement).style.transform = 'translateY(20px)';
-    });
+  if (burger && menu) {
+    const close = () => {
+      burger.classList.remove('open');
+      menu.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+      menu.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    };
+    const toggle = () => {
+      const open = burger.classList.toggle('open');
+      menu.classList.toggle('open', open);
+      burger.setAttribute('aria-expanded', String(open));
+      menu.setAttribute('aria-hidden', String(!open));
+      document.body.style.overflow = open ? 'hidden' : '';
+    };
+    burger.addEventListener('click', toggle);
+    menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', close));
   }
-
-  // Close on link click
-  mobileMenu?.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', closeMenu);
-  });
-
-  // Close on escape
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && isMenuOpen) closeMenu();
-  });
 </script>

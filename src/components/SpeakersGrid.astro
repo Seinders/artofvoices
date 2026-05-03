@@ -1,32 +1,304 @@
 ---
 import { getSpeakers } from '../data/speakers';
-import SpeakerCard from './SpeakerCard.astro';
 
 const speakers = getSpeakers();
+const BAR_COUNT = 56;
+
+// Deterministic seeded random — same speaker name always gives the same bar pattern.
+function seededRandom(seed: number) {
+  let s = seed;
+  return () => {
+    s = (s * 9301 + 49297) % 233280;
+    return s / 233280;
+  };
+}
+
+function nameHash(name: string): number {
+  let h = 0;
+  for (let i = 0; i < name.length; i++) {
+    h = (h * 31 + name.charCodeAt(i)) >>> 0;
+  }
+  return h || 1;
+}
+
+// Build a "phrase-shaped" waveform bar set so playback feels like spoken audio.
+function buildBars(seed: number): number[] {
+  const rand = seededRandom(seed);
+  const arr: number[] = [];
+  for (let i = 0; i < BAR_COUNT; i++) {
+    const env = Math.sin((i / BAR_COUNT) * Math.PI);
+    const h = 0.18 + env * 0.55 + rand() * 0.4;
+    arr.push(Math.max(0.08, Math.min(1, h)));
+  }
+  return arr;
+}
+
+// Voice colour key derived deterministically from name + gender so filters are stable.
+function voiceColor(name: string, gender: string): 'deep' | 'amber' | 'bright' {
+  const h = nameHash(name);
+  if (gender === 'M') {
+    return h % 3 === 0 ? 'amber' : 'deep';
+  }
+  return h % 3 === 0 ? 'bright' : 'amber';
+}
+
+// Voice tag derived from gender + colour — short character sketch.
+function voiceTag(gender: string, color: string): string {
+  if (gender === 'M') {
+    if (color === 'deep') return 'Bariton · Markant';
+    return 'Tenor · Wandelbar';
+  }
+  if (color === 'bright') return 'Sopran · Hell';
+  return 'Mezzo · Warm';
+}
+
+const cards = speakers.map((s, i) => {
+  const seed = nameHash(s.name);
+  const color = voiceColor(s.name, s.gender);
+  const tag = voiceTag(s.gender, color);
+  const initial = s.name
+    .split(' ')
+    .map((p) => p[0])
+    .filter(Boolean)
+    .slice(0, 2)
+    .join('');
+  const bars = buildBars(seed);
+  const hasPhoto = s.photo && !s.photo.includes('Platzhalter') && !s.photo.includes('passport');
+  const audio = s.audios && s.audios.length > 0 ? s.audios[0] : '';
+  return {
+    id: i + 1,
+    slug: s.slug,
+    name: s.name,
+    role: s.known_for || 'Synchron · Hörbuch',
+    tag,
+    category: s.gender === 'F' ? 'Frauen' : 'Männer',
+    color,
+    initial,
+    photo: hasPhoto ? s.photo : '',
+    audio,
+    bars,
+  };
+});
+
+const total = cards.length;
+const counts = {
+  all: total,
+  Frauen: cards.filter((c) => c.category === 'Frauen').length,
+  Männer: cards.filter((c) => c.category === 'Männer').length,
+  deep: cards.filter((c) => c.color === 'deep').length,
+  amber: cards.filter((c) => c.color === 'amber').length,
+  bright: cards.filter((c) => c.color === 'bright').length,
+};
+
+const filters = [
+  { id: 'all', label: 'Alle', count: counts.all },
+  { id: 'Frauen', label: 'Frauen', count: counts.Frauen },
+  { id: 'Männer', label: 'Männer', count: counts.Männer },
+  { id: 'deep', label: 'Tief', count: counts.deep },
+  { id: 'amber', label: 'Mittel', count: counts.amber },
+  { id: 'bright', label: 'Hell', count: counts.bright },
+];
 ---
 
-<section id="sprecher" class="relative py-24 sm:py-32">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-16 animate-on-scroll">
-      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-off-white mb-4">
-        Unsere <span class="text-studio-gold italic">Stimmen</span>
-      </h2>
-      <div class="w-16 h-0.5 bg-studio-gold mx-auto mb-6"></div>
-      <p class="text-off-white/50 font-body font-light max-w-xl mx-auto">
-        Professionelle Synchronsprecher/innen für jede Produktion
-      </p>
+<section class="speakers" id="roster">
+  <div class="speakers-head">
+    <div class="lhs">
+      <div class="eyebrow">02 — Roster</div>
+      <h2 class="section-title">Achtundzwanzig Stimmen,<br />einzeln <em>besetzt</em>.</h2>
     </div>
-
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-      {speakers.map((speaker, index) => (
-        <SpeakerCard
-          name={speaker.name}
-          slug={speaker.slug}
-          photo={speaker.photo}
-          knownFor={speaker.known_for}
-          index={index}
-        />
+    <div class="rhs" role="tablist" aria-label="Roster filtern">
+      {filters.map((f, i) => (
+        <button
+          class:list={['filter-pill', { active: i === 0 }]}
+          data-filter={f.id}
+          type="button"
+          role="tab"
+          aria-selected={i === 0 ? 'true' : 'false'}
+        >
+          {f.label}<span class="count">/ {f.count}</span>
+        </button>
       ))}
     </div>
   </div>
+
+  <div class="speaker-grid" id="speaker-grid">
+    {cards.map((c, i) => (
+      <article
+        class="speaker-card"
+        data-speaker-id={c.id}
+        data-category={c.category}
+        data-color={c.color}
+        aria-label={c.name}
+      >
+        <div class="portrait">
+          {c.photo ? (
+            <img src={c.photo} alt={c.name} class="portrait-photo" loading="lazy" decoding="async" />
+          ) : (
+            <div class="portrait-glyph">{c.initial}</div>
+          )}
+        </div>
+        <div class="brackets" aria-hidden="true">
+          <span class="tl"></span><span class="tr"></span>
+          <span class="bl"></span><span class="br"></span>
+        </div>
+        <div class="card-top">
+          <span class="card-num">{String(i + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}</span>
+          <span class="card-listen"><span class="lbl">Hören</span></span>
+        </div>
+        <div class="card-meta">
+          <div class="card-tag">{c.tag}</div>
+          <div class="card-name">{c.name}</div>
+          <div class="card-role">{c.role}</div>
+          <div class="player-row">
+            <button class="play-btn" type="button" aria-label={`Probe von ${c.name} abspielen`} disabled={!c.audio}>
+              <svg class="ic-play" width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
+                <path d="M2 1.2 L8.4 5 L2 8.8 Z" fill="currentColor" />
+              </svg>
+              <svg class="ic-pause" width="10" height="10" viewBox="0 0 10 10" aria-hidden="true" style="display:none">
+                <rect x="2.4" y="1.6" width="2" height="6.8" fill="currentColor" />
+                <rect x="5.6" y="1.6" width="2" height="6.8" fill="currentColor" />
+              </svg>
+            </button>
+            <div class="wave-bars" aria-hidden="true">
+              {c.bars.map((h) => (
+                <span class="bar" style={`height: ${Math.round(h * 100)}%`}></span>
+              ))}
+            </div>
+            <div class="wave-time">0:10</div>
+            {c.audio && <audio src={c.audio} preload="none"></audio>}
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
 </section>
+
+<style>
+  .play-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .play-btn:disabled:hover { background: transparent; color: var(--gold); }
+</style>
+
+<script>
+  // Inline waveform player.
+  // - Only one card plays at a time (pauses any other audio first).
+  // - Bars fill in gold left-to-right as playback progresses.
+  // - The bar at the playhead is brighter to give a "moving cursor" feel.
+  // - Time display counts up from 0:00 to total duration; resets to 0:10 when idle.
+
+  const grid = document.getElementById('speaker-grid');
+  if (grid) {
+    let currentCard: Element | null = null;
+    let currentAudio: HTMLAudioElement | null = null;
+    let raf = 0;
+
+    const formatTime = (t: number) => {
+      const m = Math.floor(t / 60);
+      const s = Math.floor(t % 60);
+      return `${m}:${String(s).padStart(2, '0')}`;
+    };
+
+    const stopCurrent = () => {
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+      }
+      if (raf) cancelAnimationFrame(raf);
+      raf = 0;
+      if (currentCard) {
+        currentCard.classList.remove('playing');
+        const playIcon = currentCard.querySelector('.ic-play') as HTMLElement | null;
+        const pauseIcon = currentCard.querySelector('.ic-pause') as HTMLElement | null;
+        if (playIcon) playIcon.style.display = '';
+        if (pauseIcon) pauseIcon.style.display = 'none';
+        const bars = currentCard.querySelectorAll('.wave-bars .bar');
+        bars.forEach((b) => b.classList.remove('active', 'head'));
+        const time = currentCard.querySelector('.wave-time') as HTMLElement | null;
+        if (time) time.textContent = '0:10';
+      }
+      currentCard = null;
+      currentAudio = null;
+    };
+
+    const startCard = (card: Element) => {
+      const audio = card.querySelector('audio') as HTMLAudioElement | null;
+      if (!audio) return;
+
+      stopCurrent();
+      currentCard = card;
+      currentAudio = audio;
+      card.classList.add('playing');
+
+      const playIcon = card.querySelector('.ic-play') as HTMLElement | null;
+      const pauseIcon = card.querySelector('.ic-pause') as HTMLElement | null;
+      if (playIcon) playIcon.style.display = 'none';
+      if (pauseIcon) pauseIcon.style.display = '';
+
+      const bars = Array.from(card.querySelectorAll('.wave-bars .bar')) as HTMLElement[];
+      const timeEl = card.querySelector('.wave-time') as HTMLElement | null;
+      const totalBars = bars.length;
+
+      const update = () => {
+        if (!currentAudio || !audio.duration || isNaN(audio.duration)) {
+          raf = requestAnimationFrame(update);
+          return;
+        }
+        const p = audio.currentTime / audio.duration;
+        const head = Math.floor(p * totalBars);
+        bars.forEach((b, idx) => {
+          if (idx <= head) b.classList.add('active');
+          else b.classList.remove('active');
+          if (idx === head) b.classList.add('head');
+          else b.classList.remove('head');
+        });
+        if (timeEl) timeEl.textContent = formatTime(audio.currentTime);
+        raf = requestAnimationFrame(update);
+      };
+
+      audio.addEventListener('ended', stopCurrent, { once: true });
+      audio.play().then(() => {
+        raf = requestAnimationFrame(update);
+      }).catch(() => stopCurrent());
+    };
+
+    grid.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      const playBtn = target.closest('.play-btn') as HTMLButtonElement | null;
+      if (!playBtn || playBtn.disabled) return;
+      e.preventDefault();
+      const card = playBtn.closest('.speaker-card');
+      if (!card) return;
+      if (card === currentCard) {
+        stopCurrent();
+      } else {
+        startCard(card);
+      }
+    });
+
+    // Filter pills
+    const pills = document.querySelectorAll('.filter-pill');
+    pills.forEach((pill) => {
+      pill.addEventListener('click', () => {
+        const filter = pill.getAttribute('data-filter');
+        pills.forEach((p) => {
+          p.classList.toggle('active', p === pill);
+          p.setAttribute('aria-selected', p === pill ? 'true' : 'false');
+        });
+        const cards = grid.querySelectorAll<HTMLElement>('.speaker-card');
+        cards.forEach((card) => {
+          let show = filter === 'all';
+          if (!show && (filter === 'Frauen' || filter === 'Männer')) {
+            show = card.dataset.category === filter;
+          }
+          if (!show && (filter === 'deep' || filter === 'amber' || filter === 'bright')) {
+            show = card.dataset.color === filter;
+          }
+          card.style.display = show ? '' : 'none';
+        });
+        // Stop playback when filtering hides the playing card
+        if (currentCard && (currentCard as HTMLElement).style.display === 'none') {
+          stopCurrent();
+        }
+      });
+    });
+  }
+</script>

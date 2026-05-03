@@ -1,72 +1,20 @@
 ---
-const stats = [
-  { number: 30, suffix: '', label: 'Stimmen' },
-  { number: 10, suffix: '+', label: 'Jahre Erfahrung' },
-  { number: 600, suffix: '+', label: 'Filme & Serien' },
-];
+// Three-stat bar — gold-emphasised numerals with thin dividers between columns.
 ---
 
-<section class="relative py-16 border-y border-studio-gold/10">
-  <div class="absolute inset-0 bg-gradient-to-r from-deep-black via-charcoal/30 to-deep-black"></div>
-  <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-4">
-      {stats.map((stat, index) => (
-        <div class="text-center animate-on-scroll" style={`animation-delay: ${index * 0.15}s`}>
-          <div class="inline-flex items-baseline gap-1">
-            <span
-              class="text-4xl sm:text-5xl font-mono font-bold text-studio-gold counter"
-              data-target={stat.number}
-            >
-              0
-            </span>
-            {stat.suffix && (
-              <span class="text-2xl sm:text-3xl font-mono text-studio-gold">{stat.suffix}</span>
-            )}
-          </div>
-          <p class="mt-2 text-off-white/60 text-sm sm:text-base font-body tracking-wide uppercase">
-            {stat.label}
-          </p>
-        </div>
-      ))}
+<section class="stats" aria-label="Kennzahlen">
+  <div class="stats-row">
+    <div class="stat">
+      <div class="stat-num"><em>28</em></div>
+      <div class="stat-lbl">Sprecher / Sprecherinnen</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num"><em>1000</em>+</div>
+      <div class="stat-lbl">Produktionen</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">seit <em>2017</em></div>
+      <div class="stat-lbl">Berlin · Mitte</div>
     </div>
   </div>
 </section>
-
-<script>
-  function animateCounters() {
-    const counters = document.querySelectorAll('.counter');
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const counter = entry.target as HTMLElement;
-            const target = parseInt(counter.dataset.target || '0', 10);
-            const duration = 2000;
-            const startTime = performance.now();
-
-            function updateCounter(currentTime: number) {
-              const elapsed = currentTime - startTime;
-              const progress = Math.min(elapsed / duration, 1);
-              // Ease out cubic
-              const eased = 1 - Math.pow(1 - progress, 3);
-              const current = Math.round(eased * target);
-              counter.textContent = current.toLocaleString('de-DE');
-
-              if (progress < 1) {
-                requestAnimationFrame(updateCounter);
-              }
-            }
-
-            requestAnimationFrame(updateCounter);
-            observer.unobserve(counter);
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-
-    counters.forEach((counter) => observer.observe(counter));
-  }
-
-  animateCounters();
-</script>

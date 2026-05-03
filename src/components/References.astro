@@ -1,116 +1,109 @@
 ---
-import { getAllReferences } from '../data/references';
+// References — three-tier table-of-clients with a ticker of additional studios at the bottom.
 
-const { tier1, tier2, platforms, tier3 } = getAllReferences();
+const tier1 = [
+  { name: 'FFS Film- & Fernseh-Synchron', city: 'München' },
+  { name: 'Interopa Film', city: 'Berlin' },
+  { name: 'Arena Film', city: 'Hamburg' },
+  { name: 'Eva Studios', city: 'Berlin' },
+];
+
+const tier2 = [
+  { name: 'Berliner Synchron', city: 'Berlin' },
+  { name: 'Bavaria Synchron', city: 'München' },
+  { name: 'Sky Deutschland', city: 'Unterföhring' },
+  { name: 'Cinephon', city: 'Berlin' },
+  { name: 'Splendid Synchron', city: 'Köln' },
+  { name: 'RC Production', city: 'Berlin' },
+];
+
+const streamers = [
+  { name: 'Netflix' },
+  { name: 'Paramount+' },
+  { name: 'Apple TV+' },
+  { name: 'HBO' },
+  { name: 'Disney+' },
+  { name: 'Prime Video' },
+];
+
+const ticker = [
+  'Studio Hamburg', 'Tonstudio Lärm & Liebe', 'Scalamedia', 'VSI Berlin', 'Iyuno-SDI',
+  'Mosaic Film', 'Antares Film', 'Christa Kistner Synchronproduktion',
+  'Cine-Adaption', 'Deutsche Synchron Film', 'Elektrofilm Postproduction',
+  'Hermes Synchron', 'Lavendelfilm', 'Leyhausen Sound',
+  'Liquid Audio', 'Macromedia', 'Magellan Film', 'Metz-Neun',
+  'Neue Tonfilm München', 'Plazma', 'Pumpkin Pie', 'RTL Studios',
+  'Soundvision', 'Studio Babelsberg', 'TaunusFilm Synchron',
+  'Telesynchron', 'Tonstudio Ohrenschmaus', 'Trickompany',
+  'Universum Film', 'VSP', 'Warner Bros. Tonstudios',
+  'X-Filme', 'ZDF Studios', 'ZGS Audio', 'Lautwerk', 'Hörspielhaus',
+  'Studio Funk', 'Tonewerk', 'Glanz & Gloria', 'MEDIA Synchron',
+];
+
+const tickerItems = [...ticker, ...ticker];
 ---
 
-<section id="referenzen" class="relative py-24 sm:py-32 overflow-hidden">
-  <div class="absolute inset-0 bg-gradient-to-b from-deep-black via-charcoal/20 to-deep-black"></div>
-  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-16 animate-on-scroll">
-      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-off-white mb-4">
-        Referenzen
-      </h2>
-      <div class="w-16 h-0.5 bg-studio-gold mx-auto mb-6"></div>
-      <p class="text-off-white/50 font-body font-light max-w-xl mx-auto">
-        Unsere Stimmen sind in Produktionen dieser Studios zu hören
-      </p>
+<section class="references" id="referenzen">
+  <div class="refs-head">
+    <div class="eyebrow">03 — Referenzen</div>
+    <h2 class="section-title">
+      Mit den Studios und Plattformen,<br />
+      die <em>Maßstäbe</em> setzen.
+    </h2>
+  </div>
+
+  <div class="refs-tier">
+    <div class="label-col">
+      <div class="num">Tier 01</div>
+      <h3>Highlight Studios</h3>
+      <p>Langjährige Partnerschaften mit den führenden Synchronstudios Deutschlands.</p>
     </div>
-
-    {/* Tier 1 - Highlight Partners */}
-    <div class="mb-12 animate-on-scroll" style="animation-delay: 0.1s">
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        {tier1.map((ref) => (
-          <div class="group relative px-6 py-8 bg-rich-black/80 rounded-lg border border-studio-gold/20 hover:border-studio-gold/50 transition-all duration-500 text-center hover:shadow-[0_0_20px_rgba(200,164,78,0.1)]">
-            <p class="font-display text-base sm:text-lg text-off-white group-hover:text-gold-light transition-colors duration-300">
-              {ref.name}
-            </p>
-          </div>
-        ))}
-      </div>
-    </div>
-
-    {/* Streaming platforms — named, not branded */}
-    <div class="mb-12 animate-on-scroll" style="animation-delay: 0.2s">
-      <p class="text-center text-off-white/40 text-xs tracking-[0.3em] uppercase font-body mb-6">
-        Zu hören auf
-      </p>
-      <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 sm:gap-x-14">
-        {platforms.map((platform) => (
-          <span class="font-display text-lg sm:text-xl text-off-white/60 hover:text-studio-gold transition-colors duration-300 tracking-wide">
-            {platform.name}
-          </span>
-        ))}
-      </div>
-    </div>
-
-    {/* Tier 2 - Major studios */}
-    <div class="mb-12 animate-on-scroll" style="animation-delay: 0.3s">
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-        {tier2.map((ref) => (
-          <div class="px-4 py-4 bg-charcoal/30 rounded border border-off-white/5 hover:border-studio-gold/20 transition-all duration-300 text-center">
-            <p class="font-body text-sm text-off-white/60 hover:text-off-white/90 transition-colors duration-300">
-              {ref.name}
-            </p>
-          </div>
-        ))}
-      </div>
-    </div>
-
-    {/* Tier 3 - Scrolling ticker */}
-    <div class="animate-on-scroll" style="animation-delay: 0.4s">
-      <div class="relative overflow-hidden py-4">
-        {/* Fade edges */}
-        <div class="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-deep-black to-transparent z-10"></div>
-        <div class="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-deep-black to-transparent z-10"></div>
-
-        <div class="ticker-wrapper">
-          <div class="ticker-track">
-            {[...tier3, ...tier3].map((ref) => (
-              <span class="ticker-item text-off-white/30 text-sm font-body whitespace-nowrap">
-                {ref.name}
-              </span>
-            ))}
-          </div>
+    <div class="items">
+      {tier1.map((s) => (
+        <div class="ref-item tier-1">
+          <span class="name">{s.name}</span>
+          <span class="meta">{s.city}</span>
         </div>
-      </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="refs-tier">
+    <div class="label-col">
+      <div class="num">Tier 02</div>
+      <h3>Major Studios</h3>
+      <p>Wiederkehrende Aufträge der größten Synchron- und Medienhäuser.</p>
+    </div>
+    <div class="items">
+      {tier2.map((s) => (
+        <div class="ref-item">
+          <span class="name">{s.name}</span>
+          <span class="meta">{s.city}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="refs-tier">
+    <div class="label-col">
+      <div class="num">Tier 03</div>
+      <h3>Streaming</h3>
+      <p>Plattformen, für deren deutsche Fassungen unsere Stimmen besetzt sind.</p>
+    </div>
+    <div class="items">
+      {streamers.map((s) => (
+        <div class="ref-item tier-stream">
+          <span class="name">{s.name}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="ticker-wrap" aria-hidden="true">
+    <div class="ticker-track">
+      {tickerItems.map((t) => (
+        <span class="ticker-item">{t}</span>
+      ))}
     </div>
   </div>
 </section>
-
-<style>
-  .ticker-wrapper {
-    overflow: hidden;
-    width: 100%;
-  }
-
-  .ticker-track {
-    display: flex;
-    gap: 2rem;
-    animation: ticker 60s linear infinite;
-    width: max-content;
-  }
-
-  .ticker-item {
-    flex-shrink: 0;
-  }
-
-  .ticker-item::after {
-    content: '·';
-    margin-left: 2rem;
-    color: rgba(200, 164, 78, 0.2);
-  }
-
-  @keyframes ticker {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
-  }
-
-  .ticker-wrapper:hover .ticker-track {
-    animation-play-state: paused;
-  }
-</style>
