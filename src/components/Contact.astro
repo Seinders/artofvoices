@@ -36,7 +36,35 @@
       </div>
     </div>
 
-    <form class="form" id="contact-form" novalidate>
+    {/*
+      Netlify Forms wiring:
+      - `data-netlify="true"` triggers Netlify's build-time form detection.
+      - `name="contact"` identifies submissions in the dashboard and in notifications.
+      - `netlify-honeypot="bot-field"` enables silent spam rejection on the hidden field.
+      - The hidden `form-name` input is required because we submit via fetch (Netlify
+        normally injects this, but only for non-AJAX submissions).
+      - The hidden `subject` input customises the subject line of the notification email.
+    }*/}
+    <form
+      class="form"
+      id="contact-form"
+      name="contact"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      novalidate
+    >
+      <input type="hidden" name="form-name" value="contact" />
+      <input
+        type="hidden"
+        name="subject"
+        value="Buchungsanfrage von %{formName} · Art of Voices (%{submissionId})"
+      />
+      {/* Honeypot — humans never see this; bots fill everything and get filtered out */}
+      <p class="hp-field" aria-hidden="true">
+        <label>Don't fill this out: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+      </p>
+
       <div class="form-row">
         <div class="field">
           <label for="cf-name">Name <span class="req">*</span></label>
@@ -73,10 +101,14 @@
         <label for="cf-brief">Briefing <span class="req">*</span></label>
         <textarea id="cf-brief" name="brief" required placeholder="Genre, Charakter, Tonalität, Sprache, Aufnahmestudio …"></textarea>
       </div>
+      <p class="form-error" id="form-error" hidden role="alert">
+        Es gab ein Problem beim Senden. Bitte schreiben Sie direkt an
+        <a href="mailto:booking@artofvoices.de">booking@artofvoices.de</a>.
+      </p>
       <div class="submit-row">
         <p class="fineprint">Mit dem Absenden stimmen Sie unseren Datenschutzbestimmungen zu.</p>
-        <button type="submit" class="submit-btn">
-          Anfrage senden <span class="arr">→</span>
+        <button type="submit" class="submit-btn" id="cf-submit">
+          <span class="submit-label">Anfrage senden</span> <span class="arr">→</span>
         </button>
       </div>
     </form>
@@ -95,20 +127,82 @@
   </div>
 </section>
 
+<style>
+  /* Honeypot — visually hidden, but still a real DOM input bots will fill */
+  .hp-field {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .form-error {
+    margin: 0;
+    padding: 12px 16px;
+    background: rgba(229, 110, 110, 0.08);
+    border: 1px solid rgba(229, 110, 110, 0.4);
+    color: #f1c4c4;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .form-error a { color: var(--gold); text-decoration: underline; }
+
+  /* Loading state on submit button */
+  .submit-btn[aria-busy="true"] {
+    opacity: 0.6;
+    cursor: wait;
+    pointer-events: none;
+  }
+</style>
+
 <script>
+  // Netlify Forms submission via AJAX.
+  // Per Netlify docs: POST to "/" with content-type application/x-www-form-urlencoded
+  // and a `form-name` field matching the form's name attribute. Netlify intercepts the
+  // POST, stores the submission, and fires whatever notifications are configured in
+  // the project's dashboard (Configuration > Notifications > Form submission notifications).
+
   const form = document.getElementById('contact-form') as HTMLFormElement | null;
   const success = document.getElementById('contact-success') as HTMLElement | null;
   const reset = document.getElementById('contact-reset') as HTMLButtonElement | null;
+  const errorEl = document.getElementById('form-error') as HTMLElement | null;
+  const submitBtn = document.getElementById('cf-submit') as HTMLButtonElement | null;
+  const submitLabel = submitBtn?.querySelector('.submit-label') as HTMLElement | null;
+
+  const setSubmitting = (busy: boolean) => {
+    if (!submitBtn) return;
+    submitBtn.setAttribute('aria-busy', busy ? 'true' : 'false');
+    submitBtn.disabled = busy;
+    if (submitLabel) submitLabel.textContent = busy ? 'Wird gesendet…' : 'Anfrage senden';
+  };
 
   if (form && success) {
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      if (errorEl) errorEl.hidden = true;
       if (!form.checkValidity()) {
         form.reportValidity();
         return;
       }
-      form.hidden = true;
-      success.hidden = false;
+      setSubmitting(true);
+      try {
+        const formData = new FormData(form);
+        const body = new URLSearchParams(formData as unknown as Record<string, string>).toString();
+        const res = await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body,
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        form.hidden = true;
+        success.hidden = false;
+      } catch (err) {
+        console.error('Form submission failed:', err);
+        if (errorEl) errorEl.hidden = false;
+      } finally {
+        setSubmitting(false);
+      }
     });
   }
   if (reset && form && success) {
@@ -116,6 +210,7 @@
       form.reset();
       form.hidden = false;
       success.hidden = true;
+      if (errorEl) errorEl.hidden = true;
     });
   }
 </script>
