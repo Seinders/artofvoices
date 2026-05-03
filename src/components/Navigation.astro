@@ -4,7 +4,7 @@
 ---
 
 <nav class="nav" id="main-nav" aria-label="Hauptnavigation">
-  <a href="#hero" class="nav-logo" aria-label="Art of Voices — Startseite">
+  <a href="/" class="nav-logo" aria-label="Art of Voices — Startseite">
     {/* Audio-bars mark — six descending equaliser bars, brand carrier */}
     <svg class="nav-mark" viewBox="0 0 48 48" aria-hidden="true">
       <rect x="4"  y="16" width="4" height="16" rx="1.5" />
@@ -17,12 +17,13 @@
     <span class="nav-wordmark">Art of Voices<span class="dot">.</span></span>
   </a>
   <div class="nav-links">
-    <a href="#about">Philosophie</a>
-    <a href="#roster">Roster</a>
-    <a href="#referenzen">Referenzen</a>
-    <a href="#kontakt">Kontakt</a>
+    {/* Absolute paths so links work from sub-pages (speaker profiles, Impressum) too */}
+    <a href="/#about">Philosophie</a>
+    <a href="/#roster">Roster</a>
+    <a href="/#referenzen">Referenzen</a>
+    <a href="/#kontakt">Kontakt</a>
   </div>
-  <a href="#kontakt" class="nav-cta nav-cta-desktop">Buchung anfragen</a>
+  <a href="/#kontakt" class="nav-cta nav-cta-desktop">Buchung anfragen</a>
 
   <button
     class="nav-burger"
@@ -45,11 +46,11 @@
   aria-hidden="true"
 >
   <ul>
-    <li><a href="#about">Philosophie</a></li>
-    <li><a href="#roster">Roster</a></li>
-    <li><a href="#referenzen">Referenzen</a></li>
-    <li><a href="#kontakt">Kontakt</a></li>
-    <li class="mobile-menu-cta"><a href="#kontakt" class="nav-cta">Buchung anfragen</a></li>
+    <li><a href="/#about">Philosophie</a></li>
+    <li><a href="/#roster">Roster</a></li>
+    <li><a href="/#referenzen">Referenzen</a></li>
+    <li><a href="/#kontakt">Kontakt</a></li>
+    <li class="mobile-menu-cta"><a href="/#kontakt" class="nav-cta">Buchung anfragen</a></li>
   </ul>
 </div>
 
