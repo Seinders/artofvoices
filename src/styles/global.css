@@ -158,9 +158,34 @@ img { display: block; max-width: 100%; }
   font-size: 20px;
   font-weight: 500;
   letter-spacing: -0.01em;
-  display: flex; align-items: baseline; gap: 10px;
+  display: inline-flex; align-items: center; gap: 12px;
 }
 .nav-logo .dot { color: var(--gold); }
+
+/* Audio-bars mark used in nav (and reusable elsewhere). Bars are gold, the
+   trailing bar fades for a quiet "decay" feel. The whole mark gently breathes
+   in the vertical direction — slow, easy to miss, never loud. */
+.nav-mark {
+  display: block;
+  width: 26px;
+  height: 26px;
+  flex: 0 0 auto;
+}
+.nav-mark rect { fill: var(--gold); transform-origin: center; transform-box: fill-box; }
+.nav-mark rect:nth-child(1) { animation: bar-pulse 3.6s ease-in-out infinite; }
+.nav-mark rect:nth-child(2) { animation: bar-pulse 3.6s ease-in-out 0.18s infinite; }
+.nav-mark rect:nth-child(3) { animation: bar-pulse 3.6s ease-in-out 0.36s infinite; }
+.nav-mark rect:nth-child(4) { animation: bar-pulse 3.6s ease-in-out 0.54s infinite; }
+.nav-mark rect:nth-child(5) { animation: bar-pulse 3.6s ease-in-out 0.72s infinite; }
+.nav-mark rect:nth-child(6) { animation: bar-pulse 3.6s ease-in-out 0.9s infinite; }
+@keyframes bar-pulse {
+  0%, 100% { transform: scaleY(0.9); }
+  50%      { transform: scaleY(1.05); }
+}
+.nav-wordmark { display: inline-block; }
+@media (prefers-reduced-motion: reduce) {
+  .nav-mark rect { animation: none !important; }
+}
 .nav-links { display: flex; gap: 38px; align-items: center; }
 .nav-links a {
   font-size: 12px;
@@ -919,6 +944,8 @@ img { display: block; max-width: 100%; }
 }
 .footer-brand { font-family: var(--serif); font-size: 24px; letter-spacing: -0.01em; }
 .footer-brand .dot { color: var(--gold); }
+.footer-brand-row { display: inline-flex; align-items: center; gap: 12px; }
+.footer-mark { width: 28px; height: 28px; }
 .footer-brand p { font-family: var(--sans); font-size: 13px; color: var(--fg-mute); margin: 14px 0 0; line-height: 1.6; max-width: 32ch; }
 .footer-col h5 {
   font-family: var(--mono);

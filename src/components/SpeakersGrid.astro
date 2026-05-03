@@ -128,8 +128,11 @@ const filters = [
         data-speaker-id={c.id}
         data-category={c.category}
         data-color={c.color}
-        aria-label={c.name}
       >
+        {/* Stretched link — the entire card navigates to the profile page,
+            except for the player-row which sits above and handles audio. */}
+        <a href={`/sprecher/${c.slug}/`} class="card-link" aria-label={`${c.name} – Profil ansehen`}></a>
+
         <div class="portrait">
           {c.photo ? (
             <img src={c.photo} alt={c.name} class="portrait-photo" loading="lazy" decoding="async" />
@@ -143,7 +146,7 @@ const filters = [
         </div>
         <div class="card-top">
           <span class="card-num">{String(i + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}</span>
-          <span class="card-listen"><span class="lbl">Hören</span></span>
+          <span class="card-listen"><span class="lbl">Profil →</span></span>
         </div>
         <div class="card-meta">
           <div class="card-tag">{c.tag}</div>
@@ -176,6 +179,31 @@ const filters = [
 <style>
   .play-btn:disabled { opacity: 0.4; cursor: not-allowed; }
   .play-btn:disabled:hover { background: transparent; color: var(--gold); }
+
+  /* Stretched link covers the whole card and is the canonical nav target
+     (good for screen readers + keyboard tab). Sits below interactive content
+     like the play button so audio playback doesn't fall through to navigate. */
+  .card-link {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    color: transparent;
+    overflow: hidden;
+    text-indent: -9999px;
+  }
+  .card-link:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: -3px;
+    border-radius: 2px;
+  }
+
+  /* Card-meta sits visually above the link but shouldn't swallow clicks —
+     otherwise clicks on the name/role/tag wouldn't navigate. Make those
+     areas pointer-transparent and only re-enable the play button. */
+  .card-meta { pointer-events: none; }
+  .card-top  { pointer-events: none; }
+  .player-row { pointer-events: none; position: relative; z-index: 4; }
+  .play-btn { pointer-events: auto; }
 </style>
 
 <script>
