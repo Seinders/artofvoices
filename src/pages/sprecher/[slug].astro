@@ -22,7 +22,7 @@ if (!speaker) {
 
 const projects = getProjectsForSpeaker(slug!);
 const hasPhoto = speaker.photo && !speaker.photo.includes('Platzhalter') && !speaker.photo.includes('passport');
-const hasAudio = speaker.audios && speaker.audios.length > 0;
+const hasAudio = !!speaker.audio;
 const hasProjects = projects && (
   projects.top5.some(p => !p.title.includes('PLATZHALTER')) ||
   projects.recent.some(p => !p.title.includes('PLATZHALTER'))
@@ -215,7 +215,7 @@ const bgColor = bgColors[slug!.charCodeAt(0) % bgColors.length];
             Sprach<span class="text-studio-gold italic">probe</span>
           </h2>
           <div class="w-12 h-0.5 bg-studio-gold mb-8"></div>
-          <AudioPlayer audioUrl={speaker.audios[0]} speakerName={speaker.name} />
+          <AudioPlayer audioUrl={speaker.audio} speakerName={speaker.name} />
         </section>
       )}
 

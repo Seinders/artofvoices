@@ -64,7 +64,7 @@ const cards = speakers.map((s, i) => {
     .join('');
   const bars = buildBars(seed);
   const hasPhoto = s.photo && !s.photo.includes('Platzhalter') && !s.photo.includes('passport');
-  const audio = s.audios && s.audios.length > 0 ? s.audios[0] : '';
+  const audio = s.audio || '';
   return {
     id: i + 1,
     slug: s.slug,

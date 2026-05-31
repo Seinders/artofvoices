@@ -1,273 +1,257 @@
-[
-  {
-    "name": "Marie Bierstedt",
-    "gender": "F",
-    "url": "https://artofvoices.de/sprecherinnen/de_passport/",
-    "photo": "/photos/marie-bierstedt.jpg",
-    "bio": "Marie Bierstedt, die Tochter des bekannten Synchronsprechers Detlef Bierstedt, ist seit den frühen 80ern im Medienbereich tätig. Nach Fernsehauftritten in Praxis Bülowbogen und Die Mondjäger folgten dann diverse Arbeiten im Synchron- und Hörspielbereich. Ihre junge, frische Stimme ist vor allem bekannt durch Serien wie Grey's Anatomy, My Name Is Earl, Buffy – Im Bann der Dämonen, Smallville oder Dawsons Creek. Auch ist sie in Kinofilmen wie Alice im Wunderland, Pearl Harbour, Spiderman, Der Teufel Trägt Prada oder der Scary Movie-Reihe zu hören. Sie leiht Schauspielerinnen wie Kate Hudson, Anne Hathaway, Kirsten Dunst oder Kate Beckinsale ihre Stimme.",
-    "audios": [
-      "/audio/marie-bierstedt.mp3"
-    ],
-    "known_for": "Kate Hudson, Anne Hathaway, Kirsten Dunst, Kate Beckinsale"
-  },
-  {
-    "name": "Mia Diekow",
-    "gender": "F",
-    "url": "https://artofvoices.de/sprecherinnen/mia-diekow/",
-    "photo": "/photos/mia-diekow.jpg",
-    "bio": "Mia Diekow steht schon seit früher Kindheit vor dem Mikrofon. Aufgewachsen in Hamburg in einer Künstlerfamilie, zeigte sich schnell ihr schauspielerisches und musikalisches Talent. Sie leiht seit 1991 den verschiedensten Figuren und Schauspielern ihre Stimme. Z.B. Jessica Chastain in Stolen Lives, Shailene Woodley in The Spectacular Now, oder Jena Malone in Four Last Songs. Aktuell hören wir sie in Serien-Hauptrollen bei The Knick, Arrested Development, Backstage oder Rosewood. Und sie ist die Stimme einiger beliebter Comicfiguren wie Yakari, Wonderwoman, und Kitty Katswell. Mias Stimme wird als klar, warm, natürlich und anziehend beschrieben. Sie singt, schreibt und produziert auch Musik.",
-    "audios": [
-      "/audio/mia-diekow.mp3"
-    ],
-    "known_for": "Jessica Chastain, Shailene Woodley, Jena Malone"
-  },
-  {
-    "name": "Maximiliane Häcke",
-    "gender": "F",
-    "url": "https://artofvoices.de/sprecherinnen/maximiliane-haecke-2/",
-    "photo": "/photos/maximiliane-haecke.jpg",
-    "bio": "Maximiliane Häcke alias Maxi Häcke spricht seit ihrem 6. Lebensjahr vor Mikrofonen. Aufgewachsen in Köln, sprach sie schon früh in etlichen Serien, Filmen und Hörspielen. Sie spricht unter Anderem für das Vorschulprogramm des KIKA das niedliche KIKAninchen und die Prinzessin Lillifee. Zu hören war ihre junge, leicht raue Stimme bereits in diversen Serien wie Grey's Anatomy, Mad Men, Desperate Housewives und Body of Proof. Cara Delevingne, Adèle Exarchopoulos, Juno Temple, Alexandra Daddario und Noémie Merlant sind nur einige der Schauspielerinnen denen Maximiliane ihre Stimme leihen durfte. Aktuell hört man sie in Pirates of the Caribbean als Stimme für Kaya Scodelario.",
-    "audios": [
-      "/audio/maximiliane-haecke.mp3"
-    ],
-    "known_for": "Cara Delevingne, Adèle Exarchopoulos, Juno Temple, Alexandra Daddario, Kaya Scodelario"
-  },
-  {
-    "name": "Anne Helm",
-    "gender": "F",
-    "url": "https://artofvoices.de/sprecherinnen/damen-platzhalter-2-9/",
-    "photo": "https://artofvoices.de/wp-content/uploads/2017/05/Damen-Platzhalter-2-8.jpg",
-    "bio": "Schwein muß man haben! Oder eines sprechen. Das nämlich war eine der ersten Synchronrollen von Anne Helm - das Schweinchen Babe, dem Anne ihre zarte Stimme im Alter von gerade mal neun Jahren lieh. Auch Vater Gunnar und Schwester Luise sind im Schauspiel- und Synchronbereich tätig. Weiterhin ist sie zu hören in Kinofilmen wie Push, Inception, Die Geheimnisse der Spiderwicks oder Scott Pilgrim gegen den Rest der Welt. Auch in Fernsehserien wie Gossip Girl, 30 Rock, One Tree Hill, The Vampire Diaries, Californication oder Desperate Housewives ist sie zu hören.",
-    "audios": [],
-    "known_for": "Schweinchen Babe"
-  },
-  {
-    "name": "Luise Helm",
-    "gender": "F",
-    "url": "https://artofvoices.de/sprecherinnen/damen-platzhalter-2-18/",
-    "photo": "https://artofvoices.de/wp-content/uploads/2017/05/Damen-Platzhalter-2-17.jpg",
-    "bio": "Luise Helm, die Schwester von Anne Helm. Von samtig-sanft bis kreischend laut, alles ist möglich. Sie ist die deutsche Stimme von Scarlett Johansson in Match Point, The Black Dahlia oder Iron Man 2. Oder Megan Fox in Transformers 1 und 2, Jennifer's Body und New York für Anfänger. Sie spricht die Anna Torv in Fringe, Madeline Zima in Californication oder Jessica Szohr in Gossip Girl. Zwischendurch spricht sie dann noch gerne Hörspiele und Hörbücher sowie Werbung.",
-    "audios": [],
-    "known_for": "Scarlett Johansson, Megan Fox, Anna Torv"
-  },
-  {
-    "name": "Maria Koschny",
-    "gender": "F",
-    "url": "https://artofvoices.de/sprecherinnen/maria-koschny/",
-    "photo": "/photos/maria-koschny.jpg",
-    "bio": "Maria Koschny, Tochter der Schauspielerin und Synchronsprecherin Katharina Koschny, kann bereits eine lange Liste an Synchron- und Hörspielarbeiten vorweisen. Ihre selbstbewußte, weiblich-kräftige Stimme wurde eingesetzt bei Serien wie Navy CIS, O.C. California, The Unit, Supernatural, Scrubs oder The Closer. Auch in Kinofilmen wie Passengers, X-Men: Apocalypse, Die Tribute von Panem oder Independence Day: Wiederkehr ist sie zu hören. Sie ist die deutsche Stimme von Jennifer Lawrence.",
-    "audios": [
-      "/audio/maria-koschny.mp3"
-    ],
-    "known_for": "Jennifer Lawrence, Carey Mulligan, Lindsay Lohan, Isla Fisher"
-  },
-  {
-    "name": "Sophie Lechtenbrink",
-    "gender": "F",
-    "url": "https://artofvoices.de/sprecherinnen/lechtenbrink-2/",
-    "photo": "/photos/sophie-lechtenbrink.jpg",
-    "bio": "Sophie Lechtenbrink wuchs in Hamburg als Tochter von Volker Lechtenbrink und Anja Topf auf, wodurch sie bereits früh mit der Schauspielerei in Berührung kam. Mit 14 Jahren trat sie neben ihrem Vater im Ernst-Deutsch-Theater in Hamburg auf. Von 2013 bis 2014 absolvierte sie ein Schauspielstudium an der Schauspielschule Charlottenburg. Anschließend begann sie ihre Arbeit als Synchronsprecherin.",
-    "audios": [],
-    "known_for": ""
-  },
-  {
-    "name": "Ronja Peters",
-    "gender": "F",
-    "url": "https://artofvoices.de/sprecherinnen/damen-platzhalter-2-3/",
-    "photo": "https://artofvoices.de/wp-content/uploads/2017/05/Damen-Platzhalter-2-2.jpg",
-    "bio": "Die in Mecklenburg-Vorpommern geborene Ronja Peters spielte die Hauptrolle der Karla Bussmann in der Kinder- und Jugendserie Schloss Einstein. Sie spielte von März bis September 2010 in der Serie Eine wie keine als Jana Blaschke. Dafür wurde sie 2011 für den German Soap Award nominiert. Zur Zeit ist sie als Synchronsprecherin tätig. Sie spricht unter anderem für Florence Pugh.",
-    "audios": [],
-    "known_for": "Florence Pugh"
-  },
-  {
-    "name": "Sarah Riedel",
-    "gender": "F",
-    "url": "https://artofvoices.de/sprecherinnen/sarah-riedel/",
-    "photo": "/photos/sarah-riedel.jpg",
-    "bio": "Sarah Riedel, Tochter von Lutz Riedel und Marianne Groß, beide Schauspieler und Synchronsprecher, ist sowohl vor der Kamera als auch vor dem Mikrofon zuhause. Sie leiht Claire Foy ihre Stimme, synchronisierte Katie Mixon in Mike & Molly und American Housewife, spricht Felicity Jones in vielen Filmen, und ist in der Netflix Serie Disjointed zu hören. Außerdem hat sie eine Fangemeinde durch die Animeserie Winx Club, in der sie Flora, die Blumenfee ist.",
-    "audios": [
-      "/audio/sarah-riedel.mp3"
-    ],
-    "known_for": "Claire Foy, Felicity Jones, Katie Mixon"
-  },
-  {
-    "name": "Marie-Luise Schramm",
-    "gender": "F",
-    "url": "https://artofvoices.de/sprecherinnen/marie-luise-schramm/",
-    "photo": "/photos/marie-luise-schramm.jpg",
-    "bio": "Marie-Luise Schramm, Tochter von Gabriele Schramm-Philipp und Bernd Schramm, ist sowohl Synchronsprecherin als auch Schauspielerin. Schon mit neun Jahren synchronisierte sie bereits ihren ersten Film. Aktuell ist sie zu sehen in Heiter bis tödlich - Morden im Norden. Als Synchronschauspielerin kennt man sie als Stimme von Mara Wilson oder America Ferrera oder aus den Serien Breaking Bad, Gossip Girl oder auch Cold Case.",
-    "audios": [],
-    "known_for": "Mara Wilson, America Ferrera"
-  },
-  {
-    "name": "Ilona Schulz",
-    "gender": "F",
-    "url": "https://artofvoices.de/sprecherinnen/ilona-schulz/",
-    "photo": "/photos/ilona-schulz.jpg",
-    "bio": "Neben ihren Bühnenengagements (Grips-Theater, Bar jeder Vernunft, Theater des Westens) spielte sie in zahlreichen Film- und Fernsehproduktionen. 2009 lieh sich Sido ihre Stimme für den Song Hey Du. Markant ist ihre Stimme und ihre Fähigkeit, Dialekte zu imitieren; so lieh sie unter anderem dem Kleinen Arschloch, Pippi Langstrumpf und Ricky Sprocket ihre Stimme. Auch singt und spricht sie in der Kinderhörspielreihe Der kleine König sowie allen Donaldson/Scheffler Hörbüchern wie Der Grüffelo.",
-    "audios": [
-      "/audio/ilona-schulz.mp3"
-    ],
-    "known_for": "Der Grüffelo, Der kleine König, Pippi Langstrumpf"
-  },
-  {
-    "name": "Esra Vural",
-    "gender": "F",
-    "url": "https://artofvoices.de/sprecherinnen/damen-platzhalter-2-16/",
-    "photo": "https://artofvoices.de/wp-content/uploads/2017/05/Damen-Platzhalter-2-15.jpg",
-    "bio": "Esra Vural wurde in Berlin geboren und begann schon als Kind mit ihrer Synchrontätigkeit. Nach ihrer Schulzeit studierte sie an der Freien Universität Berlin Kulturwissenschaften des Vorderen Orients. Parallel zu ihrem Studium verlor sie nie ihre Freude am Synchronisieren. So gehören heute aktuell zu ihren Stammsprecherinnen unter anderem Schauspielerinnen wie Ashley Tisdale, Anna Hutchinson und Jordan Hayes.",
-    "audios": [],
-    "known_for": "Ashley Tisdale, Anna Hutchinson, Jordan Hayes"
-  },
-  {
-    "name": "Christian Gaul",
-    "gender": "M",
-    "url": "https://artofvoices.de/sprecherinnen/christian-gaul/",
-    "photo": "/photos/christian-gaul.jpg",
-    "bio": "Christian Gaul ist Schauspieler und Synchronsprecher mit Leib und Seele. Er absolvierte sein Studium an der Universität der Künste Mozarteum in Salzburg. Er spricht fließend fünf Sprachen und beherrscht etliche Dialekte. Er ist auch als Synchronregisseur tätig. Er leiht Schauspielern wie Peter Sullivan, John Lutz, Chris Gauthier, David Walliams, Marilyn Manson oder auch Miss Piggy seine Stimme.",
-    "audios": [],
-    "known_for": "David Walliams, Miss Piggy"
-  },
-  {
-    "name": "Sebastian Christoph Jacob",
-    "gender": "M",
-    "url": "https://artofvoices.de/sprecherinnen/sebastian-christoph-jacob-2/",
-    "photo": "/photos/sebastian-christoph-jacob.jpg",
-    "bio": "Er ist Schauspieler, Synchronsprecher und Gitarrist. Er sprach in zahlreichen internationalen Filmen Hauptrollen wie Julius Caesar oder Richard Löwenherz. Bekannt wurde seine Stimme in der Rolle des Christopher in Gilmore Girls. Er spricht David Zayas in Dexter, Steven Michael Quezada in Breaking Bad. In Kinofilmen wie Babel und 8 Blickwinkel synchronisierte er Gael Garcia Bernal und Edgar Ramírez. Er ist die Standardstimme von Gonzalo Menendez. Sebastian synchronisiert nicht nur auf Deutsch, sondern auch auf Spanisch.",
-    "audios": [],
-    "known_for": "Gael Garcia Bernal, David Zayas (Dexter), Gonzalo Menendez"
-  },
-  {
-    "name": "Robin Kahnmeyer",
-    "gender": "M",
-    "url": "https://artofvoices.de/sprecherinnen/robin-kahnmeyer/",
-    "photo": "/photos/robin-kahnmeyer.jpg",
-    "bio": "Robin Kahnmeyer ist im Synchronbereich seit den 1980er Jahren tätig. Seine Stimme ist jung, frisch und klar. Er spricht in Kinofilmen wie Pearl Harbor, Inception, Das A-Team, Tron Legacy und Hop. Auch in Serien wie The Closer, ER, Stargate Universe, CSI Las Vegas, Mad Men, Bones, Desperate Housewives, Navy CIS L.A. Vertretene Schauspieler sind Eric Christian Olsen, James Roday, Justin Timberlake, Hayden Christensen, Ryan Phillippe, Joseph Gordon-Levitt und James Marsden.",
-    "audios": [],
-    "known_for": "Joseph Gordon-Levitt, Justin Timberlake, Ryan Phillippe, James Marsden"
-  },
-  {
-    "name": "Tobias Kluckert",
-    "gender": "M",
-    "url": "https://artofvoices.de/sprecherinnen/herren-platzhalter-2-8/",
-    "photo": "https://artofvoices.de/wp-content/uploads/2017/05/Herren-Platzhalter-2-7.jpg",
-    "bio": "Tobias Kluckert ist ein sehr vielseitiger Schauspieler und Synchronsprecher. Sein Timbre ist in Spielfilmen wie Hangover, Inception, Hancock, Kung Fu Panda, Salt, Walk the Line, 300, Das A-Team, Green Hornet oder Fast Five zu hören. Er synchronisiert regelmäßig Gerard Butler, Bradley Cooper, Seth Rogen, Jason Bateman, 50 Cent. In 2011 gewann er den Synchron-Zuhörerpreis Silhouette für die beste Nebenrolle für die Synchronisation des Pille McCoy in Star Trek.",
-    "audios": [
-      "/audio/tobias-kluckert.mp3"
-    ],
-    "known_for": "Gerard Butler, Bradley Cooper, Seth Rogen, Jason Bateman"
-  },
-  {
-    "name": "Nicolas König",
-    "gender": "M",
-    "url": "https://artofvoices.de/sprecherinnen/herren-platzhalter-2-9/",
-    "photo": "https://artofvoices.de/wp-content/uploads/2017/05/Herren-Platzhalter-2-8.jpg",
-    "bio": "Nicolas König ist als Schauspieler vor der Kamera und auf der Bühne präsent. Ob als Synchronschauspieler, Overlay Sprecher oder in der Werbung. Man kennt ihn als Max Casella in Die Sopranos, als Lt. Cedricks in The Wire oder als Kronprinz Leopold in The Illusionist. In Hörbüchern kennt man ihn aus Die 3 Fragezeichen oder John Sinclair. Bei PC und Computerspielen war er in Der Pate, Dragon Age oder Command & Conquer beteiligt.",
-    "audios": [],
-    "known_for": "Die Sopranos, The Wire, Die 3 Fragezeichen"
-  },
-  {
-    "name": "Axel Lutter",
-    "gender": "M",
-    "url": "",
-    "photo": "",
-    "bio": "",
-    "audios": [],
-    "known_for": "",
-    "note": "Listed on speakers page but no individual profile link found with a unique slug"
-  },
-  {
-    "name": "Leonhard Mahlich",
-    "gender": "M",
-    "url": "https://artofvoices.de/sprecherinnen/herren-platzhalter-2-11/",
-    "photo": "https://artofvoices.de/wp-content/uploads/2017/05/Herren-Platzhalter-2-10.jpg",
-    "bio": "Leonhard Mahlich, Sohn von Holger Mahlich und Micaela Kreißler, hatte schon über seine Eltern in frühen Jahren Kontakt zu Film und Fernsehen. Nach seinem abgeschlossenen Gitarrenstudium am Musicians Institut in Los Angeles ist er seit 2003 wieder fester Bestandteil in der Synchronbranche. Seine Stimme kennt man aus Die Tribute von Panem als Gale, in Magic Mike als Tito, oder den Serien V - Die Außerirdischen, Hawaii 5.0 und Sons of Anarchy.",
-    "audios": [],
-    "known_for": "Die Tribute von Panem (Gale), Magic Mike (Tito)"
-  },
-  {
-    "name": "Norman Matt",
-    "gender": "M",
-    "url": "https://artofvoices.de/sprecherinnen/herren-platzhalter-2-12/",
-    "photo": "https://artofvoices.de/wp-content/uploads/2017/05/Herren-Platzhalter-2-11.jpg",
-    "bio": "Er ist vor allem als Werbe- und Synchronsprecher bekannt. Seit 2004 wird er häufig als deutsche Synchronstimme für Paul Rudd, Mark Ruffalo, Jason Schwartzman und Jonathan Rhys Meyers eingesetzt. Er ist die Standardstimme von Cillian Murphy und Michael Fassbender. Seit 2011 ist er Station-Voice von Pro Sieben. Als Dialogregisseur war er für Navy CIS verantwortlich. Seine Arbeit an Inglourious Basterds wurde 2011 mit dem Zuhörerpreis Silhouette ausgezeichnet.",
-    "audios": [],
-    "known_for": "Paul Rudd, Mark Ruffalo, Cillian Murphy, Michael Fassbender"
-  },
-  {
-    "name": "Dieter Memel",
-    "gender": "M",
-    "url": "https://artofvoices.de/sprecherinnen/dieter-memel/",
-    "photo": "/photos/dieter-memel.jpg",
-    "bio": "Dieter Memel ist seit mehr als dreißig Jahren Schauspieler, seit den frühen 90er ist er als Synchronsprecher tätig. Seine Stimme ist sonor, tief und kräftig. Er war zu hören in Kinofilmen wie Halloween H20, Der Exorzist, Harry Potter und der Feuerkelch. Auch Serien wie Law and Order, Burn Notice, Boston Legal, ER, The Mentalist, Grey's Anatomy oder Navy CIS.",
-    "audios": [],
-    "known_for": "Muse Watson, Erick Avari"
-  },
-  {
-    "name": "Tommy Morgenstern",
-    "gender": "M",
-    "url": "https://artofvoices.de/sprecherinnen/tommy-morgenstern/",
-    "photo": "/photos/tommy-morgenstern.jpg",
-    "bio": "Tommy Morgenstern wurde 1974 geboren und ist als Synchronschauspieler und Sänger bekannt. Zu seinen deutschen Stimmen gehören u.a. Chris Hemsworth in Thor oder The Avengers, Ryan Gosling in The Nice Guys, Benedict Cumberbatch in der Serie Sherlock, oder Daryl Dixon in The Walking Dead. Seine Stimme ist auch in Computerspielen wie Assassins Creed Syndicate oder Dragon Age zu hören.",
-    "audios": [],
-    "known_for": "Chris Hemsworth, Ryan Gosling, Benedict Cumberbatch, Norman Reedus (Walking Dead)"
-  },
-  {
-    "name": "Olaf Reichmann",
-    "gender": "M",
-    "url": "https://artofvoices.de/sprecherinnen/olaf-reichmann-4/",
-    "photo": "/photos/olaf-reichmann.jpg",
-    "bio": "Olaf Reichmann ist seit 1998 Synchronsprecher. 2009 erhielt er für seine Synchronisation des Jean-Dominic Bauby (Mathieu Amalric) in Schmetterling und Taucherglocke den Deutschen Preis für Synchron. Er ist die deutsche Feststimme von Mathieu Amalric, Dany Boon und Nick Frost. Außerdem leiht er regelmäßig Stephen Graham, Jeffrey Wright, Garret Dillahunt und Rob Corddry seine Stimme.",
-    "audios": [],
-    "known_for": "Nick Frost, Mathieu Amalric, Dany Boon, Stephen Graham, Jeffrey Wright"
-  },
-  {
-    "name": "Ricardo Richter",
-    "gender": "M",
-    "url": "https://artofvoices.de/sprecherinnen/ricardo-richter/",
-    "photo": "/photos/ricardo-richter.jpg",
-    "bio": "Ricardo Richter verbrachte seine ersten 4 Lebensjahre in Peru. Zu sehen war er im Fernsehen bei Schloss Einstein. Akustisch vertreten ist er in Filmen wie Die Tribute von Panem als Peeta, 21 Jump Street oder Der Lorax, auch in diversen Serien wie CSI Miami, The Wire. Er leiht Charakteren im Hörbuch und Hörspielserien wie Die Playmos seine Stimme.",
-    "audios": [],
-    "known_for": "Die Tribute von Panem (Peeta)"
-  },
-  {
-    "name": "Nico Sablik",
-    "gender": "M",
-    "url": "https://artofvoices.de/sprecherinnen/nico-sablik-2/",
-    "photo": "/photos/nico-sablik.jpg",
-    "bio": "Nico Sablik spricht den Harry Potter in den deutschen Versionen der gleichnamigen Zaubersaga im Kino. Ebenfalls ist er zu hören als neuer Captain Kirk in Star Trek. Oder in Filmen wie Drachenzähmen Leicht Gemacht, The Social Network, Hot Fuzz oder Fanboys. Auch in Serien wie Glee, Boardwalk Empire, Boston Legal, Bones, Grey's Anatomy oder The Mentalist. Er spricht Frankie Muniz, Chris Marquette oder Daniel Radcliffe.",
-    "audios": [
-      "/audio/nico-sablik.mp3"
-    ],
-    "known_for": "Daniel Radcliffe (Harry Potter), Star Trek (Captain Kirk)"
-  },
-  {
-    "name": "Tim Sander",
-    "gender": "M",
-    "url": "https://artofvoices.de/sprecherinnen/tim-sander/",
-    "photo": "/photos/tim-sander.jpg",
-    "bio": "Tim Sander hat beim TV-Publikum eine feste Fangemeinde: Von 1998 bis 2002 zählte er als Kai Scholl zum Hauptcast von Gute Zeiten, Schlechte Zeiten. Er kommt aus einer Schauspielerfamilie und synchronisierte bereits im Alter von sechs Jahren. Jetzt hört man seine Stimme in Filmen wie Runner Runner, Percy Jackson und Serien wie Navy CIS, Breaking Bad und Kung Fu Panda. Er lieh Haku in Chihiros Reise ins Zauberland seine Stimme.",
-    "audios": [
-      "/audio/tim-sander.mp3"
-    ],
-    "known_for": "Chihiros Reise ins Zauberland (Haku), GZSZ"
-  },
-  {
-    "name": "Dennis Schmidt-Foß",
-    "gender": "M",
-    "url": "https://artofvoices.de/sprecherinnen/dennis-schmidt-foss-2-2/",
-    "photo": "/photos/dennis-schmidt-foss.jpg",
-    "bio": "Dennis Schmidt-Foß ist zur Zeit sicher einer der meistbeschäftigten Synchronsprecher in Deutschland, seine Liste mit Synchronauftritten ist weit über 500 Einträge lang. Kinofilme: Shrek Der Dritte, American Pie, xXx, Transformers, Spiderman 2, Zoolander, Butterfly Effect, John Rambo. Serien: Dexter, Navy CIS, The Closer, Grey's Anatomy, Boston Legal, Cold Case, Fringe. Schauspieler: Freddy Prince Jr., Eddie Murphy, Casey Affleck, Ryan Reynolds, Michael C. Hall.",
-    "audios": [],
-    "known_for": "Ryan Reynolds, Eddie Murphy, Michael C. Hall (Dexter), Casey Affleck"
-  },
-  {
-    "name": "Roman Wolko",
-    "gender": "M",
-    "url": "https://artofvoices.de/sprecherinnen/roman-wolko/",
-    "photo": "/photos/roman-wolko.jpg",
-    "bio": "Bereits als Kind entdeckte Roman Wolko seine Faszination am Schauspiel. Er ist Station Voice für Cartoon Network. Er ist in Filmen wie Harry Potter, Twilight, Die Bestimmung, Pitch Perfect, Chroniken der Unterwelt zu hören. Außerdem in Serien wie Mad Men, Game of Thrones, American Horror Story, Californication. Zu seinen Feststimmen gehören Miles Teller, Anders Holm, Nicholas Braun. Er ist außerdem Dialogbuchautor und Dialogregisseur.",
-    "audios": [],
-    "known_for": "Miles Teller, Nicholas Braun"
-  }
-]
+{
+  "speakers": [
+    {
+      "name": "Marie Bierstedt",
+      "gender": "F",
+      "photo": "/photos/marie-bierstedt.jpg",
+      "audio": "/audio/marie-bierstedt.mp3",
+      "known_for": "Kate Hudson, Anne Hathaway, Kirsten Dunst, Kate Beckinsale",
+      "bio": "Marie Bierstedt, die Tochter des bekannten Synchronsprechers Detlef Bierstedt, ist seit den frühen 80ern im Medienbereich tätig. Nach Fernsehauftritten in Praxis Bülowbogen und Die Mondjäger folgten dann diverse Arbeiten im Synchron- und Hörspielbereich. Ihre junge, frische Stimme ist vor allem bekannt durch Serien wie Grey's Anatomy, My Name Is Earl, Buffy – Im Bann der Dämonen, Smallville oder Dawsons Creek. Auch ist sie in Kinofilmen wie Alice im Wunderland, Pearl Harbour, Spiderman, Der Teufel Trägt Prada oder der Scary Movie-Reihe zu hören. Sie leiht Schauspielerinnen wie Kate Hudson, Anne Hathaway, Kirsten Dunst oder Kate Beckinsale ihre Stimme.",
+      "url": "https://artofvoices.de/sprecherinnen/de_passport/"
+    },
+    {
+      "name": "Mia Diekow",
+      "gender": "F",
+      "photo": "/photos/mia-diekow.jpg",
+      "audio": "/audio/mia-diekow.mp3",
+      "known_for": "Jessica Chastain, Shailene Woodley, Jena Malone",
+      "bio": "Mia Diekow steht schon seit früher Kindheit vor dem Mikrofon. Aufgewachsen in Hamburg in einer Künstlerfamilie, zeigte sich schnell ihr schauspielerisches und musikalisches Talent. Sie leiht seit 1991 den verschiedensten Figuren und Schauspielern ihre Stimme. Z.B. Jessica Chastain in Stolen Lives, Shailene Woodley in The Spectacular Now, oder Jena Malone in Four Last Songs. Aktuell hören wir sie in Serien-Hauptrollen bei The Knick, Arrested Development, Backstage oder Rosewood. Und sie ist die Stimme einiger beliebter Comicfiguren wie Yakari, Wonderwoman, und Kitty Katswell. Mias Stimme wird als klar, warm, natürlich und anziehend beschrieben. Sie singt, schreibt und produziert auch Musik.",
+      "url": "https://artofvoices.de/sprecherinnen/mia-diekow/"
+    },
+    {
+      "name": "Maximiliane Häcke",
+      "gender": "F",
+      "photo": "/photos/maximiliane-haecke.jpg",
+      "audio": "/audio/maximiliane-haecke.mp3",
+      "known_for": "Cara Delevingne, Adèle Exarchopoulos, Juno Temple, Alexandra Daddario, Kaya Scodelario",
+      "bio": "Maximiliane Häcke alias Maxi Häcke spricht seit ihrem 6. Lebensjahr vor Mikrofonen. Aufgewachsen in Köln, sprach sie schon früh in etlichen Serien, Filmen und Hörspielen. Sie spricht unter Anderem für das Vorschulprogramm des KIKA das niedliche KIKAninchen und die Prinzessin Lillifee. Zu hören war ihre junge, leicht raue Stimme bereits in diversen Serien wie Grey's Anatomy, Mad Men, Desperate Housewives und Body of Proof. Cara Delevingne, Adèle Exarchopoulos, Juno Temple, Alexandra Daddario und Noémie Merlant sind nur einige der Schauspielerinnen denen Maximiliane ihre Stimme leihen durfte. Aktuell hört man sie in Pirates of the Caribbean als Stimme für Kaya Scodelario.",
+      "url": "https://artofvoices.de/sprecherinnen/maximiliane-haecke-2/"
+    },
+    {
+      "name": "Anne Helm",
+      "gender": "F",
+      "photo": "https://artofvoices.de/wp-content/uploads/2017/05/Damen-Platzhalter-2-8.jpg",
+      "audio": "",
+      "known_for": "Schweinchen Babe",
+      "bio": "Schwein muß man haben! Oder eines sprechen. Das nämlich war eine der ersten Synchronrollen von Anne Helm - das Schweinchen Babe, dem Anne ihre zarte Stimme im Alter von gerade mal neun Jahren lieh. Auch Vater Gunnar und Schwester Luise sind im Schauspiel- und Synchronbereich tätig. Weiterhin ist sie zu hören in Kinofilmen wie Push, Inception, Die Geheimnisse der Spiderwicks oder Scott Pilgrim gegen den Rest der Welt. Auch in Fernsehserien wie Gossip Girl, 30 Rock, One Tree Hill, The Vampire Diaries, Californication oder Desperate Housewives ist sie zu hören.",
+      "url": "https://artofvoices.de/sprecherinnen/damen-platzhalter-2-9/"
+    },
+    {
+      "name": "Luise Helm",
+      "gender": "F",
+      "photo": "https://artofvoices.de/wp-content/uploads/2017/05/Damen-Platzhalter-2-17.jpg",
+      "audio": "",
+      "known_for": "Scarlett Johansson, Megan Fox, Anna Torv",
+      "bio": "Luise Helm, die Schwester von Anne Helm. Von samtig-sanft bis kreischend laut, alles ist möglich. Sie ist die deutsche Stimme von Scarlett Johansson in Match Point, The Black Dahlia oder Iron Man 2. Oder Megan Fox in Transformers 1 und 2, Jennifer's Body und New York für Anfänger. Sie spricht die Anna Torv in Fringe, Madeline Zima in Californication oder Jessica Szohr in Gossip Girl. Zwischendurch spricht sie dann noch gerne Hörspiele und Hörbücher sowie Werbung.",
+      "url": "https://artofvoices.de/sprecherinnen/damen-platzhalter-2-18/"
+    },
+    {
+      "name": "Maria Koschny",
+      "gender": "F",
+      "photo": "/photos/maria-koschny.jpg",
+      "audio": "/audio/maria-koschny.mp3",
+      "known_for": "Jennifer Lawrence, Carey Mulligan, Lindsay Lohan, Isla Fisher",
+      "bio": "Maria Koschny, Tochter der Schauspielerin und Synchronsprecherin Katharina Koschny, kann bereits eine lange Liste an Synchron- und Hörspielarbeiten vorweisen. Ihre selbstbewußte, weiblich-kräftige Stimme wurde eingesetzt bei Serien wie Navy CIS, O.C. California, The Unit, Supernatural, Scrubs oder The Closer. Auch in Kinofilmen wie Passengers, X-Men: Apocalypse, Die Tribute von Panem oder Independence Day: Wiederkehr ist sie zu hören. Sie ist die deutsche Stimme von Jennifer Lawrence.",
+      "url": "https://artofvoices.de/sprecherinnen/maria-koschny/"
+    },
+    {
+      "name": "Sophie Lechtenbrink",
+      "gender": "F",
+      "photo": "/photos/sophie-lechtenbrink.jpg",
+      "audio": "",
+      "known_for": "",
+      "bio": "Sophie Lechtenbrink wuchs in Hamburg als Tochter von Volker Lechtenbrink und Anja Topf auf, wodurch sie bereits früh mit der Schauspielerei in Berührung kam. Mit 14 Jahren trat sie neben ihrem Vater im Ernst-Deutsch-Theater in Hamburg auf. Von 2013 bis 2014 absolvierte sie ein Schauspielstudium an der Schauspielschule Charlottenburg. Anschließend begann sie ihre Arbeit als Synchronsprecherin.",
+      "url": "https://artofvoices.de/sprecherinnen/lechtenbrink-2/"
+    },
+    {
+      "name": "Ronja Peters",
+      "gender": "F",
+      "photo": "https://artofvoices.de/wp-content/uploads/2017/05/Damen-Platzhalter-2-2.jpg",
+      "audio": "",
+      "known_for": "Florence Pugh",
+      "bio": "Die in Mecklenburg-Vorpommern geborene Ronja Peters spielte die Hauptrolle der Karla Bussmann in der Kinder- und Jugendserie Schloss Einstein. Sie spielte von März bis September 2010 in der Serie Eine wie keine als Jana Blaschke. Dafür wurde sie 2011 für den German Soap Award nominiert. Zur Zeit ist sie als Synchronsprecherin tätig. Sie spricht unter anderem für Florence Pugh.",
+      "url": "https://artofvoices.de/sprecherinnen/damen-platzhalter-2-3/"
+    },
+    {
+      "name": "Sarah Riedel",
+      "gender": "F",
+      "photo": "/photos/sarah-riedel.jpg",
+      "audio": "/audio/sarah-riedel.mp3",
+      "known_for": "Claire Foy, Felicity Jones, Katie Mixon",
+      "bio": "Sarah Riedel, Tochter von Lutz Riedel und Marianne Groß, beide Schauspieler und Synchronsprecher, ist sowohl vor der Kamera als auch vor dem Mikrofon zuhause. Sie leiht Claire Foy ihre Stimme, synchronisierte Katie Mixon in Mike & Molly und American Housewife, spricht Felicity Jones in vielen Filmen, und ist in der Netflix Serie Disjointed zu hören. Außerdem hat sie eine Fangemeinde durch die Animeserie Winx Club, in der sie Flora, die Blumenfee ist.",
+      "url": "https://artofvoices.de/sprecherinnen/sarah-riedel/"
+    },
+    {
+      "name": "Marie-Luise Schramm",
+      "gender": "F",
+      "photo": "/photos/marie-luise-schramm.jpg",
+      "audio": "",
+      "known_for": "Mara Wilson, America Ferrera",
+      "bio": "Marie-Luise Schramm, Tochter von Gabriele Schramm-Philipp und Bernd Schramm, ist sowohl Synchronsprecherin als auch Schauspielerin. Schon mit neun Jahren synchronisierte sie bereits ihren ersten Film. Aktuell ist sie zu sehen in Heiter bis tödlich - Morden im Norden. Als Synchronschauspielerin kennt man sie als Stimme von Mara Wilson oder America Ferrera oder aus den Serien Breaking Bad, Gossip Girl oder auch Cold Case.",
+      "url": "https://artofvoices.de/sprecherinnen/marie-luise-schramm/"
+    },
+    {
+      "name": "Ilona Schulz",
+      "gender": "F",
+      "photo": "/photos/ilona-schulz.jpg",
+      "audio": "/audio/ilona-schulz.mp3",
+      "known_for": "Der Grüffelo, Der kleine König, Pippi Langstrumpf",
+      "bio": "Neben ihren Bühnenengagements (Grips-Theater, Bar jeder Vernunft, Theater des Westens) spielte sie in zahlreichen Film- und Fernsehproduktionen. 2009 lieh sich Sido ihre Stimme für den Song Hey Du. Markant ist ihre Stimme und ihre Fähigkeit, Dialekte zu imitieren; so lieh sie unter anderem dem Kleinen Arschloch, Pippi Langstrumpf und Ricky Sprocket ihre Stimme. Auch singt und spricht sie in der Kinderhörspielreihe Der kleine König sowie allen Donaldson/Scheffler Hörbüchern wie Der Grüffelo.",
+      "url": "https://artofvoices.de/sprecherinnen/ilona-schulz/"
+    },
+    {
+      "name": "Esra Vural",
+      "gender": "F",
+      "photo": "https://artofvoices.de/wp-content/uploads/2017/05/Damen-Platzhalter-2-15.jpg",
+      "audio": "",
+      "known_for": "Ashley Tisdale, Anna Hutchinson, Jordan Hayes",
+      "bio": "Esra Vural wurde in Berlin geboren und begann schon als Kind mit ihrer Synchrontätigkeit. Nach ihrer Schulzeit studierte sie an der Freien Universität Berlin Kulturwissenschaften des Vorderen Orients. Parallel zu ihrem Studium verlor sie nie ihre Freude am Synchronisieren. So gehören heute aktuell zu ihren Stammsprecherinnen unter anderem Schauspielerinnen wie Ashley Tisdale, Anna Hutchinson und Jordan Hayes.",
+      "url": "https://artofvoices.de/sprecherinnen/damen-platzhalter-2-16/"
+    },
+    {
+      "name": "Christian Gaul",
+      "gender": "M",
+      "photo": "/photos/christian-gaul.jpg",
+      "audio": "",
+      "known_for": "David Walliams, Miss Piggy",
+      "bio": "Christian Gaul ist Schauspieler und Synchronsprecher mit Leib und Seele. Er absolvierte sein Studium an der Universität der Künste Mozarteum in Salzburg. Er spricht fließend fünf Sprachen und beherrscht etliche Dialekte. Er ist auch als Synchronregisseur tätig. Er leiht Schauspielern wie Peter Sullivan, John Lutz, Chris Gauthier, David Walliams, Marilyn Manson oder auch Miss Piggy seine Stimme.",
+      "url": "https://artofvoices.de/sprecherinnen/christian-gaul/"
+    },
+    {
+      "name": "Sebastian Christoph Jacob",
+      "gender": "M",
+      "photo": "/photos/sebastian-christoph-jacob.jpg",
+      "audio": "",
+      "known_for": "Gael Garcia Bernal, David Zayas (Dexter), Gonzalo Menendez",
+      "bio": "Er ist Schauspieler, Synchronsprecher und Gitarrist. Er sprach in zahlreichen internationalen Filmen Hauptrollen wie Julius Caesar oder Richard Löwenherz. Bekannt wurde seine Stimme in der Rolle des Christopher in Gilmore Girls. Er spricht David Zayas in Dexter, Steven Michael Quezada in Breaking Bad. In Kinofilmen wie Babel und 8 Blickwinkel synchronisierte er Gael Garcia Bernal und Edgar Ramírez. Er ist die Standardstimme von Gonzalo Menendez. Sebastian synchronisiert nicht nur auf Deutsch, sondern auch auf Spanisch.",
+      "url": "https://artofvoices.de/sprecherinnen/sebastian-christoph-jacob-2/"
+    },
+    {
+      "name": "Robin Kahnmeyer",
+      "gender": "M",
+      "photo": "/photos/robin-kahnmeyer.jpg",
+      "audio": "",
+      "known_for": "Joseph Gordon-Levitt, Justin Timberlake, Ryan Phillippe, James Marsden",
+      "bio": "Robin Kahnmeyer ist im Synchronbereich seit den 1980er Jahren tätig. Seine Stimme ist jung, frisch und klar. Er spricht in Kinofilmen wie Pearl Harbor, Inception, Das A-Team, Tron Legacy und Hop. Auch in Serien wie The Closer, ER, Stargate Universe, CSI Las Vegas, Mad Men, Bones, Desperate Housewives, Navy CIS L.A. Vertretene Schauspieler sind Eric Christian Olsen, James Roday, Justin Timberlake, Hayden Christensen, Ryan Phillippe, Joseph Gordon-Levitt und James Marsden.",
+      "url": "https://artofvoices.de/sprecherinnen/robin-kahnmeyer/"
+    },
+    {
+      "name": "Tobias Kluckert",
+      "gender": "M",
+      "photo": "https://artofvoices.de/wp-content/uploads/2017/05/Herren-Platzhalter-2-7.jpg",
+      "audio": "/audio/tobias-kluckert.mp3",
+      "known_for": "Gerard Butler, Bradley Cooper, Seth Rogen, Jason Bateman",
+      "bio": "Tobias Kluckert ist ein sehr vielseitiger Schauspieler und Synchronsprecher. Sein Timbre ist in Spielfilmen wie Hangover, Inception, Hancock, Kung Fu Panda, Salt, Walk the Line, 300, Das A-Team, Green Hornet oder Fast Five zu hören. Er synchronisiert regelmäßig Gerard Butler, Bradley Cooper, Seth Rogen, Jason Bateman, 50 Cent. In 2011 gewann er den Synchron-Zuhörerpreis Silhouette für die beste Nebenrolle für die Synchronisation des Pille McCoy in Star Trek.",
+      "url": "https://artofvoices.de/sprecherinnen/herren-platzhalter-2-8/"
+    },
+    {
+      "name": "Nicolas König",
+      "gender": "M",
+      "photo": "https://artofvoices.de/wp-content/uploads/2017/05/Herren-Platzhalter-2-8.jpg",
+      "audio": "",
+      "known_for": "Die Sopranos, The Wire, Die 3 Fragezeichen",
+      "bio": "Nicolas König ist als Schauspieler vor der Kamera und auf der Bühne präsent. Ob als Synchronschauspieler, Overlay Sprecher oder in der Werbung. Man kennt ihn als Max Casella in Die Sopranos, als Lt. Cedricks in The Wire oder als Kronprinz Leopold in The Illusionist. In Hörbüchern kennt man ihn aus Die 3 Fragezeichen oder John Sinclair. Bei PC und Computerspielen war er in Der Pate, Dragon Age oder Command & Conquer beteiligt.",
+      "url": "https://artofvoices.de/sprecherinnen/herren-platzhalter-2-9/"
+    },
+    {
+      "name": "Axel Lutter",
+      "gender": "M",
+      "photo": "",
+      "audio": "",
+      "known_for": "",
+      "bio": "",
+      "url": "",
+      "note": "Listed on speakers page but no individual profile link found with a unique slug"
+    },
+    {
+      "name": "Leonhard Mahlich",
+      "gender": "M",
+      "photo": "https://artofvoices.de/wp-content/uploads/2017/05/Herren-Platzhalter-2-10.jpg",
+      "audio": "",
+      "known_for": "Die Tribute von Panem (Gale), Magic Mike (Tito)",
+      "bio": "Leonhard Mahlich, Sohn von Holger Mahlich und Micaela Kreißler, hatte schon über seine Eltern in frühen Jahren Kontakt zu Film und Fernsehen. Nach seinem abgeschlossenen Gitarrenstudium am Musicians Institut in Los Angeles ist er seit 2003 wieder fester Bestandteil in der Synchronbranche. Seine Stimme kennt man aus Die Tribute von Panem als Gale, in Magic Mike als Tito, oder den Serien V - Die Außerirdischen, Hawaii 5.0 und Sons of Anarchy.",
+      "url": "https://artofvoices.de/sprecherinnen/herren-platzhalter-2-11/"
+    },
+    {
+      "name": "Norman Matt",
+      "gender": "M",
+      "photo": "https://artofvoices.de/wp-content/uploads/2017/05/Herren-Platzhalter-2-11.jpg",
+      "audio": "",
+      "known_for": "Paul Rudd, Mark Ruffalo, Cillian Murphy, Michael Fassbender",
+      "bio": "Er ist vor allem als Werbe- und Synchronsprecher bekannt. Seit 2004 wird er häufig als deutsche Synchronstimme für Paul Rudd, Mark Ruffalo, Jason Schwartzman und Jonathan Rhys Meyers eingesetzt. Er ist die Standardstimme von Cillian Murphy und Michael Fassbender. Seit 2011 ist er Station-Voice von Pro Sieben. Als Dialogregisseur war er für Navy CIS verantwortlich. Seine Arbeit an Inglourious Basterds wurde 2011 mit dem Zuhörerpreis Silhouette ausgezeichnet.",
+      "url": "https://artofvoices.de/sprecherinnen/herren-platzhalter-2-12/"
+    },
+    {
+      "name": "Dieter Memel",
+      "gender": "M",
+      "photo": "/photos/dieter-memel.jpg",
+      "audio": "",
+      "known_for": "Muse Watson, Erick Avari",
+      "bio": "Dieter Memel ist seit mehr als dreißig Jahren Schauspieler, seit den frühen 90er ist er als Synchronsprecher tätig. Seine Stimme ist sonor, tief und kräftig. Er war zu hören in Kinofilmen wie Halloween H20, Der Exorzist, Harry Potter und der Feuerkelch. Auch Serien wie Law and Order, Burn Notice, Boston Legal, ER, The Mentalist, Grey's Anatomy oder Navy CIS.",
+      "url": "https://artofvoices.de/sprecherinnen/dieter-memel/"
+    },
+    {
+      "name": "Tommy Morgenstern",
+      "gender": "M",
+      "photo": "/photos/tommy-morgenstern.jpg",
+      "audio": "",
+      "known_for": "Chris Hemsworth, Ryan Gosling, Benedict Cumberbatch, Norman Reedus (Walking Dead)",
+      "bio": "Tommy Morgenstern wurde 1974 geboren und ist als Synchronschauspieler und Sänger bekannt. Zu seinen deutschen Stimmen gehören u.a. Chris Hemsworth in Thor oder The Avengers, Ryan Gosling in The Nice Guys, Benedict Cumberbatch in der Serie Sherlock, oder Daryl Dixon in The Walking Dead. Seine Stimme ist auch in Computerspielen wie Assassins Creed Syndicate oder Dragon Age zu hören.",
+      "url": "https://artofvoices.de/sprecherinnen/tommy-morgenstern/"
+    },
+    {
+      "name": "Olaf Reichmann",
+      "gender": "M",
+      "photo": "/photos/olaf-reichmann.jpg",
+      "audio": "",
+      "known_for": "Nick Frost, Mathieu Amalric, Dany Boon, Stephen Graham, Jeffrey Wright",
+      "bio": "Olaf Reichmann ist seit 1998 Synchronsprecher. 2009 erhielt er für seine Synchronisation des Jean-Dominic Bauby (Mathieu Amalric) in Schmetterling und Taucherglocke den Deutschen Preis für Synchron. Er ist die deutsche Feststimme von Mathieu Amalric, Dany Boon und Nick Frost. Außerdem leiht er regelmäßig Stephen Graham, Jeffrey Wright, Garret Dillahunt und Rob Corddry seine Stimme.",
+      "url": "https://artofvoices.de/sprecherinnen/olaf-reichmann-4/"
+    },
+    {
+      "name": "Ricardo Richter",
+      "gender": "M",
+      "photo": "/photos/ricardo-richter.jpg",
+      "audio": "",
+      "known_for": "Die Tribute von Panem (Peeta)",
+      "bio": "Ricardo Richter verbrachte seine ersten 4 Lebensjahre in Peru. Zu sehen war er im Fernsehen bei Schloss Einstein. Akustisch vertreten ist er in Filmen wie Die Tribute von Panem als Peeta, 21 Jump Street oder Der Lorax, auch in diversen Serien wie CSI Miami, The Wire. Er leiht Charakteren im Hörbuch und Hörspielserien wie Die Playmos seine Stimme.",
+      "url": "https://artofvoices.de/sprecherinnen/ricardo-richter/"
+    },
+    {
+      "name": "Nico Sablik",
+      "gender": "M",
+      "photo": "/photos/nico-sablik.jpg",
+      "audio": "/audio/nico-sablik.mp3",
+      "known_for": "Daniel Radcliffe (Harry Potter), Star Trek (Captain Kirk)",
+      "bio": "Nico Sablik spricht den Harry Potter in den deutschen Versionen der gleichnamigen Zaubersaga im Kino. Ebenfalls ist er zu hören als neuer Captain Kirk in Star Trek. Oder in Filmen wie Drachenzähmen Leicht Gemacht, The Social Network, Hot Fuzz oder Fanboys. Auch in Serien wie Glee, Boardwalk Empire, Boston Legal, Bones, Grey's Anatomy oder The Mentalist. Er spricht Frankie Muniz, Chris Marquette oder Daniel Radcliffe.",
+      "url": "https://artofvoices.de/sprecherinnen/nico-sablik-2/"
+    },
+    {
+      "name": "Tim Sander",
+      "gender": "M",
+      "photo": "/photos/tim-sander.jpg",
+      "audio": "/audio/tim-sander.mp3",
+      "known_for": "Chihiros Reise ins Zauberland (Haku), GZSZ",
+      "bio": "Tim Sander hat beim TV-Publikum eine feste Fangemeinde: Von 1998 bis 2002 zählte er als Kai Scholl zum Hauptcast von Gute Zeiten, Schlechte Zeiten. Er kommt aus einer Schauspielerfamilie und synchronisierte bereits im Alter von sechs Jahren. Jetzt hört man seine Stimme in Filmen wie Runner Runner, Percy Jackson und Serien wie Navy CIS, Breaking Bad und Kung Fu Panda. Er lieh Haku in Chihiros Reise ins Zauberland seine Stimme.",
+      "url": "https://artofvoices.de/sprecherinnen/tim-sander/"
+    },
+    {
+      "name": "Dennis Schmidt-Foß",
+      "gender": "M",
+      "photo": "/photos/dennis-schmidt-foss.jpg",
+      "audio": "",
+      "known_for": "Ryan Reynolds, Eddie Murphy, Michael C. Hall (Dexter), Casey Affleck",
+      "bio": "Dennis Schmidt-Foß ist zur Zeit sicher einer der meistbeschäftigten Synchronsprecher in Deutschland, seine Liste mit Synchronauftritten ist weit über 500 Einträge lang. Kinofilme: Shrek Der Dritte, American Pie, xXx, Transformers, Spiderman 2, Zoolander, Butterfly Effect, John Rambo. Serien: Dexter, Navy CIS, The Closer, Grey's Anatomy, Boston Legal, Cold Case, Fringe. Schauspieler: Freddy Prince Jr., Eddie Murphy, Casey Affleck, Ryan Reynolds, Michael C. Hall.",
+      "url": "https://artofvoices.de/sprecherinnen/dennis-schmidt-foss-2-2/"
+    },
+    {
+      "name": "Roman Wolko",
+      "gender": "M",
+      "photo": "/photos/roman-wolko.jpg",
+      "audio": "",
+      "known_for": "Miles Teller, Nicholas Braun",
+      "bio": "Bereits als Kind entdeckte Roman Wolko seine Faszination am Schauspiel. Er ist Station Voice für Cartoon Network. Er ist in Filmen wie Harry Potter, Twilight, Die Bestimmung, Pitch Perfect, Chroniken der Unterwelt zu hören. Außerdem in Serien wie Mad Men, Game of Thrones, American Horror Story, Californication. Zu seinen Feststimmen gehören Miles Teller, Anders Holm, Nicholas Braun. Er ist außerdem Dialogbuchautor und Dialogregisseur.",
+      "url": "https://artofvoices.de/sprecherinnen/roman-wolko/"
+    }
+  ]
+}

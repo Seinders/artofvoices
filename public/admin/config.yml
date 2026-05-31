@@ -1,0 +1,99 @@
+# Decap CMS configuration for Art of Voices.
+# Docs: https://decapcms.org/docs/
+
+backend:
+  name: github
+  repo: Seinders/artofvoices
+  # IMPORTANT: this must match the branch Netlify deploys (your "production branch").
+  # We've been deploying claude/peaceful-ride. If you later make `main` the
+  # production branch, change this to main so CMS edits go live.
+  branch: claude/peaceful-ride
+
+# Direct publish (no pull-request workflow) — simplest for a single editor.
+# To require review before publishing instead, set: publish_mode: editorial_workflow
+
+# Fallback upload location (per-field overrides below send photos/audio to their
+# own folders). Paths are relative to the repo root.
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+locale: "de"
+
+collections:
+  - name: "roster"
+    label: "Roster"
+    files:
+      - name: "speakers"
+        label: "Sprecher / Sprecherinnen"
+        file: "src/data/speakers.json"
+        format: "json"
+        description: >
+          Fotos, Sprachproben und Biografien verwalten. Tipp: Auf eine Person
+          klicken zum Bearbeiten, oder per Drag & Drop die Reihenfolge ändern.
+          Änderungen werden nach „Veröffentlichen" automatisch live gestellt
+          (dauert ca. 1 Minute).
+        fields:
+          - name: "speakers"
+            label: "Personen"
+            label_singular: "Person"
+            widget: "list"
+            summary: "{{fields.name}}"
+            collapsed: true
+            fields:
+              - { name: "name", label: "Name", widget: "string" }
+              - {
+                  name: "gender",
+                  label: "Geschlecht",
+                  widget: "select",
+                  options:
+                    [
+                      { label: "Frau", value: "F" },
+                      { label: "Mann", value: "M" },
+                    ],
+                  default: "F",
+                }
+              - {
+                  name: "photo",
+                  label: "Foto",
+                  widget: "image",
+                  required: false,
+                  media_folder: "/public/photos",
+                  public_folder: "/photos",
+                  choose_url: false,
+                  hint: "Porträt im Hochformat (3:4). Ohne Foto wird automatisch eine Initiale angezeigt.",
+                }
+              - {
+                  name: "audio",
+                  label: "Sprachprobe",
+                  widget: "file",
+                  required: false,
+                  media_folder: "/public/audio",
+                  public_folder: "/audio",
+                  choose_url: false,
+                  hint: "MP3-Datei. Erscheint als Player auf der Karte.",
+                }
+              - {
+                  name: "known_for",
+                  label: "Bekannt für",
+                  widget: "string",
+                  required: false,
+                  hint: "z. B. Schauspieler oder Rollen, kommagetrennt.",
+                }
+              - {
+                  name: "bio",
+                  label: "Biografie",
+                  widget: "text",
+                  required: false,
+                }
+              - {
+                  name: "url",
+                  label: "Alte Profil-URL (intern)",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  name: "note",
+                  label: "Notiz (intern)",
+                  widget: "string",
+                  required: false,
+                }

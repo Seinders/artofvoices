@@ -6,7 +6,7 @@ export interface Speaker {
   url: string;
   photo: string;
   bio: string;
-  audios: string[];
+  audio: string;
   known_for: string;
   note?: string;
   synchronkarteiUrl: string;
@@ -55,13 +55,15 @@ const synchronkarteiUrls: Record<string, string> = {
   'Roman Wolko': 'https://www.synchronkartei.de/sprecher/2085/2',
 };
 
-const speakers: Speaker[] = (speakersJson as Omit<Speaker, 'synchronkarteiUrl' | 'slug'>[]).map(
-  (speaker) => ({
-    ...speaker,
-    synchronkarteiUrl: synchronkarteiUrls[speaker.name] ?? '',
-    slug: toSlug(speaker.name),
-  })
-);
+// speakers.json is shaped as { "speakers": [...] } so it can be edited via the
+// Decap CMS admin (a JSON file collection needs an object root, not a bare array).
+const speakerRecords = (speakersJson as { speakers: Omit<Speaker, 'synchronkarteiUrl' | 'slug'>[] }).speakers;
+
+const speakers: Speaker[] = speakerRecords.map((speaker) => ({
+  ...speaker,
+  synchronkarteiUrl: synchronkarteiUrls[speaker.name] ?? '',
+  slug: toSlug(speaker.name),
+}));
 
 export function getSpeakers(): Speaker[] {
   return speakers;
