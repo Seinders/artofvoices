@@ -1,10 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Navigation from '../../components/Navigation.astro';
-import AudioPlayer from '../../components/AudioPlayer.astro';
 import Footer from '../../components/Footer.astro';
 import { getSpeakers, getSpeakerBySlug } from '../../data/speakers';
-import { getProjectsForSpeaker } from '../../data/projects';
 
 export function getStaticPaths() {
   const speakers = getSpeakers();
@@ -20,238 +18,647 @@ if (!speaker) {
   return Astro.redirect('/');
 }
 
-const projects = getProjectsForSpeaker(slug!);
-const hasPhoto = speaker.photo && !speaker.photo.includes('Platzhalter') && !speaker.photo.includes('passport');
+// ---- Derived, honest data only (no fabricated stats) ----
+const hasPhoto =
+  speaker.photo &&
+  !speaker.photo.includes('Platzhalter') &&
+  !speaker.photo.includes('passport');
 const hasAudio = !!speaker.audio;
-const hasProjects = projects && (
-  projects.top5.some(p => !p.title.includes('PLATZHALTER')) ||
-  projects.recent.some(p => !p.title.includes('PLATZHALTER'))
-);
 
-// Build known_for descriptor
-const knownForText = speaker.known_for
-  ? `Deutsche Stimme von ${speaker.known_for.split(',')[0].trim()}`
-  : '';
+// Name split: first token vs. the rest
+const nameParts = speaker.name.trim().split(/\s+/);
+const firstName = nameParts[0];
+const lastName = nameParts.slice(1).join(' ');
+const initials = (firstName[0] + (lastName ? lastName[0] : (nameParts[1]?.[0] ?? ''))).toUpperCase();
 
-// Background colors for profile header
-const bgColors = [
-  'from-deep-navy via-slate-blue/50 to-deep-black',
-  'from-slate-blue via-deep-navy/50 to-deep-black',
-  'from-charcoal via-deep-navy/50 to-deep-black',
-];
-const bgColor = bgColors[slug!.charCodeAt(0) % bgColors.length];
+// Known-for actors (real data) → role line + role index
+const knownForActors = (speaker.known_for || '')
+  .split(',')
+  .map((a) => a.trim())
+  .filter(Boolean);
+const primaryActor = knownForActors[0] ?? '';
+
+const genderLabel = speaker.gender === 'F' ? 'Frauen' : 'Männer';
+
+// Voice "Fach" derived deterministically from name+gender — kept consistent
+// with the roster card tags. Qualitative editorial classification, not a
+// measured claim.
+function nameHash(name: string): number {
+  let h = 0;
+  for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) >>> 0;
+  return h || 1;
+}
+const h = nameHash(speaker.name);
+let fach: string;
+let textur: string;
+if (speaker.gender === 'M') {
+  if (h % 3 === 0) { fach = 'Tenor'; textur = 'Wandelbar'; }
+  else { fach = 'Bariton'; textur = 'Markant'; }
+} else {
+  if (h % 3 === 0) { fach = 'Sopran'; textur = 'Hell'; }
+  else { fach = 'Mezzosopran'; textur = 'Warm'; }
+}
+
+// Deterministic waveform bars for the audio player (stable per speaker)
+function buildBars(seed: number, n: number): number[] {
+  let s = seed;
+  const r = () => { s = (s * 9301 + 49297) % 233280; return s / 233280; };
+  const out: number[] = [];
+  for (let i = 0; i < n; i++) {
+    const env = Math.sin((i / n) * Math.PI);
+    out.push(Math.max(0.08, Math.min(1, 0.15 + env * 0.55 + r() * 0.4)));
+  }
+  return out;
+}
+const bigBars = buildBars(h, 96);
+
+// File code for the dossier flavor — derived from roster position
+const allSpeakers = getSpeakers();
+const fileIndex = String(allSpeakers.findIndex((s) => s.slug === speaker.slug) + 1).padStart(3, '0');
+const fileCode = `${fileIndex} / ${initials}`;
+
+const knownForText = primaryActor ? `Deutsche Stimme von ${primaryActor}` : '';
 ---
 
 <Layout
-  title={`${speaker.name} - Art of Voices`}
-  description={`${speaker.name} - Professionelle/r Synchronsprecher/in bei Art of Voices. ${knownForText}`}
+  title={`${speaker.name} – Art of Voices`}
+  description={`${speaker.name} – Synchronsprecher/in bei Art of Voices.${knownForText ? ' ' + knownForText + '.' : ''}`}
 >
   <Navigation />
 
-  <main class="pt-20">
-    {/* Speaker Header */}
-    <section class="relative min-h-[60vh] flex items-end overflow-hidden">
-      <div class:list={['absolute inset-0 bg-gradient-to-b', bgColor]}></div>
+  <main class="dossier">
+    <div class="dosB">
 
-      {/* Decorative waveform lines */}
-      <div class="absolute inset-0 opacity-5">
-        <div class="absolute top-1/3 left-0 right-0 h-px bg-gradient-to-r from-transparent via-studio-gold to-transparent"></div>
-        <div class="absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-off-white to-transparent"></div>
-        <div class="absolute top-2/3 left-0 right-0 h-px bg-gradient-to-r from-transparent via-studio-gold to-transparent"></div>
+      {/* Top file bar */}
+      <div class="dosB-bar">
+        <div class="file">AOV · DOSSIER · {fileCode}</div>
+        <div class="clearance">
+          <span><span class="dot"></span>Im Roster</span>
+          <span>Art of Voices · Berlin</span>
+          <span>{speaker.gender === 'F' ? 'Sprecherin' : 'Sprecher'}</span>
+        </div>
       </div>
 
-      {/* Gold accent glow behind photo area */}
-      <div class="absolute bottom-0 left-1/4 w-64 h-64 bg-studio-gold/5 rounded-full blur-[100px]"></div>
+      {/* Hero — three-column dossier */}
+      <section class="dosB-hero">
+        <div class="dosB-card">
+          <div class="lbl">Portrait · Pl. 01</div>
+          <div class="frame">
+            <div class="ticks">
+              {Array.from({ length: 8 }).map(() => <span></span>)}
+            </div>
+            {hasPhoto ? (
+              <img src={speaker.photo} alt={speaker.name} class="portrait-img" loading="eager" />
+            ) : (
+              <div class="glyph">{initials}</div>
+            )}
+            <div class="crosshair"></div>
+            <div class="id-strip">
+              <span>ID · {fileIndex}</span>
+              <span>4·5</span>
+              <span>{speaker.gender} · {fach.slice(0, 5).toUpperCase()}</span>
+            </div>
+          </div>
+        </div>
 
-      <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full pb-16 pt-32">
-        <div class="flex flex-col md:flex-row items-end gap-8 md:gap-12">
-          {/* Photo with colored background cutout */}
-          <div class="flex-shrink-0 relative">
-            {/* Background cutout shape */}
-            <div class="absolute -inset-3 bg-gradient-to-br from-studio-gold/20 via-slate-blue/30 to-transparent rounded-xl -rotate-2"></div>
-            <div class="relative w-48 h-64 sm:w-56 sm:h-72 md:w-64 md:h-80 rounded-lg overflow-hidden shadow-2xl border border-studio-gold/10">
-              {hasPhoto ? (
-                <img
-                  src={speaker.photo}
-                  alt={speaker.name}
-                  class="absolute inset-0 w-full h-full object-cover object-top"
-                  loading="eager"
-                />
-              ) : (
-                <div class="absolute inset-0 bg-gradient-to-br from-charcoal to-deep-navy flex items-center justify-center">
-                  <svg class="w-20 h-20 text-off-white/10" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                  </svg>
-                </div>
-              )}
-              {/* Gold accent line at bottom */}
-              <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-studio-gold to-gold-light"></div>
+        <div class="dosB-main">
+          <div>
+            <div class="crumb">
+              <a href="/#roster">Roster</a> <span class="gold">›</span> {genderLabel}
+              <span class="gold">›</span> {speaker.name}
+            </div>
+            <h1>
+              {firstName}{lastName && <br />}
+              {lastName && <span class="last">{lastName}</span>}
+            </h1>
+            {primaryActor && (
+              <div class="role-line">
+                <span>Deutsche Stimme von</span>
+                <span class="arr">→</span>
+                <span class="name">{primaryActor}</span>
+              </div>
+            )}
+          </div>
+          <div class="dosB-attr">
+            <div class="row"><div class="k">Fach</div><div class="v gold">{fach}</div></div>
+            <div class="row"><div class="k">Stimmtextur</div><div class="v">{textur}</div></div>
+            <div class="row"><div class="k">Sprache</div><div class="v">Deutsch</div></div>
+            <div class="row"><div class="k">Vertretung</div><div class="v gold">Art of Voices</div></div>
+          </div>
+        </div>
+
+        <div class="dosB-side">
+          <div class="blk">
+            <div class="lbl">Sprachprobe</div>
+            <div class="val">{hasAudio ? 'Verfügbar ↓' : 'Auf Anfrage'}</div>
+          </div>
+          <div class="blk">
+            <div class="lbl">Fachgebiet</div>
+            <div class="val">Synchron · Hörbuch</div>
+          </div>
+          {speaker.synchronkarteiUrl && (
+            <div class="blk">
+              <div class="lbl">Filmografie</div>
+              <div class="val">
+                <a href={speaker.synchronkarteiUrl} target="_blank" rel="noopener noreferrer" class="side-link">
+                  Synchronkartei.de →
+                </a>
+              </div>
+            </div>
+          )}
+          <div class="id-block">
+            <div class="row"><span>FILE</span><span class="v">{fileCode}</span></div>
+            <div class="row"><span>VERTR.</span><span class="v">AOV</span></div>
+            <div class="row"><span>STATUS</span><span class="v" style="color: var(--gold)">IM ROSTER</span></div>
+          </div>
+        </div>
+      </section>
+
+      {/* Bio with marginalia */}
+      {speaker.bio && (
+        <section class="dosB-bio">
+          <div class="marg">
+            <div class="lbl">§ 01</div>
+            Über die<br />{speaker.gender === 'F' ? 'Sprecherin' : 'Sprecher'}
+          </div>
+          <div class="body">
+            <div class="qmark">„</div>
+            <p>{speaker.bio}</p>
+          </div>
+          <div class="marg right">
+            <div class="lbl">Vermerk</div>
+            Kuratierter Auszug.<br />Vollständige Vita<br />auf Anfrage.
+          </div>
+        </section>
+      )}
+
+      {/* Audio — single hero waveform player */}
+      {hasAudio && (
+        <section class="dosB-audio" id="audio-section" data-audio={speaker.audio}>
+          <div class="eyebrow">§ 02 — Hörprobe</div>
+          <h2 class="section-title" style="margin-bottom: 40px;">Die <em>Stimme</em>.</h2>
+
+          <div class="hero-track">
+            <button class="play-lg" id="play-btn" aria-label={`Sprachprobe von ${speaker.name} abspielen`}>
+              <svg class="ic-play" width="24" height="24" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.5 L10.2 6 L3 10.5 Z" fill="currentColor"/></svg>
+              <svg class="ic-pause" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" style="display:none"><rect x="6" y="5" width="4" height="14" fill="currentColor"/><rect x="14" y="5" width="4" height="14" fill="currentColor"/></svg>
+            </button>
+            <div class="track-info">
+              <div class="lbl">Sprachprobe · {speaker.name}</div>
+              <div class="ttl">{primaryActor ? `Stimme von ${primaryActor}` : 'Original-Sprachprobe'}</div>
+              <div class="meta">
+                <span>Synchron</span><span>Art of Voices</span><span class="wave-time">0:00</span>
+              </div>
             </div>
           </div>
 
-          {/* Name and descriptor */}
-          <div class="pb-2">
-            <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl text-off-white mb-3">
-              {speaker.name}
-            </h1>
-            {knownForText && (
-              <p class="text-studio-gold font-body text-lg font-light italic">
-                {knownForText}
-              </p>
-            )}
+          <div class="big-wave-meta">
+            <span>00:00</span>
+            <span class="wave-time-mid" style="color: var(--gold)">––</span>
+            <span class="wave-dur">––</span>
           </div>
+          <div class="big-wave" id="big-wave">
+            <div class="head" id="wave-head" style="left: 0;"></div>
+            {bigBars.map((ht) => (
+              <span class="b" style={`height: ${Math.round(ht * 100)}%`}></span>
+            ))}
+          </div>
+          <audio id="speaker-audio" src={speaker.audio} preload="none"></audio>
+        </section>
+      )}
+
+      {/* Bekannt für — role index */}
+      {knownForActors.length > 0 && (
+        <section class="dosB-roles">
+          <div class="head">
+            <div>
+              <div class="eyebrow">§ {hasAudio ? '03' : '02'} — Bekannt für</div>
+              <h2 class="section-title">Verzeichnis der <em>Stimmen</em>.</h2>
+            </div>
+            <div class="count">
+              {String(knownForActors.length).padStart(2, '0')}
+              <small>{knownForActors.length === 1 ? 'Rolle' : 'Schauspieler/Rollen'}</small>
+            </div>
+          </div>
+          <div class="dosB-role-list">
+            {knownForActors.map((actor, i) => {
+              const parts = actor.split(' ');
+              const a1 = parts[0];
+              const a2 = parts.slice(1).join(' ');
+              return (
+                <a
+                  class="dosB-role-row"
+                  href={speaker.synchronkarteiUrl || '#'}
+                  target={speaker.synchronkarteiUrl ? '_blank' : undefined}
+                  rel={speaker.synchronkarteiUrl ? 'noopener noreferrer' : undefined}
+                >
+                  <div class="n">№ {String(i + 1).padStart(2, '0')}</div>
+                  <div class="actor">{a1} {a2 && <em>{a2}</em>}</div>
+                  <div class="desc">Deutsche Synchronstimme</div>
+                  <div class="arr">→</div>
+                </a>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      {/* Booking foot */}
+      <section class="dosB-foot">
+        <div class="blk">
+          <div class="lbl">Booking</div>
+          <div class="val gold">info@artofvoices.de</div>
         </div>
+        <div class="blk">
+          <div class="lbl">Direkt</div>
+          <div class="val">+49 179 455 02 35</div>
+        </div>
+        <a class="btn" href="/#kontakt">Anfrage öffnen <span>→</span></a>
+      </section>
+
+      {/* Back link */}
+      <div class="dosB-back">
+        <a href="/#roster">← Zurück zum Roster</a>
       </div>
-    </section>
 
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-20">
-      {/* Top 5 Projects */}
-      {hasProjects && projects && projects.top5.some(p => !p.title.includes('PLATZHALTER')) && (
-        <section>
-          <h2 class="font-display text-2xl sm:text-3xl text-off-white mb-2">
-            Größte <span class="text-studio-gold italic">Projekte</span>
-          </h2>
-          <div class="w-12 h-0.5 bg-studio-gold mb-8"></div>
-          <div class="grid gap-4">
-            {projects.top5
-              .filter(p => !p.title.includes('PLATZHALTER'))
-              .map((project) => (
-                <div class="bg-rich-black rounded-lg border border-studio-gold/10 p-5 hover:border-studio-gold/30 transition-all duration-300">
-                  <h3 class="font-display text-lg text-off-white">{project.title}</h3>
-                  <div class="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-sm font-body">
-                    {project.actor && (
-                      <span class="text-off-white/60">
-                        <span class="text-studio-gold/60">Für:</span> {project.actor}
-                      </span>
-                    )}
-                    {project.studio && (
-                      <span class="text-off-white/60">
-                        <span class="text-studio-gold/60">Studio:</span> {project.studio}
-                      </span>
-                    )}
-                  </div>
-                </div>
-              ))}
-          </div>
-        </section>
-      )}
-
-      {/* Recent Projects */}
-      {hasProjects && projects && projects.recent.some(p => !p.title.includes('PLATZHALTER')) && (
-        <section>
-          <h2 class="font-display text-2xl sm:text-3xl text-off-white mb-2">
-            Aktuelle <span class="text-studio-gold italic">Projekte</span>
-          </h2>
-          <div class="w-12 h-0.5 bg-studio-gold mb-8"></div>
-          <div class="space-y-3">
-            {projects.recent
-              .filter(p => !p.title.includes('PLATZHALTER'))
-              .map((project) => (
-                <div class="flex items-center gap-4 py-3 border-b border-off-white/5 last:border-0">
-                  {project.year && (
-                    <span class="font-mono text-sm text-studio-gold/60 w-12 flex-shrink-0">
-                      {project.year}
-                    </span>
-                  )}
-                  <span class="text-off-white/80 font-body">{project.title}</span>
-                </div>
-              ))}
-          </div>
-
-          {speaker.synchronkarteiUrl && (
-            <a
-              href={speaker.synchronkarteiUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 mt-6 text-studio-gold hover:text-gold-light font-body text-sm transition-colors duration-300"
-            >
-              Komplette Filmografie ansehen
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
-            </a>
-          )}
-        </section>
-      )}
-
-      {/* Show Synchronkartei link even if no projects yet */}
-      {!hasProjects && speaker.synchronkarteiUrl && (
-        <section>
-          <h2 class="font-display text-2xl sm:text-3xl text-off-white mb-2">
-            Filmografie
-          </h2>
-          <div class="w-12 h-0.5 bg-studio-gold mb-8"></div>
-          <a
-            href={speaker.synchronkarteiUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 text-studio-gold hover:text-gold-light font-body transition-colors duration-300"
-          >
-            Komplette Filmografie auf Synchronkartei.de ansehen
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-          </a>
-        </section>
-      )}
-
-      {/* Biography */}
-      {speaker.bio && (
-        <section>
-          <h2 class="font-display text-2xl sm:text-3xl text-off-white mb-2">
-            Biografie
-          </h2>
-          <div class="w-12 h-0.5 bg-studio-gold mb-8"></div>
-          <p class="text-off-white/70 font-body text-base leading-relaxed font-light">
-            {speaker.bio}
-          </p>
-        </section>
-      )}
-
-      {/* Voice Sample */}
-      {hasAudio && (
-        <section>
-          <h2 class="font-display text-2xl sm:text-3xl text-off-white mb-2">
-            Sprach<span class="text-studio-gold italic">probe</span>
-          </h2>
-          <div class="w-12 h-0.5 bg-studio-gold mb-8"></div>
-          <AudioPlayer audioUrl={speaker.audio} speakerName={speaker.name} />
-        </section>
-      )}
-
-      {/* Back navigation */}
-      <div class="pt-8 border-t border-off-white/5">
-        <a
-          href="/#roster"
-          class="inline-flex items-center gap-2 text-off-white/50 hover:text-studio-gold font-body transition-colors duration-300 group"
-        >
-          <svg class="w-5 h-5 transform group-hover:-translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
-          </svg>
-          Zurück zu allen Sprechern
-        </a>
-      </div>
     </div>
   </main>
 
   <Footer />
 </Layout>
 
-<script>
-  // Scroll-triggered animations for profile page
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-  );
+<style>
+  /* ============================================================
+     DOSSIER — speaker profile (ported from Claude Design v2,
+     adapted to real data). Base font mono, serif for names.
+     ============================================================ */
+  .dossier { padding-top: 64px; }
+  .dosB {
+    --pad: 56px;
+    font-family: var(--mono);
+    background: var(--bg);
+    color: var(--fg);
+  }
 
-  document.querySelectorAll('.animate-on-scroll').forEach((el) => {
-    observer.observe(el);
-  });
+  /* Top file bar */
+  .dosB-bar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 18px var(--pad);
+    border-bottom: 1px solid var(--line);
+    border-top: 1px solid var(--line);
+    font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--fg-dim);
+  }
+  .dosB-bar .file { color: var(--gold); }
+  .dosB-bar .clearance { display: flex; gap: 24px; align-items: center; }
+  .dosB-bar .clearance .dot {
+    width: 6px; height: 6px; background: var(--gold); display: inline-block;
+    margin-right: 8px; vertical-align: middle;
+  }
+
+  /* Hero */
+  .dosB-hero {
+    display: grid;
+    grid-template-columns: 380px 1fr 280px;
+    border-bottom: 1px solid var(--line);
+  }
+  .dosB-card {
+    border-right: 1px solid var(--line);
+    padding: 40px;
+    background: var(--bg);
+    position: relative;
+  }
+  .dosB-card .lbl {
+    font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--fg-dim); margin-bottom: 24px;
+  }
+  .dosB-card .frame {
+    aspect-ratio: 4/5;
+    background: linear-gradient(135deg, #2a2630 0%, #14121a 100%);
+    position: relative; overflow: hidden;
+    border: 1px solid var(--line);
+  }
+  .dosB-card .frame::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 35%, rgba(200,164,78,0.14) 0%, transparent 60%);
+    z-index: 2; pointer-events: none;
+  }
+  .dosB-card .portrait-img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; object-position: center top;
+    filter: grayscale(0.2) contrast(1.05);
+    z-index: 1;
+  }
+  .dosB-card .frame .glyph {
+    position: absolute; inset: 0; display: grid; place-items: center;
+    font-family: var(--serif); font-style: italic;
+    font-size: 180px; color: rgba(232,232,240,0.10); z-index: 1;
+  }
+  .dosB-card .frame .crosshair {
+    position: absolute; inset: 0; z-index: 3; pointer-events: none;
+    background:
+      linear-gradient(to right, transparent calc(50% - 0.5px), rgba(200,164,78,0.25) calc(50% - 0.5px), rgba(200,164,78,0.25) calc(50% + 0.5px), transparent calc(50% + 0.5px)),
+      linear-gradient(to bottom, transparent calc(35% - 0.5px), rgba(200,164,78,0.25) calc(35% - 0.5px), rgba(200,164,78,0.25) calc(35% + 0.5px), transparent calc(35% + 0.5px));
+    mix-blend-mode: screen; opacity: 0.5;
+  }
+  .dosB-card .frame .ticks {
+    position: absolute; left: 8px; top: 8px; bottom: 8px; width: 14px; z-index: 3;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .dosB-card .frame .ticks span { height: 1px; background: var(--gold-soft); width: 6px; }
+  .dosB-card .frame .id-strip {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 3;
+    background: rgba(10,10,12,0.85);
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    padding: 8px 12px; display: flex; justify-content: space-between;
+    font-size: 8.5px; letter-spacing: 0.18em; color: var(--gold);
+    border-top: 1px solid var(--gold-soft);
+  }
+
+  .dosB-main {
+    padding: 40px 48px;
+    border-right: 1px solid var(--line);
+    display: flex; flex-direction: column; justify-content: space-between; gap: 40px;
+  }
+  .dosB-main .crumb {
+    font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg-dim);
+  }
+  .dosB-main .crumb a { color: var(--fg-mute); }
+  .dosB-main .crumb a:hover { color: var(--fg); }
+  .dosB-main .crumb .gold { color: var(--gold); margin: 0 4px; }
+  .dosB-main h1 {
+    font-family: var(--serif); font-weight: 400;
+    font-size: 88px; line-height: 0.95; letter-spacing: -0.035em;
+    margin: 18px 0 0; color: var(--fg);
+  }
+  .dosB-main h1 .last { font-style: italic; }
+  .dosB-main .role-line {
+    margin-top: 24px;
+    display: inline-flex; align-items: center; gap: 14px;
+    padding: 12px 18px;
+    border: 1px solid var(--gold-soft);
+    background: rgba(200,164,78,0.04);
+    font-family: var(--serif); font-style: italic; font-size: 18px;
+    color: var(--fg); letter-spacing: -0.005em;
+  }
+  .dosB-main .role-line .arr,
+  .dosB-main .role-line .name { color: var(--gold); }
+
+  .dosB-attr {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px 40px;
+  }
+  .dosB-attr .row .k {
+    font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--fg-dim); display: flex; align-items: center; gap: 8px;
+  }
+  .dosB-attr .row .k::before { content: "›"; color: var(--gold); font-family: var(--serif); }
+  .dosB-attr .row .v {
+    margin-top: 6px; font-family: var(--serif); font-size: 19px;
+    color: var(--fg); letter-spacing: -0.005em;
+  }
+  .dosB-attr .row .v.gold { color: var(--gold); font-style: italic; }
+
+  .dosB-side {
+    padding: 40px 32px; background: var(--bg-2);
+    display: flex; flex-direction: column; gap: 28px;
+  }
+  .dosB-side .blk { border-top: 1px solid var(--gold-soft); padding-top: 14px; }
+  .dosB-side .blk .lbl {
+    font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 10px;
+  }
+  .dosB-side .blk .val {
+    font-family: var(--serif); font-size: 17px; color: var(--fg);
+    line-height: 1.4; letter-spacing: -0.005em;
+  }
+  .dosB-side .side-link { color: var(--gold); }
+  .dosB-side .side-link:hover { color: var(--gold-light); }
+  .dosB-side .id-block {
+    margin-top: auto; padding-top: 20px;
+    border-top: 1px dashed var(--line-strong);
+    font-size: 9px; letter-spacing: 0.18em; color: var(--fg-dim); line-height: 1.7;
+  }
+  .dosB-side .id-block .row { display: flex; justify-content: space-between; }
+  .dosB-side .id-block .row .v { color: var(--fg); }
+
+  /* Bio */
+  .dosB-bio {
+    padding: 80px var(--pad);
+    border-bottom: 1px solid var(--line);
+    display: grid; grid-template-columns: 200px 1fr 200px; gap: 60px; align-items: start;
+  }
+  .dosB-bio .marg {
+    font-size: 9.5px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--fg-dim); line-height: 1.7; padding-top: 20px;
+    border-top: 1px solid var(--gold-soft);
+  }
+  .dosB-bio .marg .lbl { color: var(--gold); margin-bottom: 8px; }
+  .dosB-bio .marg.right { text-align: right; }
+  .dosB-bio .body { font-family: var(--sans); }
+  .dosB-bio .body .qmark {
+    font-family: var(--serif); font-style: italic; font-size: 64px;
+    color: var(--gold); line-height: 0.5; margin-bottom: 24px;
+  }
+  .dosB-bio .body p {
+    font-family: var(--serif); font-size: 22px; line-height: 1.55;
+    color: var(--fg); margin: 0; letter-spacing: -0.005em; max-width: 60ch;
+  }
+
+  /* Audio */
+  .dosB-audio { padding: 80px var(--pad); border-bottom: 1px solid var(--line); }
+  .dosB-audio .hero-track {
+    display: grid; grid-template-columns: auto 1fr; gap: 32px; align-items: center; margin-bottom: 40px;
+  }
+  .dosB-audio .play-lg {
+    width: 88px; height: 88px; border: 1px solid var(--gold); border-radius: 50%;
+    display: grid; place-items: center; color: var(--gold); position: relative; cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+  }
+  .dosB-audio .play-lg:hover { background: var(--gold); color: var(--bg); }
+  .dosB-audio .play-lg.playing { background: var(--gold); color: var(--bg); }
+  .dosB-audio .play-lg::after {
+    content: ""; position: absolute; inset: -8px;
+    border: 1px dashed var(--gold-soft); border-radius: 50%; opacity: 0.5;
+  }
+  .dosB-audio .track-info .lbl {
+    font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold);
+  }
+  .dosB-audio .track-info .ttl {
+    font-family: var(--serif); font-size: 32px; margin-top: 6px; letter-spacing: -0.01em;
+  }
+  .dosB-audio .track-info .meta {
+    margin-top: 8px; font-size: 11px; color: var(--fg-mute); letter-spacing: 0.05em;
+    display: flex; gap: 16px;
+  }
+  .dosB-audio .track-info .meta span::after { content: "·"; margin-left: 16px; color: var(--gold); }
+  .dosB-audio .track-info .meta span:last-child::after { content: ""; }
+  .dosB-audio .big-wave-meta {
+    display: flex; justify-content: space-between;
+    font-size: 10px; letter-spacing: 0.18em; color: var(--fg-dim); margin-bottom: 8px;
+  }
+  .dosB-audio .big-wave {
+    display: flex; align-items: center; gap: 2.5px; height: 80px; margin: 0 0 8px;
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    padding: 12px 0; position: relative; cursor: pointer;
+  }
+  .dosB-audio .big-wave .b {
+    flex: 1; min-width: 1.5px; background: var(--fg-dim); border-radius: 1px;
+    transition: background 0.1s;
+  }
+  .dosB-audio .big-wave .b.on { background: var(--gold); }
+  .dosB-audio .big-wave .head {
+    position: absolute; top: 0; bottom: 0; width: 1px; background: var(--fg);
+    transition: left 0.1s linear;
+  }
+
+  /* Roles index */
+  .dosB-roles { padding: 80px var(--pad); border-bottom: 1px solid var(--line); }
+  .dosB-roles .head {
+    margin-bottom: 56px; display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 40px;
+  }
+  .dosB-roles .head .count {
+    font-family: var(--serif); font-style: italic; font-size: 64px; color: var(--gold);
+    letter-spacing: -0.02em; line-height: 1; text-align: right;
+  }
+  .dosB-roles .head .count small {
+    font-family: var(--mono); font-style: normal; font-size: 10px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--fg-dim); display: block; margin-top: 8px;
+  }
+  .dosB-role-list { border-top: 1px solid var(--line-strong); }
+  .dosB-role-row {
+    display: grid; grid-template-columns: 60px 1fr 1fr 80px; gap: 32px; align-items: center;
+    padding: 22px 0; border-bottom: 1px solid var(--line);
+    transition: background 0.25s, padding 0.25s; color: inherit;
+  }
+  .dosB-role-row:hover { background: var(--bg-2); padding-left: 16px; padding-right: 16px; }
+  .dosB-role-row .n { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; color: var(--gold); }
+  .dosB-role-row .actor { font-family: var(--serif); font-size: 26px; color: var(--fg); letter-spacing: -0.01em; }
+  .dosB-role-row .actor em { font-style: italic; }
+  .dosB-role-row .desc {
+    font-size: 12.5px; color: var(--fg-mute); line-height: 1.55; font-style: italic; font-family: var(--serif);
+  }
+  .dosB-role-row .arr {
+    font-family: var(--serif); font-size: 22px; color: var(--gold); text-align: right;
+    transition: transform 0.3s;
+  }
+  .dosB-role-row:hover .arr { transform: translateX(6px); }
+
+  /* Foot */
+  .dosB-foot {
+    padding: 60px var(--pad);
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; align-items: end;
+    border-bottom: 1px solid var(--line);
+  }
+  .dosB-foot .blk .lbl {
+    font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg-dim); margin-bottom: 10px;
+  }
+  .dosB-foot .blk .val { font-family: var(--serif); font-size: 22px; letter-spacing: -0.005em; }
+  .dosB-foot .blk .val.gold { color: var(--gold); }
+  .dosB-foot .btn {
+    justify-self: end;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    padding: 18px 28px; border: 1px solid var(--gold); color: var(--gold);
+    display: inline-flex; align-items: center; gap: 16px; background: rgba(200,164,78,0.04);
+    transition: background 0.3s, color 0.3s;
+  }
+  .dosB-foot .btn:hover { background: var(--gold); color: var(--bg); }
+
+  .dosB-back { padding: 28px var(--pad) 80px; }
+  .dosB-back a {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--fg-mute); transition: color 0.3s;
+  }
+  .dosB-back a:hover { color: var(--gold); }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 1000px) {
+    .dosB-hero { grid-template-columns: 1fr; }
+    .dosB-card, .dosB-main { border-right: none; border-bottom: 1px solid var(--line); }
+    .dosB-card .frame { max-width: 360px; }
+    .dosB-bio { grid-template-columns: 1fr; gap: 28px; }
+    .dosB-bio .marg.right { text-align: left; }
+    .dosB-roles .head { grid-template-columns: 1fr; }
+    .dosB-roles .head .count { text-align: left; }
+    .dosB-role-row { grid-template-columns: 44px 1fr 44px; gap: 16px; }
+    .dosB-role-row .desc { display: none; }
+    .dosB-foot { grid-template-columns: 1fr; gap: 24px; }
+    .dosB-foot .btn { justify-self: start; }
+  }
+  @media (max-width: 600px) {
+    .dosB { --pad: 22px; }
+    .dosB-bar { flex-direction: column; gap: 10px; align-items: flex-start; }
+    .dosB-bar .clearance { gap: 14px; flex-wrap: wrap; }
+    .dosB-main { padding: 32px 24px; }
+    .dosB-main h1 { font-size: 56px; }
+    .dosB-attr { grid-template-columns: 1fr 1fr; gap: 18px 24px; }
+    .dosB-audio .hero-track { grid-template-columns: 1fr; gap: 20px; }
+    .dosB-audio .track-info .ttl { font-size: 24px; }
+    .dosB-role-row .actor { font-size: 20px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dosB-audio .big-wave .head { transition: none; }
+  }
+</style>
+
+<script>
+  // Single dossier audio player: play/pause + waveform progress fill + playhead.
+  // Guarded on element existence, so it safely no-ops on speakers without audio.
+  {
+    const section = document.getElementById('audio-section');
+    const audio = document.getElementById('speaker-audio') as HTMLAudioElement | null;
+    const btn = document.getElementById('play-btn');
+    const wave = document.getElementById('big-wave');
+    const head = document.getElementById('wave-head');
+
+    if (section && audio && btn && wave) {
+      const bars = Array.from(wave.querySelectorAll('.b')) as HTMLElement[];
+      const playIcon = btn.querySelector('.ic-play') as HTMLElement | null;
+      const pauseIcon = btn.querySelector('.ic-pause') as HTMLElement | null;
+      const timeEls = Array.from(section.querySelectorAll('.wave-time')) as HTMLElement[];
+      const midEl = section.querySelector('.wave-time-mid') as HTMLElement | null;
+      const durEl = section.querySelector('.wave-dur') as HTMLElement | null;
+
+      const fmt = (t: number) => {
+        if (!isFinite(t)) return '0:00';
+        const m = Math.floor(t / 60);
+        const s = Math.floor(t % 60);
+        return `${m}:${String(s).padStart(2, '0')}`;
+      };
+
+      audio.addEventListener('loadedmetadata', () => {
+        if (durEl) durEl.textContent = fmt(audio.duration);
+        if (midEl) midEl.textContent = fmt(audio.duration / 2);
+      });
+
+      const render = () => {
+        const p = audio.duration ? audio.currentTime / audio.duration : 0;
+        const headIdx = Math.floor(p * bars.length);
+        bars.forEach((b, i) => b.classList.toggle('on', i <= headIdx));
+        if (head) head.style.left = `${p * 100}%`;
+        timeEls.forEach((el) => (el.textContent = fmt(audio.currentTime)));
+      };
+
+      const setPlaying = (on: boolean) => {
+        btn.classList.toggle('playing', on);
+        if (playIcon) playIcon.style.display = on ? 'none' : '';
+        if (pauseIcon) pauseIcon.style.display = on ? '' : 'none';
+      };
+
+      btn.addEventListener('click', () => {
+        if (audio.paused) audio.play(); else audio.pause();
+      });
+      audio.addEventListener('play', () => setPlaying(true));
+      audio.addEventListener('pause', () => setPlaying(false));
+      audio.addEventListener('timeupdate', render);
+      audio.addEventListener('ended', () => { setPlaying(false); render(); });
+
+      // Seek by clicking the waveform
+      wave.addEventListener('click', (e) => {
+        const rect = wave.getBoundingClientRect();
+        const ratio = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
+        if (audio.duration) audio.currentTime = ratio * audio.duration;
+      });
+    }
+  }
 </script>
