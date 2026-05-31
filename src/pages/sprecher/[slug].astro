@@ -78,6 +78,22 @@ const fileIndex = String(allSpeakers.findIndex((s) => s.slug === speaker.slug) +
 const fileCode = `${fileIndex} / ${initials}`;
 
 const knownForText = primaryActor ? `Deutsche Stimme von ${primaryActor}` : '';
+
+// Render the bio: split on blank lines into paragraphs, and highlight titles
+// written in German „…" quotes (movies / series / games) as gold italics.
+// Plain-text bios without blank lines or quotes still render fine (one block).
+function escapeHtml(s: string): string {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+function highlightTitles(s: string): string {
+  return s.replace(/„([^“„]+)“/g, '<em class="film">„$1“</em>');
+}
+const bioHtml = (speaker.bio || '')
+  .split(/\n\s*\n/)
+  .map((p) => p.trim())
+  .filter(Boolean)
+  .map((p) => `<p>${highlightTitles(escapeHtml(p))}</p>`)
+  .join('');
 ---
 
 <Layout
@@ -183,7 +199,7 @@ const knownForText = primaryActor ? `Deutsche Stimme von ${primaryActor}` : '';
           </div>
           <div class="body">
             <div class="qmark">„</div>
-            <p>{speaker.bio}</p>
+            <Fragment set:html={bioHtml} />
           </div>
           <div class="marg right">
             <div class="lbl">Vermerk</div>
@@ -459,10 +475,18 @@ const knownForText = primaryActor ? `Deutsche Stimme von ${primaryActor}` : '';
     font-family: var(--serif); font-style: italic; font-size: 64px;
     color: var(--gold); line-height: 0.5; margin-bottom: 24px;
   }
+  /* First paragraph = serif lead; following paragraphs = readable sans body */
   .dosB-bio .body p {
     font-family: var(--serif); font-size: 22px; line-height: 1.55;
-    color: var(--fg); margin: 0; letter-spacing: -0.005em; max-width: 60ch;
+    color: var(--fg); margin: 0 0 1em; letter-spacing: -0.005em; max-width: 62ch;
   }
+  .dosB-bio .body p + p {
+    font-family: var(--sans); font-size: 16px; line-height: 1.85;
+    color: var(--fg-mute); margin-bottom: 1.1em;
+  }
+  .dosB-bio .body p:last-child { margin-bottom: 0; }
+  /* Highlighted movie / series / game titles */
+  .dosB-bio .body .film { font-style: italic; color: var(--gold); }
 
   /* Audio */
   .dosB-audio { padding: 80px var(--pad); border-bottom: 1px solid var(--line); }
