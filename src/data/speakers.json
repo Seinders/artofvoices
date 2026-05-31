@@ -19,7 +19,11 @@
       "url": "https://artofvoices.de/sprecherinnen/mia-diekow/"
     },
     {
+<<<<<<< HEAD
       "name": "Maximiliane Häcke",
+=======
+      "name": "Maximiliane Häcke ",
+>>>>>>> 39bb442edd4b007d673cab5a05d06d2cdea9dd2e
       "gender": "F",
       "photo": "/photos/maximiliane-haecke.jpg",
       "audio": "/audio/maximiliane-haecke.mp3",
