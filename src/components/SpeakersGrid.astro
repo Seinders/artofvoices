@@ -90,13 +90,12 @@ const counts = {
   bright: cards.filter((c) => c.color === 'bright').length,
 };
 
+// Voice-pitch filters (Tief/Mittel/Hell) are off for now — the speakers are
+// too flexible to pin to one category. Re-add entries here to bring them back.
 const filters = [
   { id: 'all', label: 'Alle', count: counts.all },
   { id: 'Frauen', label: 'Frauen', count: counts.Frauen },
   { id: 'Männer', label: 'Männer', count: counts.Männer },
-  { id: 'deep', label: 'Tief', count: counts.deep },
-  { id: 'amber', label: 'Mittel', count: counts.amber },
-  { id: 'bright', label: 'Hell', count: counts.bright },
 ];
 ---
 

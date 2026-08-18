@@ -1,33 +1,35 @@
 ---
 // References — clients grouped into tiers, with a scrolling ticker of the long tail.
 //
-// Section visibility flags — flip to true to show these tiers again.
-const showHighlightStudios = false; // "Highlight Studios" block (was Tier 01)
-const showStreaming = false; // "Streaming" block (was Tier 03)
+// Section visibility flags — flip to false to hide a group again.
+const showHighlightStudios = true;
+const showStreaming = true;
 
-// Highlight Studios — kept for easy re-enable via the flag above.
+// Highlight Studios
 const highlightStudios = [
   { name: 'FFS GmbH', city: 'Berlin · München' },
+  { name: 'Eva Studios', city: '' },
   { name: 'Interopa Film GmbH', city: 'Berlin' },
-  { name: 'Arena Film Synchron GmbH', city: 'Hamburg' },
-  { name: 'Eva Studios', city: 'Berlin' },
+  { name: 'Iyuno', city: 'Berlin · München' },
+  { name: 'Dubbing Brothers', city: '' },
 ];
 
-// Major Studios — the currently visible tier.
+// Major Studios
 const majorStudios = [
-  { name: 'Iyuno', city: 'Berlin · München' },
+  { name: 'Arena Film Synchron', city: '' },
   { name: 'VSI', city: '' },
   { name: 'Cinephon', city: '' },
   { name: 'Studio Hamburg', city: 'Berlin · Hamburg' },
+  { name: 'EuroSync', city: '' },
   { name: 'Splendid Synchron', city: 'Berlin · Köln' },
 ];
 
-// Streaming platforms (named, not branded) — kept for easy re-enable.
+// Streaming platforms (named, not branded)
 const streamers = [
   { name: 'Netflix' },
-  { name: 'Paramount' },
   { name: 'Apple TV' },
-  { name: 'HBO' },
+  { name: 'Paramount' },
+  { name: 'Sky' },
 ];
 
 // Ticker — the long tail of clients from artofvoices.de/referenzen/, plus the
@@ -48,7 +50,6 @@ const ticker = [
   'Deutschland Radio',
   'DMT Hamburg',
   'Dreiklang Düsseldorf',
-  'EuroSync GmbH',
   'Fährhauston Hamburg',
   'Fundamental Studios Frankfurt',
   'G & G Studios',
@@ -86,7 +87,6 @@ const ticker = [
   'RRP Media',
   'Sat 1',
   'Scala Media',
-  'Sky Deutschland',
   'Spree Radio',
   'Studio Ahlberg Hamburg',
   'Studio Funk Berlin',
