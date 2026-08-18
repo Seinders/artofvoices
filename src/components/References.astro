@@ -1,25 +1,28 @@
 ---
-// References — three-tier table-of-clients with a ticker of additional studios at the bottom.
+// References — clients grouped into tiers, with a scrolling ticker of the long tail.
+//
+// Section visibility flags — flip to true to show these tiers again.
+const showHighlightStudios = false; // "Highlight Studios" block (was Tier 01)
+const showStreaming = false; // "Streaming" block (was Tier 03)
 
-// Tier 1 — Highlight Studios per BUILD-SPEC (closest, most prominent partners)
-const tier1 = [
+// Highlight Studios — kept for easy re-enable via the flag above.
+const highlightStudios = [
   { name: 'FFS GmbH', city: 'Berlin · München' },
   { name: 'Interopa Film GmbH', city: 'Berlin' },
   { name: 'Arena Film Synchron GmbH', city: 'Hamburg' },
   { name: 'Eva Studios', city: 'Berlin' },
 ];
 
-// Tier 2 — Major Studios per BUILD-SPEC (highest-priority recurring clients)
-const tier2 = [
-  { name: 'Berliner Synchron AG', city: 'Berlin' },
-  { name: 'Bavaria Film München', city: 'München' },
-  { name: 'Hamburger Synchron GmbH', city: 'Hamburg' },
-  { name: 'SDI Media', city: '' },
-  { name: 'Splendid Synchron', city: 'Berlin · München' },
-  { name: 'Sky Deutschland', city: 'Unterföhring' },
+// Major Studios — the currently visible tier.
+const majorStudios = [
+  { name: 'Iyuno', city: 'Berlin · München' },
+  { name: 'VSI', city: '' },
+  { name: 'Cinephon', city: '' },
+  { name: 'Studio Hamburg', city: 'Berlin · Hamburg' },
+  { name: 'Splendid Synchron', city: 'Berlin · Köln' },
 ];
 
-// Streaming platforms (named, not branded). Per BUILD-SPEC §4.6.
+// Streaming platforms (named, not branded) — kept for easy re-enable.
 const streamers = [
   { name: 'Netflix' },
   { name: 'Paramount' },
@@ -27,16 +30,17 @@ const streamers = [
   { name: 'HBO' },
 ];
 
-// Ticker — the long tail of clients sourced from artofvoices.de/referenzen/.
-// Tier 1 + Tier 2 entries removed to avoid duplication with the cards above.
+// Ticker — the long tail of clients from artofvoices.de/referenzen/, plus the
+// studios not shown as a Major Studio card so none are lost.
 const ticker = [
   'Anakan',
   'Antares Film',
   'Argon Hörbuch Verlag',
+  'Bavaria Film München',
   'BB Radio',
+  'Berliner Synchron AG',
   'Blaue Töne Wien',
   'Christa Kistner Synchron',
-  'Cinephon Filmproduktions GmbH',
   'CSC Studios Hamburg',
   'CTV Media Pro',
   'Deutsche Synchron Gesellschaft',
@@ -49,6 +53,7 @@ const ticker = [
   'Fundamental Studios Frankfurt',
   'G & G Studios',
   'Gieising Team München',
+  'Hamburger Synchron GmbH',
   'Hastings Berlin',
   'Hastings Düsseldorf',
   'Hastings Hamburg',
@@ -81,6 +86,7 @@ const ticker = [
   'RRP Media',
   'Sat 1',
   'Scala Media',
+  'Sky Deutschland',
   'Spree Radio',
   'Studio Ahlberg Hamburg',
   'Studio Funk Berlin',
@@ -92,7 +98,6 @@ const ticker = [
   'Taurus Media München',
   'Tonbüro Berlin',
   'Tonstudio Holly Wien',
-  'VSI Synchron Berlin',
   'West Deutscher Rundfunk',
   '2 day Productions',
   '4 real Media Offenbach',
@@ -110,30 +115,30 @@ const tickerItems = [...ticker, ...ticker];
     </h2>
   </div>
 
-  <div class="refs-tier">
-    <div class="label-col">
-      <div class="num">Tier 01</div>
-      <h3>Highlight Studios</h3>
-      <p>Langjährige Partnerschaften mit den führenden Synchronstudios Deutschlands.</p>
+  {showHighlightStudios && (
+    <div class="refs-tier">
+      <div class="label-col">
+        <h3>Highlight Studios</h3>
+        <p>Langjährige Partnerschaften mit den führenden Synchronstudios Deutschlands.</p>
+      </div>
+      <div class="items">
+        {highlightStudios.map((s) => (
+          <div class="ref-item tier-1">
+            <span class="name">{s.name}</span>
+            {s.city && <span class="meta">{s.city}</span>}
+          </div>
+        ))}
+      </div>
     </div>
-    <div class="items">
-      {tier1.map((s) => (
-        <div class="ref-item tier-1">
-          <span class="name">{s.name}</span>
-          {s.city && <span class="meta">{s.city}</span>}
-        </div>
-      ))}
-    </div>
-  </div>
+  )}
 
   <div class="refs-tier">
     <div class="label-col">
-      <div class="num">Tier 02</div>
       <h3>Major Studios</h3>
       <p>Wiederkehrende Aufträge der größten Synchron- und Medienhäuser.</p>
     </div>
     <div class="items">
-      {tier2.map((s) => (
+      {majorStudios.map((s) => (
         <div class="ref-item">
           <span class="name">{s.name}</span>
           {s.city && <span class="meta">{s.city}</span>}
@@ -142,20 +147,21 @@ const tickerItems = [...ticker, ...ticker];
     </div>
   </div>
 
-  <div class="refs-tier">
-    <div class="label-col">
-      <div class="num">Tier 03</div>
-      <h3>Streaming</h3>
-      <p>Plattformen, für deren deutsche Fassungen unsere Stimmen besetzt sind.</p>
+  {showStreaming && (
+    <div class="refs-tier">
+      <div class="label-col">
+        <h3>Streaming</h3>
+        <p>Plattformen, für deren deutsche Fassungen unsere Stimmen besetzt sind.</p>
+      </div>
+      <div class="items">
+        {streamers.map((s) => (
+          <div class="ref-item tier-stream">
+            <span class="name">{s.name}</span>
+          </div>
+        ))}
+      </div>
     </div>
-    <div class="items">
-      {streamers.map((s) => (
-        <div class="ref-item tier-stream">
-          <span class="name">{s.name}</span>
-        </div>
-      ))}
-    </div>
-  </div>
+  )}
 
   <div class="ticker-wrap" aria-hidden="true">
     <div class="ticker-track">
