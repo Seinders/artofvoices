@@ -5,6 +5,7 @@ export interface Speaker {
   gender: 'M' | 'F';
   url: string;
   photo: string;
+  photo_credit: string;
   bio: string;
   audio: string;
   known_for: string;

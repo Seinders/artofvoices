@@ -109,7 +109,7 @@ const bioHtml = (speaker.bio || '')
       <div class="dosB-bar">
         <div class="file">AOV · DOSSIER · {fileCode}</div>
         <div class="clearance">
-          <span><span class="dot"></span>Im Roster</span>
+          <span><span class="dot"></span>Vertreten</span>
           <span>Art of Voices · Berlin</span>
           <span>{speaker.gender === 'F' ? 'Sprecherin' : 'Sprecher'}</span>
         </div>
@@ -135,12 +135,15 @@ const bioHtml = (speaker.bio || '')
               <span>{speaker.gender} · {fach.slice(0, 5).toUpperCase()}</span>
             </div>
           </div>
+          {hasPhoto && speaker.photo_credit && (
+            <div class="photo-credit">Foto: {speaker.photo_credit}</div>
+          )}
         </div>
 
         <div class="dosB-main">
           <div>
             <div class="crumb">
-              <a href="/#roster">Roster</a> <span class="gold">›</span> {genderLabel}
+              <a href="/#roster">Sprecher / Sprecherinnen</a> <span class="gold">›</span> {genderLabel}
               <span class="gold">›</span> {speaker.name}
             </div>
             <h1>
@@ -185,7 +188,7 @@ const bioHtml = (speaker.bio || '')
           <div class="id-block">
             <div class="row"><span>FILE</span><span class="v">{fileCode}</span></div>
             <div class="row"><span>VERTR.</span><span class="v">AOV</span></div>
-            <div class="row"><span>STATUS</span><span class="v" style="color: var(--gold)">IM ROSTER</span></div>
+            <div class="row"><span>STATUS</span><span class="v" style="color: var(--gold)">VERTRETEN</span></div>
           </div>
         </div>
       </section>
@@ -294,7 +297,7 @@ const bioHtml = (speaker.bio || '')
 
       {/* Back link */}
       <div class="dosB-back">
-        <a href="/#roster">← Zurück zum Roster</a>
+        <a href="/#roster">← Zurück zu den Sprecher/innen</a>
       </div>
 
     </div>
@@ -389,6 +392,11 @@ const bioHtml = (speaker.bio || '')
     padding: 8px 12px; display: flex; justify-content: space-between;
     font-size: 8.5px; letter-spacing: 0.18em; color: var(--gold);
     border-top: 1px solid var(--gold-soft);
+  }
+  .dosB-card .photo-credit {
+    margin-top: 12px;
+    font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--fg-dim);
   }
 
   .dosB-main {

@@ -21,7 +21,7 @@ locale: "de"
 
 collections:
   - name: "roster"
-    label: "Roster"
+    label: "Sprecher / Sprecherinnen"
     files:
       - name: "speakers"
         label: "Sprecher / Sprecherinnen"
@@ -61,6 +61,13 @@ collections:
                   public_folder: "/photos",
                   choose_url: false,
                   hint: "Porträt im Hochformat (3:4). Ohne Foto wird automatisch eine Initiale angezeigt.",
+                }
+              - {
+                  name: "photo_credit",
+                  label: "Foto-Copyright",
+                  widget: "string",
+                  required: false,
+                  hint: "z. B. Matthias Scheuer. Erscheint klein unter dem Portrait.",
                 }
               - {
                   name: "audio",

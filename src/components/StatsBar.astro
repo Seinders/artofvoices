@@ -1,11 +1,14 @@
 ---
 // Three-stat bar — gold-emphasised numerals with thin dividers between columns.
+// Speaker count is derived from the data so it never drifts as the roster grows.
+import { getSpeakers } from '../data/speakers';
+const speakerCount = getSpeakers().length;
 ---
 
 <section class="stats" aria-label="Kennzahlen">
   <div class="stats-row">
     <div class="stat">
-      <div class="stat-num"><em>28</em></div>
+      <div class="stat-num"><em>{speakerCount}</em></div>
       <div class="stat-lbl">Sprecher / Sprecherinnen</div>
     </div>
     <div class="stat">
