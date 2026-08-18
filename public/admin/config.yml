@@ -86,6 +86,15 @@ collections:
                   required: false,
                 }
               - {
+                  name: "synchronkartei",
+                  label: "Synchronkartei-URL",
+                  widget: "string",
+                  required: false,
+                  pattern:
+                    ["^(https?://.+)?$", "Bitte eine gültige URL eingeben (mit https://) oder leer lassen."],
+                  hint: "Link zum Profil auf synchronkartei.de. Erscheint als Filmografie-Link auf der Sprecher-Seite.",
+                }
+              - {
                   name: "url",
                   label: "Alte Profil-URL (intern)",
                   widget: "string",
