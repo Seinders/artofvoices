@@ -489,8 +489,10 @@ const personJsonLd = {
     font-family: var(--serif); font-style: italic; font-size: 64px;
     color: var(--gold); line-height: 0.5; margin-bottom: 24px;
   }
-  /* Closing quote at the end of the last bio paragraph */
-  .dosB-bio .body .quote-close {
+  /* Closing quote at the end of the last bio paragraph.
+     :global() because the span is injected via set:html and doesn't get
+     Astro's scoping attribute — without it the scoped rule never matches. */
+  .dosB-bio .body :global(.quote-close) {
     font-family: var(--serif); font-style: italic;
     color: var(--gold); margin-left: 2px;
   }
@@ -504,8 +506,8 @@ const personJsonLd = {
     color: var(--fg-mute); margin-bottom: 1.1em;
   }
   .dosB-bio .body p:last-child { margin-bottom: 0; }
-  /* Highlighted movie / series / game titles */
-  .dosB-bio .body .film { font-style: italic; color: var(--gold); }
+  /* Highlighted movie / series / game titles (also injected via set:html) */
+  .dosB-bio .body :global(.film) { font-style: italic; color: var(--gold); }
 
   /* Audio */
   .dosB-audio { padding: 80px var(--pad); border-bottom: 1px solid var(--line); }
