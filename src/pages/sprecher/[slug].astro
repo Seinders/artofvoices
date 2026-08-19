@@ -50,13 +50,10 @@ function nameHash(name: string): number {
 }
 const h = nameHash(speaker.name);
 let fach: string;
-let textur: string;
 if (speaker.gender === 'M') {
-  if (h % 3 === 0) { fach = 'Tenor'; textur = 'Wandelbar'; }
-  else { fach = 'Bariton'; textur = 'Markant'; }
+  fach = h % 3 === 0 ? 'Tenor' : 'Bariton';
 } else {
-  if (h % 3 === 0) { fach = 'Sopran'; textur = 'Hell'; }
-  else { fach = 'Mezzosopran'; textur = 'Warm'; }
+  fach = h % 3 === 0 ? 'Sopran' : 'Mezzosopran';
 }
 
 // Deterministic waveform bars for the audio player (stable per speaker)
@@ -87,11 +84,18 @@ function escapeHtml(s: string): string {
 function highlightTitles(s: string): string {
   return s.replace(/„([^“„]+)“/g, '<em class="film">„$1“</em>');
 }
-const bioHtml = (speaker.bio || '')
+const bioParas = (speaker.bio || '')
   .split(/\n\s*\n/)
   .map((p) => p.trim())
-  .filter(Boolean)
-  .map((p) => `<p>${highlightTitles(escapeHtml(p))}</p>`)
+  .filter(Boolean);
+// Render paragraphs; the „ opener is a decorative mark, so close the quote
+// with a matching “ at the very end of the last paragraph.
+const bioHtml = bioParas
+  .map((p, i) => {
+    let inner = highlightTitles(escapeHtml(p));
+    if (i === bioParas.length - 1) inner += '<span class="quote-close">“</span>';
+    return `<p>${inner}</p>`;
+  })
   .join('');
 
 // Role label (used in the title, meta description and structured data)
@@ -174,9 +178,7 @@ const personJsonLd = {
           </div>
           <div class="dosB-attr">
             <div class="row"><div class="k">Stimmlage</div><div class="v gold">{stimmlage}</div></div>
-            <div class="row"><div class="k">Stimmtextur</div><div class="v">{textur}</div></div>
             <div class="row"><div class="k">Sprache</div><div class="v">Deutsch</div></div>
-            <div class="row"><div class="k">Vertretung</div><div class="v gold">Art of Voices</div></div>
           </div>
         </div>
 
@@ -202,20 +204,15 @@ const personJsonLd = {
         </div>
       </section>
 
-      {/* Bio with marginalia */}
+      {/* Vita */}
       {speaker.bio && (
         <section class="dosB-bio">
           <div class="marg">
-            <div class="lbl">§ 01</div>
-            Über die<br />{speaker.gender === 'F' ? 'Sprecherin' : 'Sprecher'}
+            <div class="lbl">Vita</div>
           </div>
           <div class="body">
             <div class="qmark">„</div>
             <Fragment set:html={bioHtml} />
-          </div>
-          <div class="marg right">
-            <div class="lbl">Vermerk</div>
-            Kuratierter Auszug.<br />Vollständige Vita<br />auf Anfrage.
           </div>
         </section>
       )}
@@ -223,7 +220,7 @@ const personJsonLd = {
       {/* Audio — single hero waveform player */}
       {hasAudio && (
         <section class="dosB-audio" id="audio-section" data-audio={speaker.audio}>
-          <div class="eyebrow">§ 02 — Hörprobe</div>
+          <div class="eyebrow">Hörprobe</div>
           <h2 class="section-title" style="margin-bottom: 40px;">Die <em>Stimme</em>.</h2>
 
           <div class="hero-track">
@@ -232,8 +229,8 @@ const personJsonLd = {
               <svg class="ic-pause" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" style="display:none"><rect x="6" y="5" width="4" height="14" fill="currentColor"/><rect x="14" y="5" width="4" height="14" fill="currentColor"/></svg>
             </button>
             <div class="track-info">
-              <div class="lbl">Sprachprobe · {speaker.name}</div>
-              <div class="ttl">{primaryActor ? `Stimme von ${primaryActor}` : 'Original-Sprachprobe'}</div>
+              <div class="lbl">Sprachprobe</div>
+              <div class="ttl">Stimme von {speaker.name}</div>
               <div class="meta">
                 <span>Synchron</span><span>Art of Voices</span><span class="wave-time">0:00</span>
               </div>
@@ -260,7 +257,7 @@ const personJsonLd = {
         <section class="dosB-roles">
           <div class="head">
             <div>
-              <div class="eyebrow">§ {hasAudio ? '03' : '02'} — Bekannt für</div>
+              <div class="eyebrow">Bekannt für</div>
               <h2 class="section-title">Verzeichnis der <em>Stimmen</em>.</h2>
             </div>
             <div class="count">
@@ -478,7 +475,7 @@ const personJsonLd = {
   .dosB-bio {
     padding: 80px var(--pad);
     border-bottom: 1px solid var(--line);
-    display: grid; grid-template-columns: 200px 1fr 200px; gap: 60px; align-items: start;
+    display: grid; grid-template-columns: 180px 1fr; gap: 60px; align-items: start;
   }
   .dosB-bio .marg {
     font-size: 9.5px; letter-spacing: 0.22em; text-transform: uppercase;
@@ -491,6 +488,11 @@ const personJsonLd = {
   .dosB-bio .body .qmark {
     font-family: var(--serif); font-style: italic; font-size: 64px;
     color: var(--gold); line-height: 0.5; margin-bottom: 24px;
+  }
+  /* Closing quote at the end of the last bio paragraph */
+  .dosB-bio .body .quote-close {
+    font-family: var(--serif); font-style: italic;
+    color: var(--gold); margin-left: 2px;
   }
   /* First paragraph = serif lead; following paragraphs = readable sans body */
   .dosB-bio .body p {
