@@ -10,6 +10,7 @@ export interface Speaker {
   audio: string;
   known_for: string;
   synchronkartei: string;
+  stimmlage: string;
   note?: string;
   synchronkarteiUrl: string;
   slug: string;

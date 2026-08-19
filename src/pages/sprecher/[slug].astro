@@ -72,10 +72,9 @@ function buildBars(seed: number, n: number): number[] {
 }
 const bigBars = buildBars(h, 96);
 
-// File code for the dossier flavor — derived from roster position
-const allSpeakers = getSpeakers();
-const fileIndex = String(allSpeakers.findIndex((s) => s.slug === speaker.slug) + 1).padStart(3, '0');
-const fileCode = `${fileIndex} / ${initials}`;
+// Voice classification: use the manual override if set, else the derived Fach.
+const stimmlage = speaker.stimmlage || fach;
+const stimmlageShort = stimmlage.split(/[\s/]/)[0].slice(0, 5).toUpperCase();
 
 const knownForText = primaryActor ? `Deutsche Stimme von ${primaryActor}` : '';
 
@@ -107,9 +106,8 @@ const bioHtml = (speaker.bio || '')
 
       {/* Top file bar */}
       <div class="dosB-bar">
-        <div class="file">AOV · DOSSIER · {fileCode}</div>
+        <div class="file">AOV · DOSSIER</div>
         <div class="clearance">
-          <span><span class="dot"></span>Vertreten</span>
           <span>Art of Voices · Berlin</span>
           <span>{speaker.gender === 'F' ? 'Sprecherin' : 'Sprecher'}</span>
         </div>
@@ -130,9 +128,8 @@ const bioHtml = (speaker.bio || '')
             )}
             <div class="crosshair"></div>
             <div class="id-strip">
-              <span>ID · {fileIndex}</span>
               <span>4·5</span>
-              <span>{speaker.gender} · {fach.slice(0, 5).toUpperCase()}</span>
+              <span>{speaker.gender} · {stimmlageShort}</span>
             </div>
           </div>
           {hasPhoto && speaker.photo_credit && (
@@ -159,7 +156,7 @@ const bioHtml = (speaker.bio || '')
             )}
           </div>
           <div class="dosB-attr">
-            <div class="row"><div class="k">Fach</div><div class="v gold">{fach}</div></div>
+            <div class="row"><div class="k">Stimmlage</div><div class="v gold">{stimmlage}</div></div>
             <div class="row"><div class="k">Stimmtextur</div><div class="v">{textur}</div></div>
             <div class="row"><div class="k">Sprache</div><div class="v">Deutsch</div></div>
             <div class="row"><div class="k">Vertretung</div><div class="v gold">Art of Voices</div></div>
@@ -185,11 +182,6 @@ const bioHtml = (speaker.bio || '')
               </div>
             </div>
           )}
-          <div class="id-block">
-            <div class="row"><span>FILE</span><span class="v">{fileCode}</span></div>
-            <div class="row"><span>VERTR.</span><span class="v">AOV</span></div>
-            <div class="row"><span>STATUS</span><span class="v" style="color: var(--gold)">VERTRETEN</span></div>
-          </div>
         </div>
       </section>
 

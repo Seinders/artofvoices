@@ -87,6 +87,13 @@ collections:
                   hint: "z. B. Schauspieler oder Rollen, kommagetrennt.",
                 }
               - {
+                  name: "stimmlage",
+                  label: "Stimmlage",
+                  widget: "string",
+                  required: false,
+                  hint: "z. B. Bass/Bariton, Tenor, Sopran. Leer lassen für automatische Einstufung.",
+                }
+              - {
                   name: "bio",
                   label: "Biografie",
                   widget: "text",
