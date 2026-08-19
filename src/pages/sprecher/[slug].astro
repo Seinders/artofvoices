@@ -93,11 +93,28 @@ const bioHtml = (speaker.bio || '')
   .filter(Boolean)
   .map((p) => `<p>${highlightTitles(escapeHtml(p))}</p>`)
   .join('');
+
+// Role label (used in the title, meta description and structured data)
+const rolle = speaker.gender === 'F' ? 'Synchronsprecherin' : 'Synchronsprecher';
+
+// Per-speaker structured data for Google (Person schema)
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: speaker.name,
+  jobTitle: rolle,
+  url: new URL(`/sprecher/${speaker.slug}/`, Astro.site).toString(),
+  ...(hasPhoto ? { image: new URL(speaker.photo, Astro.site).toString() } : {}),
+  worksFor: { '@type': 'Organization', name: 'Art of Voices', url: 'https://artofvoices.de' },
+  ...(speaker.synchronkarteiUrl ? { sameAs: [speaker.synchronkarteiUrl] } : {}),
+  knowsLanguage: 'de',
+};
 ---
 
 <Layout
-  title={`${speaker.name} – Art of Voices`}
-  description={`${speaker.name} – Synchronsprecher/in bei Art of Voices.${knownForText ? ' ' + knownForText + '.' : ''}`}
+  title={`${speaker.name} – ${rolle} | Art of Voices`}
+  description={`${speaker.name} – ${rolle} bei Art of Voices.${knownForText ? ' ' + knownForText + '.' : ''}`}
+  jsonLd={personJsonLd}
 >
   <Navigation />
 

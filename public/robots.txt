@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://artofvoices.de/sitemap-index.xml
