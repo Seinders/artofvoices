@@ -84,13 +84,21 @@ function escapeHtml(s: string): string {
 function highlightTitles(s: string): string {
   return s.replace(/„([^“„]+)“/g, '<em class="film">„$1“</em>');
 }
-// Bio paragraphs only — the „ … “ quotes are decorative elements in the
-// template, not part of the text, so they stay consistent and scale together.
-const bioHtml = (speaker.bio || '')
+// Bio paragraphs. The closing “ is a decorative .bio-quote element placed
+// right after the last word (so it sits at the end of the text); the opening
+// „ is the same element in the template. Both share one responsive style.
+const bioParas = (speaker.bio || '')
   .split(/\n\s*\n/)
   .map((p) => p.trim())
-  .filter(Boolean)
-  .map((p) => `<p>${highlightTitles(escapeHtml(p))}</p>`)
+  .filter(Boolean);
+const bioHtml = bioParas
+  .map((p, i) => {
+    let inner = highlightTitles(escapeHtml(p));
+    if (i === bioParas.length - 1) {
+      inner += '<span class="bio-quote bio-quote--close" aria-hidden="true">“</span>';
+    }
+    return `<p>${inner}</p>`;
+  })
   .join('');
 
 // Role label (used in the title, meta description and structured data)
@@ -208,7 +216,6 @@ const personJsonLd = {
           <div class="body">
             <span class="bio-quote bio-quote--open" aria-hidden="true">„</span>
             <Fragment set:html={bioHtml} />
-            <span class="bio-quote bio-quote--close" aria-hidden="true">“</span>
           </div>
         </section>
       )}
@@ -483,15 +490,21 @@ const personJsonLd = {
   .dosB-bio .body { font-family: var(--sans); }
   /* Decorative opening „ and closing “ quotes — one shared style, identical
      size, responsive via clamp() so they scale together on every screen. */
-  .dosB-bio .body .bio-quote {
-    display: block;
+  /* Both quotes share one responsive style. :global() because the closing one
+     is injected via set:html (after the last word) and so lacks Astro's
+     scoping attribute; the opening is a template element but matches too. */
+  .dosB-bio .body :global(.bio-quote) {
     font-family: var(--serif); font-style: italic;
-    font-size: clamp(40px, 5vw, 64px);
+    font-size: clamp(28px, 3vw, 40px);
     line-height: 0.5;
     color: var(--gold);
   }
-  .dosB-bio .body .bio-quote--open { margin: 0 0 24px; }
-  .dosB-bio .body .bio-quote--close { margin: 20px 0 0; text-align: right; }
+  .dosB-bio .body :global(.bio-quote--open) { display: block; margin: 0 0 18px; }
+  .dosB-bio .body :global(.bio-quote--close) {
+    line-height: 0;
+    vertical-align: -0.18em;
+    margin-left: 4px;
+  }
   /* First paragraph = serif lead; following paragraphs = readable sans body */
   .dosB-bio .body p {
     font-family: var(--serif); font-size: 22px; line-height: 1.55;
