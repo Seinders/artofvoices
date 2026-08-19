@@ -494,7 +494,11 @@ const personJsonLd = {
      Astro's scoping attribute — without it the scoped rule never matches. */
   .dosB-bio .body :global(.quote-close) {
     font-family: var(--serif); font-style: italic;
-    color: var(--gold); margin-left: 2px;
+    color: var(--gold);
+    font-size: 32px;
+    line-height: 1;
+    vertical-align: -0.28em;
+    margin-left: 4px;
   }
   /* First paragraph = serif lead; following paragraphs = readable sans body */
   .dosB-bio .body p {
