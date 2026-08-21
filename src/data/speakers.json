@@ -157,6 +157,18 @@
       "stimmlage": ""
     },
     {
+      "synchronkartei": "https://www.synchronkartei.de/person/8rnQyFufZ/sprecher",
+      "gender": "M",
+      "photo_credit": "",
+      "bio": "Gunnar Helm (* 1956) ist ein bekannter deutscher Schauspieler und Synchronsprecher. Er ist unter anderem die deutsche Stimme von Kit Fisto in „Star Wars: The Clone Wars“, David Morse in „The Rock“ und vielen weiteren Rollen. Zudem ist er der Vater der Synchronsprecherinnen Anne und Luise Helm.",
+      "name": "Gunnar Helm",
+      "known_for": "Kit Fisto, David Morse",
+      "url": "",
+      "photo": "/photos/helm-gunnar.jpg",
+      "audio": "",
+      "stimmlage": ""
+    },
+    {
       "synchronkartei": "https://www.synchronkartei.de/sprecher/1510/2",
       "gender": "M",
       "photo_credit": "Matthias Scheuer",
@@ -335,18 +347,6 @@
       "url": "https://artofvoices.de/sprecherinnen/roman-wolko/",
       "photo": "/photos/wolko-roman-foto.jpg",
       "audio": "/audio/wolko-roman-soundsample-1-.mp3",
-      "stimmlage": ""
-    },
-    {
-      "synchronkartei": "https://www.synchronkartei.de/person/8rnQyFufZ/sprecher",
-      "gender": "M",
-      "photo_credit": "",
-      "bio": "Gunnar Helm (* 1956) ist ein bekannter deutscher Schauspieler und Synchronsprecher. Er ist unter anderem die deutsche Stimme von Kit Fisto in „Star Wars: The Clone Wars“, David Morse in „The Rock“ und vielen weiteren Rollen. Zudem ist er der Vater der Synchronsprecherinnen Anne und Luise Helm.",
-      "name": "Gunnar Helm",
-      "known_for": "Kit Fisto, David Morse",
-      "url": "",
-      "photo": "/photos/helm-gunnar.jpg",
-      "audio": "",
       "stimmlage": ""
     }
   ]
