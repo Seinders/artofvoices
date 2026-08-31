@@ -11,6 +11,39 @@
 [build.environment]
   NODE_VERSION = "20"
 
+# 301 redirects from the old WordPress URL structure to the new site, so old
+# Google results / bookmarks land on the right page instead of a 404 (and so
+# Google refreshes its index faster). /impressum/ is unchanged, so no rule.
+[[redirects]]
+  from = "/sprecherinnen/*"
+  to = "/#roster"
+  status = 301
+
+[[redirects]]
+  from = "/ueber-uns/*"
+  to = "/#about"
+  status = 301
+
+[[redirects]]
+  from = "/referenzen/*"
+  to = "/#referenzen"
+  status = 301
+
+[[redirects]]
+  from = "/aktuelle-produktionen/*"
+  to = "/#roster"
+  status = 301
+
+[[redirects]]
+  from = "/kontakt/*"
+  to = "/#kontakt"
+  status = 301
+
+[[redirects]]
+  from = "/login/*"
+  to = "/"
+  status = 301
+
 # Recommended security headers for a static marketing site.
 [[headers]]
   for = "/*"
